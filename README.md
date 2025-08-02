@@ -90,11 +90,6 @@ pprint(report)
 
 ## ❓ Why SPARC FUSE?
 
-<p align="center">
-  <img src="./assets/sparc_fuse_overview.png" width="500"
-       alt="Many formats in – one clean Zarr/MAT/NPZ out">
-</p>
-
 ### The headache  
 * SPARC hosts **80 + heterogeneous file formats** and countless sub-variants – each with its own quirks.  
 * Researchers lose precious hours hunting converters and writing glue code instead of analysing data.  
@@ -102,7 +97,13 @@ pprint(report)
 
 ### The cure  
 * **SPARC FUSE** automatically remaps *any* supported file (time-series & imaging) into a **uniform, chunked Zarr store**<br>
-  – optionally also `.mat`, `.npz`, or zipped Zarr for legacy tools.  
+  – optionally also `.mat`, `.npz`, or zipped Zarr for legacy tools.
+  
+<p align="center">
+  <img src="./assets/sparc_fuse_overview.png" width="500"
+       alt="Many formats in – one clean Zarr/MAT/NPZ out">
+</p>
+
 * Works three ways:  
   1. **Python API** – bulk-convert or cherry-pick files in a single call.  
   2. **CLI** – one-liner on the command line.  
