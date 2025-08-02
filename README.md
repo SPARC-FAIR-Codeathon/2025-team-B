@@ -12,18 +12,20 @@ git clone https://github.com/SPARC-FAIR-Codeathon/2025-team-B.git
 cd 2025-team-B/sparcfuse
 pip install -e .
 cd ..
+```
 
+```bash
 # Convert a file
 sparc-fuse 224 \
   primary/sub-ChAT-Male-Subject-1/20_1021.acq \
   --output-dir ./converted
+```
 
-# Smoke-test (optional)
-sparc-fuse --self-test
-
-# Need more options?
+```bash
+# View options
 sparc-fuse --help
 ```
+<img src="./assets/help_view.png" width="1000"/>
 
 ---
 
