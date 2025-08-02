@@ -20,7 +20,7 @@
   },
   "web_accessible_resources": [
     {
-      "resources": ["icons/matlab.svg", "icons/download.png"],
+      "resources": ["icons/matlab.svg", "icons/download.png", "icons/button.png"],
       "matches": ["<all_urls>"]
     }
   ]
