@@ -235,6 +235,16 @@ generate_and_upload_manifest(DATASET_ID, BUCKET, XARRAY_ZARR, REGION)
 print("✅ Preparation complete.")
 ```
 
+<p align="center">
+  <img src="./assets/demo_dataset_structure.png" width="700" alt="Dataset structure from cloud-hosted Zarr">
+  <br/><sub><em>Xarray dataset loaded directly from S3 (metadata view)</em></sub>
+</p>
+
+<p align="center">
+  <img src="./assets/demo_s3_objects.png" width="700" alt="S3 bucket contents">
+  <br/><sub><em>Zarr stores and manifest files available on S3</em></sub>
+</p>
+
 ### 📋 Consume Data
 
 ```python
@@ -253,22 +263,11 @@ subset = ds["signals"].sel(channel=0).isel(time=slice(0, 1000))
 print(subset)
 ```
 
-### 📸 What does it look like?
-
-<p align="center">
-  <img src="./assets/demo_dataset_structure.png" width="700" alt="Dataset structure from cloud-hosted Zarr">
-  <br/><sub><em>Xarray dataset loaded directly from S3 (metadata view)</em></sub>
-</p>
-
 <p align="center">
   <img src="./assets/demo_lazy_slice.png" width="700" alt="Example lazy-loaded slice">
   <br/><sub><em>Lazy-loaded data slice (first 1000 points of channel 0)</em></sub>
 </p>
 
-<p align="center">
-  <img src="./assets/demo_s3_objects.png" width="700" alt="S3 bucket contents">
-  <br/><sub><em>Zarr stores and manifest files available on S3</em></sub>
-</p>
 
 
 ## Supported File Formats
