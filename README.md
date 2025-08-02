@@ -117,7 +117,16 @@ pprint(report)
 * **FAIR boost:** data become immediately *Accessible*, *Interoperable* and *Reusable* across toolchains.
 
 ---
+## 🌩️ Zarr + AWS: super-charging SPARC data
 
+> **TL;DR** — Zarr is a cloud-native chunked-array format that lets you *stream* only the bytes you need.  
+> SPARC datasets are now mirrored on **Amazon S3 via the AWS Registry of Open Data**, so Zarr fits like a glove.
+
+| Why Zarr? | Why now? |
+|-----------|----------|
+| *“Zarr is like Parquet for arrays.”* It stores N-D data in tiny, independent chunks—perfect for parallel reads/writes and lazy loading. | SPARC just announced that **all public datasets are directly accessible on AWS S3** (Requester Pays) and even have a listing on the AWS Open Data Registry.|
+| Plays nicely with `xarray`, Dask, PyTorch, TensorFlow, MATLAB (via `zarr-matlab`), and more. | With data already in S3, a converted Zarr store can be queried **in-place** from an EC2, Lambda, or SageMaker job—no re-download cycles. |
+| Open spec, community-driven, language-agnostic. | SPARC FUSE’s one-line `sparc-fuse <id> … --file-format zarr` command gives you an **analysis-ready** cloud-optimised dataset in seconds. |
 
 ## Supported File Formats
 ![.mat Time-series](https://img.shields.io/badge/.mat-Time%20series-orange)
