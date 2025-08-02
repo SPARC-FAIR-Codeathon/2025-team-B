@@ -40,13 +40,14 @@ sparc-fuse --help
 #### Try it out on oSPARC
 <a href="https://osparc.io/#/study/06fbaa3a-6fbc-11f0-bae3-0242ac179953" target="_blank"><img src="./assets/osparc-logo.png" width="200"></a>
 
-#### 0 – Clone the project
+#### Or proceed locally
+##### 0 – Clone the project
 ```python
 git clone https://github.com/SPARC-FAIR-Codeathon/2025-team-B.git
 cd 2025-team-B
 ```
 
-#### 1 – Convert a single primary file
+##### 1 – Convert a single primary file
 
 ```python
 from sparc_fuse_core import download_and_convert_sparc_data, list_primary_files
@@ -65,7 +66,7 @@ download_and_convert_sparc_data(
 ```
 <img src="./assets/single_file_conversion.png" width="1000"/>
 
-#### 2 – Bulk-convert an entire dataset
+##### 2 – Bulk-convert an entire dataset
 
 ```python
 from sparc_fuse_core import download_and_convert_sparc_data, list_primary_files
@@ -87,7 +88,7 @@ pprint(bulk_report)
 ```
 <img src="./assets/full_database_conversion.png" width="1000"/>
 
-#### 3 – Convert a subset of primary files
+##### 3 – Convert a subset of primary files
 
 ```python
 from sparc_fuse_core import download_and_convert_sparc_data, list_primary_files
