@@ -193,7 +193,7 @@ Convert SPARC primary files into Zarr format, upload them to S3, consolidate met
 - Wrap into an Xarray-compatible Zarr store, ready to use with `xr.open_zarr(...)`.
 - Lazily open and stream data slices directly from S3.
 
-### 🛠️ Write to S3 Bucket
+### 🛠️ Prepare S3 Bucket
 
 ```python
 from sparc_fuse_core import (
