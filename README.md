@@ -93,7 +93,18 @@ pprint(report)
 ### The headache  
 * SPARC hosts **80 + heterogeneous file formats** and countless sub-variants – each with its own quirks.  
 * Researchers lose precious hours hunting converters and writing glue code instead of analysing data.  
-* This format jungle breaks reproducibility and puts FAIR principles at risk.   
+* This format jungle breaks reproducibility and puts FAIR principles at risk.
+  
+<p align="center">
+  <img src="./assets/file_extensions_wordcloud.png" width="500"
+       alt="Word cloud of ≈ 80 SPARC file extensions"><br/>
+  <sub><em><strong>Figure&nbsp;1.</strong> Relative frequency of every extension found in public SPARC datasets (log-scaled word cloud).</em></sub>
+</p>
+
+<p align="center">
+  <img src="./assets/combined_2x2_summary.png" width="800"
+       alt="Bar-chart dashboard: file counts by modality and top extensions"><br/>
+<sub><em><strong>Figure&nbsp;2.</strong> Diversity over volume: the SPARC database contains <strong>20 + distinct time-series formats</strong> and <strong>20 + imaging formats</strong>, each hiding additional proprietary structures inside the files.</em></sub></p>
 
 ### The cure  
 * **SPARC FUSE** automatically remaps *any* supported file (time-series & imaging) into a **uniform, chunked Zarr store**<br>
@@ -127,6 +138,7 @@ pprint(report)
 | *“Zarr is like Parquet for arrays.”* It stores N-D data in tiny, independent chunks—perfect for parallel reads/writes and lazy loading. | SPARC just announced that **all public datasets are directly accessible on AWS S3** (Requester Pays) and even have a listing on the AWS Open Data Registry.|
 | Plays nicely with `xarray`, Dask, PyTorch, TensorFlow, MATLAB (via `zarr-matlab`), and more. | With data already in S3, a converted Zarr store can be queried **in-place** from an EC2, Lambda, or SageMaker job—no re-download cycles. |
 | Open spec, community-driven, language-agnostic. | SPARC FUSE’s one-line `sparc-fuse <id> … --file-format zarr` command gives you an **analysis-ready** cloud-optimised dataset in seconds. |
+
 
 ## Supported File Formats
 ![.mat Time-series](https://img.shields.io/badge/.mat-Time%20series-orange)
