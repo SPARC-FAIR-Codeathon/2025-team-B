@@ -136,7 +136,7 @@ pprint(report)
   – optionally also `.mat`, `.npz`, or zipped Zarr for legacy tools.
   
 <p align="center">
-  <img src="./assets/sparc_fuse_overview.png" width="800"
+  <img src="./assets/sparc_fuse_overview.png" width="600"
        alt="Many formats in – one clean Zarr/MAT/NPZ out">
 </p>
 
