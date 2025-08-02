@@ -16,9 +16,7 @@ cd ..
 
 ```bash
 # Convert a file
-sparc-fuse 224 \
-  primary/sub-ChAT-Male-Subject-1/20_1021.acq \
-  --output-dir ./converted
+sparc-fuse 224 primary/sub-ChAT-Male-Subject-1/20_1021.acq --output-dir ./converted
 ```
 
 ```bash
