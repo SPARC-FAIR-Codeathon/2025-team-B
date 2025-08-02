@@ -181,6 +181,95 @@ pprint(report)
 * **Parallel-ready** – Dask, Ray, Spark, etc. slurp different chunks concurrently for massive speed-ups.  
 * **Open spec** – language-agnostic, community-governed, and already adopted by NASA, OME-Zarr, Pangeo, and more.
 
+## ☁️ Cloud-first Demo: Prepare & Consume Data from S3
+
+This demo illustrates a simple, end-to-end workflow for cloud-based data handling:  
+Convert SPARC primary files into Zarr format, upload them to S3, consolidate metadata, and open them directly in Xarray without downloading the entire dataset. You stream only the slices you need, making your analysis quicker and easier.
+
+### 🚀 What's going on?
+- Convert a SPARC primary file to Zarr.
+- Upload the converted data to an S3 bucket.
+- Consolidate metadata for fast remote access.
+- Wrap into an Xarray-compatible Zarr store, ready to use with `xr.open_zarr(...)`.
+- Lazily open and stream data slices directly from S3.
+
+### 🛠️ Preparation script (modular version)
+
+```python
+from sparc_fuse_core import (
+    list_primary_files, download_and_convert_sparc_data,
+    upload_to_s3, consolidate_s3_metadata,
+    create_xarray_zarr_from_raw, generate_and_upload_manifest
+)
+
+# Parameters
+DATASET_ID = 224
+BUCKET = "sparc-fuse-demo-ab-2025"
+REGION = "eu-north-1"
+RAW_ZARR = "20_1021_std.zarr"
+XARRAY_ZARR = "20_1021_std_xarray.zarr"
+
+# Convert SPARC file to Zarr locally
+files, _ = list_primary_files(DATASET_ID)
+primary_path = files[0]["path"].replace("files/", "")
+download_and_convert_sparc_data(
+    DATASET_ID,
+    primary_paths=primary_path,
+    output_dir="./output_single",
+    file_format="zarr"
+)
+
+# Upload raw Zarr to S3
+upload_to_s3(f"./output_single/{RAW_ZARR}", BUCKET, RAW_ZARR, REGION)
+
+# Consolidate metadata
+consolidate_s3_metadata(BUCKET, RAW_ZARR, REGION)
+
+# Create Xarray-compatible Zarr and upload to S3
+create_xarray_zarr_from_raw(BUCKET, RAW_ZARR, XARRAY_ZARR, REGION)
+
+# Generate discovery manifest and upload
+generate_and_upload_manifest(DATASET_ID, BUCKET, XARRAY_ZARR, REGION)
+
+print("✅ Preparation complete.")
+```
+
+### 📋 Quickstart (consume data)
+
+```python
+from sparc_fuse_core import open_zarr_from_s3
+
+# Open dataset lazily from S3
+ds = open_zarr_from_s3(
+    bucket="sparc-fuse-demo-ab-2025",
+    zarr_path="20_1021_std_xarray.zarr"
+)
+
+print(ds)  # Immediately available metadata, lazy data loading
+
+# Stream a specific data slice
+subset = ds["signals"].sel(channel=0).isel(time=slice(0, 1000))
+print(subset)
+```
+
+### 📸 What does it look like?
+
+<p align="center">
+  <img src="./assets/demo_dataset_structure.png" width="700" alt="Dataset structure from cloud-hosted Zarr">
+  <br/><sub><em>Xarray dataset loaded directly from S3 (metadata view)</em></sub>
+</p>
+
+<p align="center">
+  <img src="./assets/demo_lazy_slice.png" width="700" alt="Example lazy-loaded slice">
+  <br/><sub><em>Lazy-loaded data slice (first 1000 points of channel 0)</em></sub>
+</p>
+
+<p align="center">
+  <img src="./assets/demo_s3_objects.png" width="700" alt="S3 bucket contents">
+  <br/><sub><em>Zarr stores and manifest files available on S3</em></sub>
+</p>
+
+
 ## Supported File Formats
 ![.mat Time-series](https://img.shields.io/badge/.mat-Time%20series-orange)
 ![.smr Time-series](https://img.shields.io/badge/.smr-Time%20series-orange)
