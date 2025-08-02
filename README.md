@@ -84,7 +84,7 @@ report = download_and_convert_sparc_data(
 from pprint import pprint
 pprint(report)
 ```
-<img src="./assets/multi_file_conversion" width="1000"/>
+<img src="./assets/multi_file_conversion.png" width="1000"/>
 
 > **Tip:** `file_format` accepts `"zarr"`, `"zarr.zip"`, `"npz"`, or `"mat"`. Choose the one that best matches your downstream workflow.
 
