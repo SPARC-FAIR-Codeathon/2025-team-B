@@ -98,7 +98,7 @@ pprint(report)
 ### The headache  
 * SPARC hosts **80 + heterogeneous file formats** and countless sub-variants – each with its own quirks.  
 * Researchers lose precious hours hunting converters and writing glue code instead of analysing data.  
-* This format jungle breaks reproducibility and puts FAIR principles at risk. :contentReference[oaicite:2]{index=2}  
+* This format jungle breaks reproducibility and puts FAIR principles at risk.   
 
 ### The cure  
 * **SPARC FUSE** automatically remaps *any* supported file (time-series & imaging) into a **uniform, chunked Zarr store**<br>
