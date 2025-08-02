@@ -52,7 +52,7 @@ download_and_convert_sparc_data(
     DATASET_ID,
     primary_paths=files[0]["path"].replace("files/", ""),
     output_dir="./output_single",
-    file_format="zarr"          # or "zarr.zip"
+    file_format="zarr"
 )
 ```
 <img src="./assets/single_file_conversion.png" width="1000"/>
@@ -71,7 +71,7 @@ DATASET_ID = 224  # Any valid SPARC dataset ID
 bulk_report = download_and_convert_sparc_data(
     DATASET_ID,
     output_dir="./output_bulk",
-    file_format="zarr"          # zarr directories; use "npz", "zarr.zip", etc. if preferred
+    file_format="zarr"
 )
 
 from pprint import pprint
@@ -94,7 +94,7 @@ report = download_and_convert_sparc_data(
     DATASET_ID,
     primary_paths=subset_paths,   # any iterable works
     output_dir="./output_subset",
-    file_format="npz",            # or "zarr", "zarr.zip", ...
+    file_format="npz",
     overwrite=True                # regenerate if outputs already exist
 )
 
