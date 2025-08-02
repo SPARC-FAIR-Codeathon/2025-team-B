@@ -103,13 +103,13 @@ pprint(report)
 <p align="center">
   <img src="./assets/file_extensions_wordcloud.png" width="500"
        alt="Word cloud of ≈ 80 SPARC file extensions"><br/>
-  <sub><em><strong>Figure&nbsp;1.</strong> A pletory of file formats.</em> Relative frequency of every extension found in public SPARC datasets (log-scaled word cloud).</sub>
+  <sub><em><strong>Figure&nbsp;1.</strong> A pletora of file formats.</em> Relative frequency of every extension found in public SPARC datasets (log-scaled word cloud).</sub>
 </p>
 
 <p align="center">
   <img src="./assets/combined_2x2_summary.png" width="800"
        alt="Bar-chart dashboard: file counts by modality and top extensions"><br/>
-<sub><em><strong>Figure&nbsp;2.</strong> Diversity over volume.</em>< The SPARC database contains <strong>20 + distinct time-series formats</strong> and <strong>20 + imaging formats</strong>, each hiding additional proprietary structures inside the files./sub></p>
+<sub><em><strong>Figure&nbsp;2.</strong> Diversity over volume.</em>The SPARC database contains <strong>20 + distinct time-series formats</strong> and <strong>20 + imaging formats</strong>, each hiding additional proprietary structures inside the files.</sub></p>
 
 ### The cure  
 * **SPARC FUSE** automatically remaps *any* supported file (time-series & imaging) into a **uniform, chunked Zarr store**<br>
