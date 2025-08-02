@@ -50,6 +50,7 @@ download_and_convert_sparc_data(
     file_format="zarr"          # or "zarr.zip"
 )
 ```
+<img src="./assets/single_file_conversion.png" width="1000"/>
 
 #### 2 – Bulk-convert an entire dataset
 
@@ -63,6 +64,7 @@ bulk_report = download_and_convert_sparc_data(
 from pprint import pprint
 pprint(bulk_report)
 ```
+<img src="./assets/full_database_conversion.png" width="1000"/>
 
 #### 3 – Convert a subset of primary files
 
@@ -82,6 +84,7 @@ report = download_and_convert_sparc_data(
 from pprint import pprint
 pprint(report)
 ```
+<img src="./assets/multi_file_conversion" width="1000"/>
 
 > **Tip:** `file_format` accepts `"zarr"`, `"zarr.zip"`, `"npz"`, or `"mat"`. Choose the one that best matches your downstream workflow.
 
