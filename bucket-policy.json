@@ -1,0 +1,29 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "AllowUserFullAccessToThisBucket",
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "arn:aws:iam::056539211625:user/sparc-fuse-2025"
+      },
+      "Action": [
+        "s3:ListBucket"
+      ],
+      "Resource": "arn:aws:s3:::sparc-fuse-demo-ab-2025"
+    },
+    {
+      "Sid": "AllowUserObjectOps",
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "arn:aws:iam::056539211625:user/sparc-fuse-2025"
+      },
+      "Action": [
+        "s3:PutObject",
+        "s3:GetObject",
+        "s3:DeleteObject"
+      ],
+      "Resource": "arn:aws:s3:::sparc-fuse-demo-ab-2025/*"
+    }
+  ]
+}

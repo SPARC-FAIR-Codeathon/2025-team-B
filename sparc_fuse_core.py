@@ -19,6 +19,9 @@ import zarr
 from nd2reader import ND2Reader
 from packaging.version import parse as vparse
 from tqdm import tqdm
+import s3fs
+import xarray as xr
+from datetime import datetime
 
 # ── project-specific / local ────────────────────────────────────────────────
 from utils import (
@@ -27,6 +30,7 @@ from utils import (
     save_standardized_output,
 )
 from sparc.client import SparcClient
+
 
 client = SparcClient(connect=False, config_file='config.ini')
 
@@ -451,3 +455,51 @@ def download_and_convert_sparc_data(
         results.append(rec)
 
     return results
+
+def upload_to_s3(local_path, bucket, remote_path, region="eu-north-1"):
+    subprocess.run([
+        "aws", "s3", "sync",
+        local_path,
+        f"s3://{bucket}/{remote_path}",
+        "--region", region
+    ], check=True)
+
+def consolidate_s3_metadata(bucket, remote_path, region="eu-north-1"):
+    fs = s3fs.S3FileSystem(anon=False, client_kwargs={"region_name": region})
+    store = zarr.storage.FSStore(f"s3://{bucket}/{remote_path}", fs=fs)
+    zarr.consolidate_metadata(store)
+
+def create_xarray_zarr_from_raw(bucket, raw_zarr_path, xarray_zarr_path, region="eu-north-1"):
+    fs = s3fs.S3FileSystem(anon=False, client_kwargs={"region_name": region})
+    raw_store = zarr.storage.FSStore(f"s3://{bucket}/{raw_zarr_path}", fs=fs)
+    root = zarr.open_consolidated(raw_store)
+    signals = root["signals"][:]
+    time = root["time"][:]
+    ds = xr.Dataset(
+        {"signals": (("channel", "time"), signals)},
+        coords={"time": ("time", time), "channel": ("channel", np.arange(signals.shape[0]))},
+    )
+    xarray_store = zarr.storage.FSStore(f"s3://{bucket}/{xarray_zarr_path}", fs=fs)
+    ds.to_zarr(xarray_store, mode="w", consolidated=True)
+
+def generate_and_upload_manifest(dataset_id, bucket, xarray_zarr_path, region="eu-north-1"):
+    manifest = {
+        "dataset_id": dataset_id,
+        "zarr_path": f"s3://{bucket}/{xarray_zarr_path}",
+        "generated_at": f"{datetime.utcnow().isoformat()}Z",
+        "file_format": "zarr"
+    }
+    with open("latest.json", "w") as f:
+        json.dump(manifest, f, indent=2)
+    subprocess.run([
+        "aws", "s3", "cp", "latest.json",
+        f"s3://{bucket}/latest.json",
+        "--region", region
+    ], check=True)
+
+
+def open_zarr_from_s3(bucket, zarr_path, region="eu-north-1"):
+    """Lazily open a Zarr dataset directly from S3 using Xarray."""
+    os.environ.setdefault("AWS_DEFAULT_REGION", region)
+    s3_uri = f"s3://{bucket}/{zarr_path}"
+    return xr.open_zarr(s3_uri, consolidated=True)
