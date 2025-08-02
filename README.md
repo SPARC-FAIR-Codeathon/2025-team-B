@@ -1,6 +1,4 @@
 # SPARC FUSE
-This is the official repository of Team-B of the 2025 NIH SPARC FAIR Codeathon. 
-
 **SPARC FUSE** is an open-source “format fuse box” for the NIH SPARC ecosystem.  
 
 With a single command—or a single Python call—it converts the 80 + eclectic imaging and time-series formats found in SPARC datasets into one clean, cloud-native Zarr (or .mat / .npz) layout. The result: analysis-ready data, instant interoperability with tools like Xarray & Dask, and workflows that leap from your laptop to AWS without rewrites.
