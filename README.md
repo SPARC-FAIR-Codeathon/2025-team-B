@@ -4,6 +4,8 @@ This is the official repository of Team-B of the 2025 NIH SPARC FAIR Codeathon.
 
 ## 🚀 Quick start
 
+### Command-line interface
+
 ```bash
 # Clone and install
 git clone https://github.com/SPARC-FAIR-Codeathon/2025-team-B.git
@@ -22,6 +24,64 @@ sparc-fuse --self-test
 # Need more options?
 sparc-fuse --help
 ```
+
+---
+
+### Use as a Python library
+
+```python
+from sparc_fuse_core import download_and_convert_sparc_data, list_primary_files
+
+DATASET_ID = 224  # Any valid SPARC dataset ID
+```
+
+#### 1 – Convert a single primary file
+
+```python
+files, _ = list_primary_files(DATASET_ID)
+print("primary files:", [f["path"] for f in files])
+
+download_and_convert_sparc_data(
+    DATASET_ID,
+    primary_paths=files[0]["path"].replace("files/", ""),
+    output_dir="./output_single",
+    file_format="zarr"          # or "zarr.zip"
+)
+```
+
+#### 2 – Bulk-convert an entire dataset
+
+```python
+bulk_report = download_and_convert_sparc_data(
+    DATASET_ID,
+    output_dir="./output_bulk",
+    file_format="zarr"          # zarr directories; use "npz", "zarr.zip", etc. if preferred
+)
+
+from pprint import pprint
+pprint(bulk_report)
+```
+
+#### 3 – Convert a subset of primary files
+
+```python
+# Grab (for example) the first three primary files
+files, _ = list_primary_files(DATASET_ID)
+subset_paths = [f["path"].replace("files/", "") for f in files[:3]]
+
+report = download_and_convert_sparc_data(
+    DATASET_ID,
+    primary_paths=subset_paths,   # any iterable works
+    output_dir="./output_subset",
+    file_format="npz",            # or "zarr", "zarr.zip", ...
+    overwrite=True                # regenerate if outputs already exist
+)
+
+from pprint import pprint
+pprint(report)
+```
+
+> **Tip:** `file_format` accepts `"zarr"`, `"zarr.zip"`, `"npz"`, or `"mat"`. Choose the one that best matches your downstream workflow.
 
 ## Supported File Formats
 ![.mat Time-series](https://img.shields.io/badge/.mat-Time%20series-orange)
