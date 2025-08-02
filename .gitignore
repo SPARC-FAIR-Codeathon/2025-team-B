@@ -1,0 +1,10 @@
+downloads/*
+converted/*
+output
+__pycache__
+.venv
+.DS_Store
+server/config/config.ini
+
+!.gitkeep
+config.ini
