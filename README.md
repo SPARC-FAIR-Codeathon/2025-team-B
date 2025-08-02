@@ -6,7 +6,7 @@ Whether you’re on the command line, in a Python notebook **or on the SPARC Por
 
 * **CLI / Python API** – one call turns raw files into analysis-ready arrays that slot straight into Xarray + Dask, MATLAB, PyTorch, etc.  
 * **Browser extension** – adds a “Convert & Download” button to every dataset page so you can grab ready-to-analyze Zarr bundles without leaving your browser.  
-~~* **Cloud-first** – outputs stream directly from S3 (via the AWS Registry of Open Data) for zero-copy workflows that scale from your laptop to HPC or Lambda.~~
+* **Cloud-first** – outputs stream directly from S3 (via the AWS Registry of Open Data) for zero-copy workflows that scale from your laptop to HPC or Lambda.
 
 Spend your time on the science, not on hunting converters.
 
@@ -193,7 +193,7 @@ Convert SPARC primary files into Zarr format, upload them to S3, consolidate met
 - Wrap into an Xarray-compatible Zarr store, ready to use with `xr.open_zarr(...)`.
 - Lazily open and stream data slices directly from S3.
 
-### 🛠️ Preparation script (modular version)
+### 🛠️ Write to S3 Bucket
 
 ```python
 from sparc_fuse_core import (
@@ -234,7 +234,7 @@ generate_and_upload_manifest(DATASET_ID, BUCKET, XARRAY_ZARR, REGION)
 print("✅ Preparation complete.")
 ```
 
-### 📋 Quickstart (consume data)
+### 📋 Consume Data
 
 ```python
 from sparc_fuse_core import open_zarr_from_s3
