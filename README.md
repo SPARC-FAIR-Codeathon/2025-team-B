@@ -32,7 +32,7 @@ sparc-fuse --help
 ### Use as a Python library
 
 #### Try it out on oSPARC
-<a href="https://osparc.io/#/study/06fbaa3a-6fbc-11f0-bae3-0242ac179953" target="_blank"><img src="./assets/osparc-logo.png"/></a>
+<a href="https://osparc.io/#/study/06fbaa3a-6fbc-11f0-bae3-0242ac179953" target="_blank"><img src="./assets/osparc-logo.png" width="200"></a>
 ```python
 git clone https://github.com/SPARC-FAIR-Codeathon/2025-team-B.git
 cd 2025-team-B/sparcfuse
