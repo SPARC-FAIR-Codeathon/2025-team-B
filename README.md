@@ -88,6 +88,36 @@ pprint(report)
 
 > **Tip:** `file_format` accepts `"zarr"`, `"zarr.zip"`, `"npz"`, or `"mat"`. Choose the one that best matches your downstream workflow.
 
+## ❓ Why SPARC FUSE?
+
+<p align="center">
+  <img src="./assets/sparc_fuse_overview.png" width="500"
+       alt="Many formats in – one clean Zarr/MAT/NPZ out">
+</p>
+
+### The headache  
+* SPARC hosts **80 + heterogeneous file formats** and countless sub-variants – each with its own quirks.  
+* Researchers lose precious hours hunting converters and writing glue code instead of analysing data.  
+* This format jungle breaks reproducibility and puts FAIR principles at risk. :contentReference[oaicite:2]{index=2}  
+
+### The cure  
+* **SPARC FUSE** automatically remaps *any* supported file (time-series & imaging) into a **uniform, chunked Zarr store**<br>
+  – optionally also `.mat`, `.npz`, or zipped Zarr for legacy tools.  
+* Works three ways:  
+  1. **Python API** – bulk-convert or cherry-pick files in a single call.  
+  2. **CLI** – one-liner on the command line.  
+  3. **Browser button** *(WIP)* – “Convert & Download” directly from the SPARC portal.  
+* Keeps full provenance: every conversion is logged, making pipelines **fully reproducible**.
+
+### Why it matters  
+* **Hours → seconds:** spend time on science, not format wrangling.  
+* **Interoperability out-of-the-box:** unified layout means the same loader works for every dataset.  
+* **Cloud-ready chunks:** Zarr’s design unlocks scalable, parallel analysis on HPC or S3-style storage.  
+* **FAIR boost:** data become immediately *Accessible*, *Interoperable* and *Reusable* across toolchains.
+
+---
+
+
 ## Supported File Formats
 ![.mat Time-series](https://img.shields.io/badge/.mat-Time%20series-orange)
 ![.smr Time-series](https://img.shields.io/badge/.smr-Time%20series-orange)
