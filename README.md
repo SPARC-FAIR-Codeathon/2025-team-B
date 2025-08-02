@@ -2,6 +2,27 @@
 This is the official repository of Team-B of the 2025 NIH SPARC FAIR Codeathon. 
 <img src="./assets/logo.png" width="1000"/>
 
+## 🚀 Quick start
+
+```bash
+# Clone and install (editable mode)
+git clone https://github.com/SPARC-FAIR-Codeathon/2025-team-B.git
+cd 2025-team-B/sparcfuse
+pip install -e .
+cd ..
+
+# Convert a file
+sparc-fuse 224 \
+  primary/sub-ChAT-Male-Subject-1/20_1021.acq \
+  --output-dir ./converted
+
+# Smoke-test (optional)
+sparc-fuse --self-test
+
+# Need more options?
+sparc-fuse --help
+```
+
 ## Supported File Formats
 ![.mat Time-series](https://img.shields.io/badge/.mat-Time%20series-orange)
 ![.smr Time-series](https://img.shields.io/badge/.smr-Time%20series-orange)
