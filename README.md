@@ -60,6 +60,14 @@ download_and_convert_sparc_data(
 #### 2 – Bulk-convert an entire dataset
 
 ```python
+from sparc_fuse_core import download_and_convert_sparc_data, list_primary_files
+
+DATASET_ID = 224  # Any valid SPARC dataset ID
+
+from sparc_fuse_core import download_and_convert_sparc_data, list_primary_files
+
+DATASET_ID = 224  # Any valid SPARC dataset ID
+
 bulk_report = download_and_convert_sparc_data(
     DATASET_ID,
     output_dir="./output_bulk",
@@ -74,6 +82,10 @@ pprint(bulk_report)
 #### 3 – Convert a subset of primary files
 
 ```python
+from sparc_fuse_core import download_and_convert_sparc_data, list_primary_files
+
+DATASET_ID = 224  # Any valid SPARC dataset ID
+
 # Grab (for example) the first three primary files
 files, _ = list_primary_files(DATASET_ID)
 subset_paths = [f["path"].replace("files/", "") for f in files[:3]]
