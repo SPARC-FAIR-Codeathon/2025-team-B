@@ -122,7 +122,7 @@ pprint(report)
 * This format jungle breaks reproducibility and puts FAIR principles at risk.
   
 <p align="center">
-  <img src="./assets/file_extensions_wordcloud.png" width="500"
+  <img src="./assets/file_extensions_wordcloud.png" width="800"
        alt="Word cloud of ≈ 80 SPARC file extensions"><br/>
   <sub><em><strong>Figure&nbsp;1.</strong> A pletora of file formats.</em> Relative frequency of every extension found in public SPARC datasets (log-scaled word cloud).</sub>
 </p>
@@ -172,7 +172,7 @@ pprint(report)
 ### What is Zarr?
 
 <p align="center">
-  <img src="./assets/zarr_overview.png" width="500"
+  <img src="./assets/zarr_overview.png" width="600"
        alt="Schematic of Zarr: JSON metadata plus many tiny chunk files"><br/>
 <sub><em><strong>Figure&nbsp;3.</strong> Zarr Overview.</em> Diagram adapted from the Earthmover blog post <a href="https://earthmover.io/blog/what-is-zarr">“What is Zarr?”</a>.</sub>
 </p>
@@ -236,12 +236,12 @@ print("✅ Preparation complete.")
 ```
 
 <p align="center">
-  <img src="./assets/demo_dataset_structure.png" width="700" alt="Dataset structure from cloud-hosted Zarr">
+  <img src="./assets/demo_dataset_structure.png" width="1000" alt="Dataset structure from cloud-hosted Zarr">
   <br/><sub><em>Xarray dataset loaded directly from S3 (metadata view)</em></sub>
 </p>
 
 <p align="center">
-  <img src="./assets/demo_s3_objects.png" width="700" alt="S3 bucket contents">
+  <img src="./assets/demo_s3_objects.png" width="1000" alt="S3 bucket contents">
   <br/><sub><em>Zarr stores and manifest files available on S3</em></sub>
 </p>
 
@@ -264,7 +264,7 @@ print(subset)
 ```
 
 <p align="center">
-  <img src="./assets/demo_lazy_slice.png" width="700" alt="Example lazy-loaded slice">
+  <img src="./assets/demo_lazy_slice.png" width="1000" alt="Example lazy-loaded slice">
   <br/><sub><em>Lazy-loaded data slice (first 1000 points of channel 0)</em></sub>
 </p>
 
