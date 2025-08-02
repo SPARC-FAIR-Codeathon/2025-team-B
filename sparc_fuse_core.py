@@ -30,12 +30,38 @@ from sparc.client import SparcClient
 client = SparcClient(connect=False, config_file='config.ini')
 
 def fetch_dataset_metadata(dataset_id):
+    """
+    Fetches metadata for a specified dataset from the Pennsieve Discover API.
+    
+    Args:
+        dataset_id (str or int): The unique identifier of the dataset to fetch metadata for.
+    
+    Returns:
+        dict: The metadata of the specified dataset as returned by the API.
+    
+    Raises:
+        requests.HTTPError: If the HTTP request to the API fails.
+    """
     metadata_url = f"https://api.pennsieve.io/discover/datasets/{dataset_id}/versions/1/metadata"
     resp = requests.get(metadata_url)
     resp.raise_for_status()
     return resp.json()
 
 def list_primary_files(dataset_id):
+    """
+    Retrieve primary files from a dataset's metadata.
+    
+    Args:
+        dataset_id (str): The unique identifier of the dataset.
+   
+     Returns:
+        tuple: A tuple containing:
+            - primary_files (list): A list of file dictionaries whose paths start with "files/primary/".
+            - metadata (dict): The complete metadata dictionary for the dataset.
+    
+    Raises:
+        Any exceptions raised by fetch_dataset_metadata.
+    """
     metadata = fetch_dataset_metadata(dataset_id)
     primary_files = [
         f for f in metadata.get("files", [])
@@ -44,10 +70,36 @@ def list_primary_files(dataset_id):
     return primary_files, metadata
 
 def print_project_metadata(metadata):
+    """
+    Prints the 'item' field from the provided metadata dictionary in a formatted JSON structure.
+    
+    Args:
+        metadata (dict): A dictionary containing project metadata. Expected to have an 'item' key.
+    
+    Returns:
+        None
+    """
     project = metadata.get("item", {})
     print(json.dumps(project, indent=2))
 
 def download_and_move_sparc_file(rel_path, dataset_id, output_dir):
+    """
+    Downloads a file from a SPARC dataset using the provided relative path and dataset ID,
+    then moves the downloaded file to the specified output directory.
+
+    The function ensures the relative path starts with 'primary/', constructs the appropriate
+    query path for the SPARC API, and handles file download and movement. If the file is not
+    found or an error occurs during download or movement, an error message is printed.
+
+    Args:
+        rel_path (str): The relative path to the file within the SPARC dataset.
+        dataset_id (str): The identifier of the SPARC dataset to download from.
+        output_dir (str): The directory where the downloaded file should be moved.
+
+    Raises:
+        FileNotFoundError: If no matching file is found in the SPARC dataset.
+        Exception: For any other errors encountered during download or file movement.
+    """
     if not rel_path.startswith("primary/"):
         rel_path = f"primary/{rel_path}"
 
@@ -79,6 +131,19 @@ def download_and_move_sparc_file(rel_path, dataset_id, output_dir):
 
 
 def list_sparc_datasets(max_id=1000):
+    """
+    Retrieves and categorizes SPARC datasets by their type.
+
+    This function queries the metadata client for datasets with IDs in the range 0 to `max_id` (inclusive),
+    then counts and groups the datasets by their type name. It prints the response and a summary of dataset
+    type counts.
+
+    Args:
+        max_id (int, optional): The maximum dataset ID to include in the query. Defaults to 1000.
+
+    Returns:
+        dict: A mapping from dataset type names to lists of dataset IDs belonging to each type.
+    """
     ids = list(range(0, 1001))
     id_strings = [f'"{i}"' for i in ids]
     id_list_str = ", ".join(id_strings)
