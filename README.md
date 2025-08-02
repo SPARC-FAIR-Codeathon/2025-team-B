@@ -5,7 +5,7 @@ This is the official repository of Team-B of the 2025 NIH SPARC FAIR Codeathon.
 ## 🚀 Quick start
 
 ```bash
-# Clone and install (editable mode)
+# Clone and install
 git clone https://github.com/SPARC-FAIR-Codeathon/2025-team-B.git
 cd 2025-team-B/sparcfuse
 pip install -e .
