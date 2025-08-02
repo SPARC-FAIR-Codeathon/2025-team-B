@@ -134,8 +134,11 @@ pprint(report)
 
 ---
 ## 🌩️ Zarr + AWS: super-charging SPARC data
-  <img src="./assets/aws_and_zarr.png" width="500"
-       alt="AWS and zarr"><br/>
+
+ <p align="center">
+  <img src="./assets/aws_and_zarr.png" width="300" alt="AWS and zarr"><br/>
+ </p>
+
 > **TL;DR** — Zarr is a cloud-native chunked-array format that lets you *stream* only the bytes you need.  
 > SPARC datasets are now mirrored on **Amazon S3 via the AWS Registry of Open Data**, so Zarr fits like a glove.
 
