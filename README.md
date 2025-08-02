@@ -32,6 +32,9 @@ sparc-fuse --help
 ### Use as a Python library
 
 ```python
+git clone https://github.com/SPARC-FAIR-Codeathon/2025-team-B.git
+cd 2025-team-B/sparcfuse
+
 from sparc_fuse_core import download_and_convert_sparc_data, list_primary_files
 
 DATASET_ID = 224  # Any valid SPARC dataset ID
