@@ -82,12 +82,12 @@ sparc-fuse --help
 
 #### Try it out on oSPARC
 
+<p align="center">
 <a href="https://osparc.io/#/study/06fbaa3a-6fbc-11f0-bae3-0242ac179953" target="_blank">
-<img width="300" alt="run on osparc" src="https://github.com/user-attachments/assets/b4a33704-7742-4cb8-9509-a96aef57271c" />
+<img width="600"alt="run_on_osparc" src="https://github.com/user-attachments/assets/af2e1bf5-d649-490d-a858-e88ab42e154c" />
 </a>
-
-<!--<img src="./assets/osparc_pipeline.png" width="500">-->
-
+</p>
+<br/>
 <img width="1000" alt="oSPARC_modules" src="https://github.com/user-attachments/assets/c5222c37-c3d9-419b-922c-64e090ab95f8" />
 
 >💡 **Note:** You will have to run the install_sparc_fuse.ipnyb notebook to install all dependencies before working with sparc-fuse
