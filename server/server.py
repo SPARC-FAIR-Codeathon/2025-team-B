@@ -299,6 +299,12 @@ def download_and_convert_entire_dataset():
         result_paths.append(unsupported_files_path)
 
 
+    if not result_paths:
+        return jsonify({
+            'status': 'error',
+            'message': 'No files were converted or downloaded successfully.'
+        }), 500
+    
     converted_path = Path(result_paths[0])
     converted_filename = converted_path.name
 
