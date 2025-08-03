@@ -268,6 +268,16 @@ print(subset)
   <br/><sub><em>Lazy-loaded data slice (first 1000 points of channel 0)</em></sub>
 </p>
 
+### ⏱ d3 slice speedup vs SPARC download+slice
+
+d3 slice is roughly **14× faster** than doing a fresh SPARC download+convert+slice for the same data slice.
+
+<p align="center">
+  <img src="./assets/sparc_slice_vs_d3_slice.png" width="600"
+       alt="Bar chart: SPARC download+slice (~9.8s) vs d3 slice (~0.7s), showing ~14x speedup.">
+</p>
+
+<small><em>Figure: Median latency comparison; speedup is visually apparent in the bar heights.</em></small>
 
 
 ## Supported File Formats
