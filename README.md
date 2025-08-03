@@ -239,9 +239,9 @@ https://github.com/user-attachments/assets/ea2a9a06-2f75-425e-acd9-be26f2c93b7e
 * Researchers lose precious hours hunting converters and writing glue code instead of analysing data.  
 * This format jungle breaks reproducibility and puts **FAIR principles at risk**.
   
+    <img width="900" alt="file_extensions_wordcloud" src="https://github.com/user-attachments/assets/b2a7e8dc-8994-4676-92c7-c0e2593d2384" />  <br/>
 <p align="center">
-    <img width="900" height="600" alt="file_extensions_wordcloud" src="https://github.com/user-attachments/assets/b2a7e8dc-8994-4676-92c7-c0e2593d2384" />
-  <sub><em><strong>Figure&nbsp;1.</strong> A pletora of file formats.</em> Relative frequency of every extension found in public SPARC datasets (log-scaled word cloud).</sub>
+<sub><em><strong>Figure&nbsp;1.</strong></em> Relative frequency of every extension found in public SPARC datasets (log-scaled word cloud).</sub>
 </p>
 
 <p align="center">
