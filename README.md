@@ -48,15 +48,32 @@ cd ..
 ```
 
 ```bash
+# Bulk convert primary files of an entire dataset
+sparc-fuse 224 --output-dir ./converted
+```
+
+
+
+https://github.com/user-attachments/assets/f9b51477-b41a-4a96-813b-359fc8919746
+
+
+
+```bash
 # Convert a file
 sparc-fuse 224 primary/sub-ChAT-Male-Subject-1/20_1021.acq --output-dir ./converted
 ```
+
+
+https://github.com/user-attachments/assets/1b54a944-55aa-4a29-a013-b7ee97acf08c
+
+
 
 ```bash
 # View options
 sparc-fuse --help
 ```
-<img src="./assets/help_view.png" width="1000"/>
+
+<img width="1000" alt="sparc_fuse_terminal_help" src="https://github.com/user-attachments/assets/b56226dd-3276-48e8-ad9c-df94a14f87d3" />
 
 ---
 
