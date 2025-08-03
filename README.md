@@ -14,7 +14,7 @@ Whether you’re on the command line, in a Python notebook, or on the SPARC Port
 
 Spend your time on science, not on hunting converters and understanding proprietary internal file structures. 🦾
 
-## Table of Contents
+## Table of Contentsx
 
 - [Quick start](#quick-start)
   - [Command-line interface](#command-line-interface)
@@ -284,28 +284,16 @@ https://github.com/user-attachments/assets/ea2a9a06-2f75-425e-acd9-be26f2c93b7e
 ![.adicht Time-series](https://img.shields.io/badge/.adicht-Time%20series-orange)
 ![.hdf5 Time-series](https://img.shields.io/badge/.hdf5-Time%20series-orange)
 ![.h5 Time-series](https://img.shields.io/badge/.h5-Time%20series-orange)
-![.ets Time-series](https://img.shields.io/badge/.ets-Time%20series-orange)
 ![.abf Time-series](https://img.shields.io/badge/.abf-Time%20series-orange)
 ![.rhd Time-series](https://img.shields.io/badge/.rhd-Time%20series-orange)
-![.nev Time-series](https://img.shields.io/badge/.nev-Time%20series-orange)
 ![.ns5 Time-series](https://img.shields.io/badge/.ns5-Time%20series-orange)
-![.ns2 Time-series](https://img.shields.io/badge/.ns2-Time%20series-orange)
-![.ns1 Time-series](https://img.shields.io/badge/.ns1-Time%20series-orange)
 ![.smrx Time-series](https://img.shields.io/badge/.smrx-Time%20series-orange)
 ![.wav Time-series](https://img.shields.io/badge/.wav-Time%20series-orange)
 ![.acq Time-series](https://img.shields.io/badge/.acq-Time%20series-orange)
-![.tbk Time-series](https://img.shields.io/badge/.tbk-Time%20series-orange)
-![.tdx Time-series](https://img.shields.io/badge/.tdx-Time%20series-orange)
-![.tev Time-series](https://img.shields.io/badge/.tev-Time%20series-orange)
-![.tin Time-series](https://img.shields.io/badge/.tin-Time%20series-orange)
 ![.tnt Time-series](https://img.shields.io/badge/.tnt-Time%20series-orange)
 ![.tsq Time-series](https://img.shields.io/badge/.tsq-Time%20series-orange)
-![.eeg Time-series](https://img.shields.io/badge/.eeg-Time%20series-orange)
-![.vmrk Time-series](https://img.shields.io/badge/.vmrk-Time%20series-orange)
-![.vhdr Time-series](https://img.shields.io/badge/.vhdr-Time%20series-orange)
 ![.sev Time-series](https://img.shields.io/badge/.sev-Time%20series-orange)
-![.sam Time-series](https://img.shields.io/badge/.sam-Time%20series-orange)
-![.pss Time-series](https://img.shields.io/badge/.pss-Time%20series-orange)
+![.ets Imaging](https://img.shields.io/badge/.ets-Time%20series-orange)
 ![.tif Imaging](https://img.shields.io/badge/.tif-Imaging-blueviolet)
 ![.tiff Imaging](https://img.shields.io/badge/.tiff-Imaging-blueviolet)
 ![.czi Imaging](https://img.shields.io/badge/.czi-Imaging-blueviolet)
