@@ -1,46 +1,281 @@
 (function() {
     const extensionWhitelist = [
-        "mat", "smr", "csv", "adicht", "hdf5", "h5", "ets", "abf", "rhd", "nev",
-        "ns5", "ns2", "ns1", "smrx", "wav", "acq", "tbk", "tdx", "tev", "tin",
-        "tnt", "tsq", "eeg", "vmrk", "vhdr", "sev", "sam", "pss", "psmethod",
-    ];
+        "mat", /* 	MathWorks MATLAB file*/
+        "smr", /* 	CED Spike2 binary recording*/
+        "csv", /* 	Comma-separated values text (generic)*/
+        "adicht", /* 	ADInstruments LabChart binary trace*/
+        "hdf5", /* 	Hierarchical Data Format v5 container*/
+        "h5", /* 	Same as .hdf5*/
+        "ets", /* 	TDT electrophysiology time-series block*/
+        "abf", /* 	Molecular Devices Axon Binary File (pClamp)*/
+        "rhd", /* 	Intan RHD2000 amplifier data*/
+        "nev", /* 	Blackrock NeuroPort event file*/
+        "ns5", /* 	Blackrock continuous 30 kHz signal*/
+        "ns2", /* 	Blackrock 1 kHz LFP signal*/
+        "ns1", /* 	Blackrock low-rate summary signal*/
+        "smrx", /* 	CED Spike2 v9+ extended recording*/
+        "wav", /* 	Waveform audio (PCM)*/
+        "acq", /* 	AxoScope raw acquisition*/
+        "tbk", /* 	TDT DataTank “block” metadata*/
+        "tdx", /* 	TDT DataTank index (time-stamp)*/
+        "tev", /* 	TDT event / continuous data stream*/
+        "tin", /* 	TDT Synapse experiment info (zip)*/
+        "tnt", /* 	TDT block annotations*/
+        "tsq", /* 	TDT global time-stamp table*/
+        "eeg", /* 	BrainVision binary signal data*/
+        "vmrk", /* 	BrainVision marker/events*/
+        "vhdr", /* 	BrainVision header*/
+        "sev", /* 	TDT RS4 single-channel stream*/
+        "sam", /* 	Sequence Alignment/Map (SAM) or NREL SAM simulation file*/
+        "pss", /* 	PicoScope oscilloscope settings snapshot*/
+        "psmethod", /* 	PalmSens electrochemistry method definition*/
+    ]
 
     const imageExtensionWhitelist = [
-        "tif", "tiff", "czi", "nd2", "lsm", "jpx", "svs", "ims", "png", "jpg",
-        "jpeg", "bmp", "vsi", "jp2", "roi", "dm3", "pxp", "ipf", "lif", "ima",
-        "mrxs", "obj", "avi", "exf", "cxd",
-    ];
+        "tif",
+        "tiff",
+        "czi",
+        "nd2",
+        "lsm",
+        "jpx",
+        "svs",
+        "ims",
+        "png",
+        "jpg",
+        "jpeg",
+        "bmp",
+        "vsi",
+        "jp2",
+        "roi",
+        "dm3",
+        "pxp",
+        "ipf",
+        "lif",
+        "ima",
+        "mrxs",
+        "obj",
+        "avi",
+        "exf",
+        "cxd",
+    ]
 
     const cssString = `
-        #global-dropdown-file { position: absolute; background: white; border: 1px solid #ccc; z-index: 9999; min-width: 150px; display: none; }
-        .dropbtn { border: none; cursor: pointer; }
-        .dropbtn-single-file { padding: 0; }
-        .dropbtn img { height: 24px;  width: 24px; }
-        .dropdown-dataset img { margin-right: 8px; }
-        .dropdown { position: relative; display: inline-block; }
-        .dropdown-dataset { position: relative; display: block; margin-bottom: 10px; }
-        .dropdown-content { display: none; position: absolute; background-color: #f1f1f1; min-width: 160px; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); z-index: 1000; }
-        .dropdown-content a { color: black; padding: 12px 16px; text-decoration: none; display: block; }
-        .dropdown-content a:hover { background-color: #ddd; }
-        .show { display:block; }
-        .toast { position: fixed; top: 25px; right: 25px; max-width: 300px; background: #fff; padding: 0.5rem; border-radius: 4px; box-shadow: -1px 1px 10px rgba(0, 0, 0, 0.3); z-index: 1023; transform: translateX(110%); }
-        .toast.closing { animation: slideOutRight 0.5s ease-in-out forwards; }
-        .toast-progress { position: absolute; display: block; bottom: 0; left: 0; height: 4px; width: 100%; background: #b7b7b7; }
-        .toast-content-wrapper { display: flex; justify-content: space-between; align-items: center; }
-        .toast-icon { padding: 0.35rem 0.5rem; font-size: 1.5rem; }
-        .toast-message { flex: 1; font-size: 0.9rem; color: #000000; padding: 0.5rem; }
-        .toast.toast-success { background: #95eab8; }
-        .toast.toast-success .toast-progress { background-color: #2ecc71; }
-        .toast.toast-danger { background: #efaca5; }
-        .toast.toast-danger .toast-progress { background-color: #e74c3c; }
-        .toast.toast-info { background: #bddaed; }
-        .toast.toast-info .toast-progress { background-color: #3498db; }
-        .toast.toast-warning { background: #ead994; }
-        .toast.toast-warning .toast-progress { background-color: #f1c40f; }
-        @keyframes slideInRight { 0% { transform: translateX(110%); } 75% { transform: translateX(-10%); } 100% { transform: translateX(0%); } }
-        @keyframes slideOutRight { 0% { transform: translateX(0%); } 25% { transform: translateX(-10%); } 100% { transform: translateX(110%); } }
-        @keyframes fadeOut { 0% { opacity: 1; } 100% { opacity: 0; } }
-        @keyframes toastProgress { 0% { width: 100%; } 100% { width: 0%; } }
+
+    #global-dropdown-file {
+        position: absolute;
+        background: white;
+        border: 1px solid #ccc;
+        z-index: 9999;
+        min-width: 150px;
+        display: none;
+    }
+
+    /* Dropdown Button */
+    .dropbtn {
+    /*background-color: #3498DB;
+    color: white;
+    font-size: 16px;*/
+    /*background-image: url( '${chrome.runtime.getURL("icons/download.png")}' );
+    background-size: 24px 24px;*/
+    border: none;
+    cursor: pointer;
+    }
+
+    .dropbtn-single-file {
+        padding: 0;
+    }
+
+    .dropbtn img {
+        height: 24px;  
+        width: 24px;
+    }
+
+    .dropdown-dataset img {
+        margin-right: 8px;
+    }
+
+    /* Dropdown button on hover & focus */
+    .dropbtn:hover, .dropbtn:focus {
+    /*background-color: #2980B9;*/
+    }
+
+    /* The container <div> - needed to position the dropdown content */
+    .dropdown {
+    position: relative;
+    display: inline-block;
+    }
+    .dropdown-dataset {
+    position: relative;
+    display: block;
+    margin-bottom: 10px;
+    }
+
+    /* Dropdown Content (Hidden by Default) */
+    .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1000;
+    }
+
+    /* Links inside the dropdown */
+    .dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    }
+
+    /* Change color of dropdown links on hover */
+    .dropdown-content a:hover {background-color: #ddd;}
+
+    /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+    .show {display:block;} 
+
+    .hide {display:none;} 
+
+    .toast-row {
+        display: flex;
+        justify-content: center;
+        margin: 1em 0;
+        padding: 1rem;
+        flex-wrap: wrap;
+    }
+
+    .toast {
+        position: fixed;
+        top: 25px;
+        right: 25px;
+        max-width: 300px;
+        background: #fff;
+        padding: 0.5rem;
+        border-radius: 4px;
+        box-shadow: -1px 1px 10px
+            rgba(0, 0, 0, 0.3);
+        z-index: 1023;
+        animation: slideInRight 0.3s
+                ease-in-out forwards,
+            fadeOut 0.5s ease-in-out
+                forwards 3s;
+        transform: translateX(110%);
+    }
+
+    .toast.closing {
+        animation: slideOutRight 0.5s
+            ease-in-out forwards;
+    }
+
+    .toast-progress {
+        position: absolute;
+        display: block;
+        bottom: 0;
+        left: 0;
+        height: 4px;
+        width: 100%;
+        background: #b7b7b7;
+        animation: toastProgress 3s
+            ease-in-out forwards;
+    }
+
+    .toast-content-wrapper {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .toast-icon {
+        padding: 0.35rem 0.5rem;
+        font-size: 1.5rem;
+    }
+
+    .toast-message {
+        flex: 1;
+        font-size: 0.9rem;
+        color: #000000;
+        padding: 0.5rem;
+    }
+
+    .toast.toast-success {
+        background: #95eab8;
+    }
+
+    .toast.toast-success .toast-progress {
+        background-color: #2ecc71;
+    }
+
+    .toast.toast-danger {
+        background: #efaca5;
+    }
+
+    .toast.toast-danger .toast-progress {
+        background-color: #e74c3c;
+    }
+
+    .toast.toast-info {
+        background: #bddaed;
+    }
+
+    .toast.toast-info .toast-progress {
+        background-color: #3498db;
+    }
+
+    .toast.toast-warning {
+        background: #ead994;
+    }
+
+    .toast.toast-warning .toast-progress {
+        background-color: #f1c40f;
+    }
+
+    @keyframes slideInRight {
+        0% {
+            transform: translateX(110%);
+        }
+
+        75% {
+            transform: translateX(-10%);
+        }
+
+        100% {
+            transform: translateX(0%);
+        }
+    }
+
+    @keyframes slideOutRight {
+        0% {
+            transform: translateX(0%);
+        }
+
+        25% {
+            transform: translateX(-10%);
+        }
+
+        100% {
+            transform: translateX(110%);
+        }
+    }
+
+    @keyframes fadeOut {
+        0% {
+            opacity: 1;
+        }
+
+        100% {
+            opacity: 0;
+        }
+    }
+
+    @keyframes toastProgress {
+        0% {
+            width: 100%;
+        }
+
+        100% {
+            width: 0%;
+        }
+    }
     `;
 
     const style = document.createElement("style");
