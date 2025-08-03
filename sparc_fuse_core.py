@@ -591,6 +591,17 @@ def download_and_convert_sparc_data(
 
     return results
 
+import os
+import subprocess
+import json
+from datetime import datetime
+
+import numpy as np
+import xarray as xr
+import s3fs
+import zarr
+
+
 def upload_to_s3(local_path, bucket, remote_path, region="eu-north-1"):
     """
     Uploads files from a local directory to an AWS S3 bucket using the AWS CLI.
@@ -604,12 +615,14 @@ def upload_to_s3(local_path, bucket, remote_path, region="eu-north-1"):
     Raises:
         subprocess.CalledProcessError: If the AWS CLI command fails.
     """
+    os.environ.setdefault("AWS_DEFAULT_REGION", region)
     subprocess.run([
         "aws", "s3", "sync",
         local_path,
         f"s3://{bucket}/{remote_path}",
         "--region", region
     ], check=True)
+
 
 def consolidate_s3_metadata(bucket, remote_path, region="eu-north-1"):
     """
@@ -627,9 +640,12 @@ def consolidate_s3_metadata(bucket, remote_path, region="eu-north-1"):
         zarr.errors.PathNotFoundError: If the specified path does not exist in the S3 bucket.
         botocore.exceptions.BotoCoreError: If there is an error connecting to S3.
     """
+    os.environ.setdefault("AWS_DEFAULT_REGION", region)
     fs = s3fs.S3FileSystem(anon=False, client_kwargs={"region_name": region})
     store = zarr.storage.FSStore(f"s3://{bucket}/{remote_path}", fs=fs)
+    # Ensure consolidated metadata exists (idempotent)
     zarr.consolidate_metadata(store)
+
 
 def create_xarray_zarr_from_raw(bucket, raw_zarr_path, xarray_zarr_path, region="eu-north-1"):
     """
@@ -652,17 +668,39 @@ def create_xarray_zarr_from_raw(bucket, raw_zarr_path, xarray_zarr_path, region=
     - The resulting xarray Dataset will have dimensions ("channel", "time"), where "channel" is inferred from the shape of "signals".
     - Requires `s3fs`, `zarr`, `xarray`, and `numpy` to be installed.
     """
+    os.environ.setdefault("AWS_DEFAULT_REGION", region)
     fs = s3fs.S3FileSystem(anon=False, client_kwargs={"region_name": region})
+
+    # Open raw Zarr, ensuring its consolidated metadata exists
     raw_store = zarr.storage.FSStore(f"s3://{bucket}/{raw_zarr_path}", fs=fs)
-    root = zarr.open_consolidated(raw_store)
+    try:
+        root = zarr.open_consolidated(raw_store)
+    except Exception:
+        # fallback: (re-)consolidate then reopen
+        zarr.consolidate_metadata(raw_store)
+        root = zarr.open_consolidated(raw_store)
+
+    # Extract arrays
     signals = root["signals"][:]
     time = root["time"][:]
+
+    # Build xarray dataset
     ds = xr.Dataset(
         {"signals": (("channel", "time"), signals)},
         coords={"time": ("time", time), "channel": ("channel", np.arange(signals.shape[0]))},
     )
+
+    # Copy over original metadata
+    ds.attrs.update(root.attrs)  # includes .zattrs (sparc_metadata, etc.)
+    ds["signals"].attrs.update(root["signals"].attrs)
+    if "time" in root:
+        ds["time"].attrs.update(root["time"].attrs)
+
+    # Write to S3 and explicitly consolidate
     xarray_store = zarr.storage.FSStore(f"s3://{bucket}/{xarray_zarr_path}", fs=fs)
-    ds.to_zarr(xarray_store, mode="w", consolidated=True)
+    ds.to_zarr(xarray_store, mode="w", consolidated=False)
+    zarr.consolidate_metadata(xarray_store)
+
 
 def generate_and_upload_manifest(dataset_id, bucket, xarray_zarr_path, region="eu-north-1"):
     """
@@ -679,6 +717,7 @@ def generate_and_upload_manifest(dataset_id, bucket, xarray_zarr_path, region="e
 
     The manifest contains metadata about the dataset, including its ID, Zarr path, generation timestamp, and file format.
     """
+    os.environ.setdefault("AWS_DEFAULT_REGION", region)
     manifest = {
         "dataset_id": dataset_id,
         "zarr_path": f"s3://{bucket}/{xarray_zarr_path}",
@@ -713,4 +752,8 @@ def open_zarr_from_s3(bucket, zarr_path, region="eu-north-1"):
     """
     os.environ.setdefault("AWS_DEFAULT_REGION", region)
     s3_uri = f"s3://{bucket}/{zarr_path}"
-    return xr.open_zarr(s3_uri, consolidated=True)
+    storage_opts = {"client_kwargs": {"region_name": region}}
+    try:
+        return xr.open_zarr(s3_uri, consolidated=True, storage_options=storage_opts)
+    except Exception:
+        return xr.open_zarr(s3_uri, consolidated=False, storage_options=storage_opts)
