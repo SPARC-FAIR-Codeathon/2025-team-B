@@ -325,9 +325,9 @@ print(subset)
 d3 slice is roughly **14× faster** than doing a fresh SPARC download+convert+slice for the same data slice.
 
 <p align="center">
-  <img src="./assets/sparc_slice_vs_d3_slice.png" width="600"
-       alt="Bar chart: SPARC download+slice (~9.8s) vs d3 slice (~0.7s), showing ~14x speedup."><br/>
-        <sub><em><strong>Figure&nbsp;7.</strong> </em> Median latency comparison for fresh SPARC download+convert+slice and d3 slice.</sub>
+  <img width="500" alt="Bar chart: SPARC download+slice (~9.8s) vs d3 slice (~0.7s), showing ~14x speedup." src="https://github.com/user-attachments/assets/dbf758fd-7185-4666-92b6-15185b8b2d58" />
+<br/>
+        <sub><em><strong>Figure&nbsp;7.</strong> </em> Latency comparison for SPARC download+slice (~9.8s) vs d3 slice (~0.7s), showing ~14x speedup.</sub>
 </p>
 
 
