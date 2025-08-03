@@ -175,8 +175,8 @@ https://github.com/user-attachments/assets/ea2a9a06-2f75-425e-acd9-be26f2c93b7e
 </p>
 
 <p align="center">
-  <img src="./assets/combined_2x2_summary.png" width="800"
-       alt="Bar-chart dashboard: file counts by modality and top extensions"><br/>
+  <img width="891" height="473" alt="combined_2x2_summary_with_labels" src="https://github.com/user-attachments/assets/28894530-1558-498d-a00b-059593062b64" />
+  <br/>
 <sub><em><strong>Figure&nbsp;2.</strong></em>The SPARC database contains <strong>15 + distinct time-series formats</strong> and <strong>15 + imaging formats</strong>, each hiding additional proprietary structures inside the files.</sub></p>
 
 ### The cure  
