@@ -500,18 +500,14 @@ s3 slice is roughly **14× faster** than doing a fresh SPARC download and slice 
 | `.smrx`    | CED Spike2 v9+ extended recording                             | 🟢             |
 | `.wav`     | Waveform audio (PCM)                                          | 🟢             |
 | `.acq`     | AxoScope raw acquisition                                      | 🟢             |
-| `.tbk`     | TDT DataTank “block” metadata                                 | 🔴             |
 | `.tdx`     | TDT DataTank index (time-stamp)                               | 🔴             |
 | `.tev`     | TDT event / continuous data stream                            | 🔴             |
-| `.tin`     | TDT Synapse experiment info (zip)                             | 🔴             |
 | `.tnt`     | TDT block annotations                                         | 🔴             |
 | `.tsq`     | TDT global time-stamp table                                   | 🔴             |
 | `.eeg`     | BrainVision binary signal data                                | 🔴             |
 | `.vmrk`    | BrainVision marker/events                                     | 🔴             |
 | `.vhdr`    | BrainVision header                                            | 🔴             |
 | `.sev`     | TDT RS4 single-channel stream                                 | 🔴             |
-| `.sam`     | Sequence Alignment/Map (SAM) or NREL SAM simulation file      | 🔴             |
-| `.pss`     | PicoScope oscilloscope settings snapshot                      | 🔴             |
 
 ### Imaging Formats
 
