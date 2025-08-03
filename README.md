@@ -153,6 +153,10 @@ pprint(report)
 * **Cloud-ready chunks:** Zarr’s design unlocks scalable, parallel analysis on HPC or S3-style storage.  
 * **FAIR boost:** data become immediately *Accessible*, *Interoperable* and *Reusable* across toolchains.
 
+ <p align="center">
+  <img src="./assets/artwork.png" width="800" alt="artowrk"><br/>
+ </p>
+ 
 ---
 ## 🌩️ Zarr + AWS: super-charging SPARC data
 
