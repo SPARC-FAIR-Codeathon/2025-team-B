@@ -241,13 +241,13 @@ https://github.com/user-attachments/assets/ea2a9a06-2f75-425e-acd9-be26f2c93b7e
 
 
 <p align="center">
-<img width="900" alt="file_extensions_wordcloud" src="https://github.com/user-attachments/assets/36e5260f-7cfa-4947-8f1f-a2fc17a03db9" />
+<img width="900" alt="file_extensions_wordcloud" src="https://github.com/user-attachments/assets/0c2dec7c-77db-42b1-a96e-bfb829cad4bd" />
  <br/>
   <sub><em><strong>Figure&nbsp;1.</strong></em> Relative frequency of every time series and imaging file extension found in public SPARC datasets (log-scaled word cloud).</sub>
 </p>
 
 <p align="center">
-  <img width="900" alt="combined_2x2_summary" src="https://github.com/user-attachments/assets/bc878f40-5e1d-4c6c-98e4-9ee684731790" />
+  <img width="900" alt="combined_2x2_summary" src="https://github.com/user-attachments/assets/3b7445e2-54f6-4e61-8440-887dc63f7468" />
   <br/>
 <sub><em><strong>Figure&nbsp;2.</strong></em>The SPARC database contains <strong>20 + distinct time-series formats</strong> and <strong>20 + imaging formats</strong>, each hiding additional proprietary structures inside the files.</sub></p>
 
@@ -484,7 +484,7 @@ s3 slice is roughly **14× faster** than doing a fresh SPARC download and slice 
 
 ### Time-Series Formats
 
-| Extension  | Description                                                   | Support Status |
+| Extension(s)  | Description                                                   | Support Status |
 |------------|---------------------------------------------------------------|----------------|
 | `.mat`     | MathWorks MATLAB file                                         | 🟢             |
 | `.smr`     | CED Spike2 binary recording                                   | 🟢             |
@@ -492,7 +492,6 @@ s3 slice is roughly **14× faster** than doing a fresh SPARC download and slice 
 | `.adicht`  | ADInstruments LabChart binary trace                           | 🟢             |
 | `.hdf5`    | Hierarchical Data Format v5 container                         | 🟢             |
 | `.h5`      | Same as `.hdf5`                                               | 🟢             |
-| `.ets`     | TDT electrophysiology time-series block                       | 🔴             |
 | `.abf`     | Molecular Devices Axon Binary File (pClamp)                   | 🟢             |
 | `.rhd`     | Intan RHD2000 amplifier data                                  | 🟢             |
 | `.nev`     | Blackrock NeuroPort event file                                | 🔴             |
@@ -502,18 +501,13 @@ s3 slice is roughly **14× faster** than doing a fresh SPARC download and slice 
 | `.smrx`    | CED Spike2 v9+ extended recording                             | 🟢             |
 | `.wav`     | Waveform audio (PCM)                                          | 🟢             |
 | `.acq`     | AxoScope raw acquisition                                      | 🟢             |
-| `.tdx`     | TDT DataTank index (time-stamp)                               | 🔴             |
-| `.tev`     | TDT event / continuous data stream                            | 🔴             |
-| `.tnt`     | TDT block annotations                                         | 🔴             |
-| `.tsq`     | TDT global time-stamp table                                   | 🔴             |
-| `.eeg`     | BrainVision binary signal data                                | 🔴             |
-| `.vmrk`    | BrainVision marker/events                                     | 🔴             |
-| `.vhdr`    | BrainVision header                                            | 🔴             |
+| `.tdx`, `.tev`, `.tnt`, `.tsq`    | TDT Synapse time-series (multi-file)   | 🔴             |
+| `.eeg`, `.vmrk`, `.vhdr`     | BrainVision EEG dataset (multi-file)        | 🔴             |
 | `.sev`     | TDT RS4 single-channel stream                                 | 🔴             |
 
 ### Imaging Formats
 
-| Extension | Description                                                    | Support Status |
+| Extension(s) | Description                                                    | Support Status |
 |-----------|----------------------------------------------------------------|----------------|
 | `.tif`    | Tagged Image File Format (high-bit-depth microscopy)           | 🟢             |
 | `.tiff`   | Same as `.tif`                                                 | 🟢             |
