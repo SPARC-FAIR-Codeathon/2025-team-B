@@ -6,6 +6,8 @@ SPARC FUSE is a file unification and standardization engine for SPARC datasets.
 
 Whether you’re on the command line, in a Python notebook, or on the SPARC Portal itself, FUSE converts the **40+ eclectic imaging & time-series formats** scattered across SPARC datasets into **one clean, cloud-native Zarr layout** (or `.mat` / `.npz`, if you prefer).
 
+✅ **Out of the box, SPARC FUSE supports over 82% of all imaging and time-series file types** found in public SPARC datasets.
+
 * **CLI / Python API** – one call turns raw files into analysis-ready arrays that slot straight into Xarray + Dask, MATLAB, PyTorch, etc.  
 * **Browser extension** – adds a “Convert & Download” button to every dataset page so you can grab ready-to-analyze Zarr bundles without leaving your browser.  
 * **Cloud-first** – outputs stream directly from S3 for zero-copy workflows that scale from your laptop to HPC or Lambda.
