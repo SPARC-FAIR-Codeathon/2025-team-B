@@ -71,7 +71,7 @@ https://github.com/user-attachments/assets/1b54a944-55aa-4a29-a013-b7ee97acf08c
 sparc-fuse --help
 ```
 
-<img width="1000" alt="sparc_fuse_terminal_help" src="https://github.com/user-attachments/assets/b56226dd-3276-48e8-ad9c-df94a14f87d3" />
+<img width="1000" alt="sparc_fuse_terminal_help" src="https://github.com/user-attachments/assets/b56226dd-3276-48e8-ad9c-df94a14f87s3" />
 
 ---
 
@@ -301,33 +301,36 @@ print("✅ Preparation complete.")
 
 ```python
 from sparc_fuse_core import open_zarr_from_s3
+import time
+import matplotlib.pyplot as plt
 
 # Open dataset lazily from S3
-ds = open_zarr_from_s3(
-    bucket="sparc-fuse-demo-ab-2025",
-    zarr_path="20_1021_std_xarray.zarr"
-)
-
+ds = open_zarr_from_s3(bucket="sparc-fuse-demo-ab-2025", zarr_path="20_1021_std_xarray.zarr")
 print(ds)  # Immediately available metadata, lazy data loading
 
-# Stream a specific data slice
-subset = ds["signals"].sel(channel=0).isel(time=slice(0, 1000))
-print(subset)
+# Example: load a subset of channel 1 for the first 100,000 timepoints
+start = time.perf_counter()
+subset_ch1 = ds["signals"].sel(channel=1).isel(time=slice(0, 100000)).load()
+elapsed = time.perf_counter() - start
+
+# plot
+plt.figure(figsize=(6, 1.5)), plt.plot(subset_ch1.time.values, subset_ch1.values)
+plt.xlabel("Time"), plt.ylabel("CH1"), plt.tight_layout(), plt.show()
+print(f"Subset load time: {elapsed:.3f} s")
 ```
 
+
+https://github.com/user-attachments/assets/3bf3f012-238a-4456-9a0a-5c84867368d5
+
+
+### ⏱ s3 slice speedup vs SPARC download+slice
+
+s3 slice is roughly **14× faster** than doing a fresh SPARC download+convert+slice for the same data slice.
+
 <p align="center">
-  <img src="./assets/demo_lazy_slice.png" width="1000" alt="Example lazy-loaded slice">
-    <sub><em><strong>Figure&nbsp;6.</strong> </em> Lazy-loaded data slice (first 1000 points of channel 0)</sub>
-</p>
-
-### ⏱ d3 slice speedup vs SPARC download+slice
-
-d3 slice is roughly **14× faster** than doing a fresh SPARC download+convert+slice for the same data slice.
-
-<p align="center">
-  <img width="500" alt="Bar chart: SPARC download+slice (~9.8s) vs d3 slice (~0.7s), showing ~14x speedup." src="https://github.com/user-attachments/assets/dbf758fd-7185-4666-92b6-15185b8b2d58" />
+  <img width="500" alt="Bar chart: SPARC download+slice (~9.8s) vs s3 slice (~0.7s), showing ~14x speedup." src="https://github.com/user-attachments/assets/dbf758fd-7185-4666-92b6-15185b8b2d58" />
 <br/>
-        <sub><em><strong>Figure&nbsp;7.</strong> </em> Latency comparison for SPARC download+slice (~9.8s) vs d3 slice (~0.7s), showing ~14x speedup.</sub>
+        <sub><em><strong>Figure&nbsp;7.</strong> </em> Latency comparison for SPARC download+slice (~9.8s) vs s3 slice (~0.7s), showing ~14x speedup.</sub>
 </p>
 
 
