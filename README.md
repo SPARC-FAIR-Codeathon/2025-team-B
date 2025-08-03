@@ -144,7 +144,7 @@ pprint(report)
 * Works three ways:  
   1. **Python API** – bulk-convert or cherry-pick files in a single call.  
   2. **CLI** – one-liner on the command line.  
-  3. **Browser button** *(WIP)* – “Convert & Download” directly from the SPARC portal.  
+  3. **Browser button** – “Convert & Download” directly from the SPARC portal.  
 * Keeps full provenance: every conversion is logged, making pipelines **fully reproducible**.
 
 ### Why it matters  
