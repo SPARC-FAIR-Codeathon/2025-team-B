@@ -1,15 +1,50 @@
-# SPARC FUSE
 <img src="./assets/logo.png" width="1000"/>
 
-**SPARC FUSE** is an open-source “format fuse box” for the NIH SPARC ecosystem.  
+## What is SPARC FUSE?
 
-Whether you’re on the command line, in a Python notebook or on the SPARC Portal itself, FUSE converts the **30 + eclectic imaging & time-series formats** scattered across SPARC datasets into **one clean, cloud-native Zarr layout** (or `.mat` / `.npz`, if you prefer).  
+SPARC-FUSE is a file unification and standardization engine for SPARC datasets.
+
+Whether you’re on the command line, in a Python notebook, or on the SPARC Portal itself, FUSE converts the **30+ eclectic imaging & time-series formats** scattered across SPARC datasets into **one clean, cloud-native Zarr layout** (or `.mat` / `.npz`, if you prefer).
 
 * **CLI / Python API** – one call turns raw files into analysis-ready arrays that slot straight into Xarray + Dask, MATLAB, PyTorch, etc.  
 * **Browser extension** – adds a “Convert & Download” button to every dataset page so you can grab ready-to-analyze Zarr bundles without leaving your browser.  
 * **Cloud-first** – outputs stream directly from S3 for zero-copy workflows that scale from your laptop to HPC or Lambda.
 
 Spend your time on science, not on hunting converters and understanding proprietary internal file structures. 🦾
+
+### 🧬 Full Metadata, Always Included
+
+Every SPARC FUSE export – whether `.zarr`, `.npz`, or `.mat` – **automatically bundles all SPARC metadata** available for the source file or dataset.
+
+In addition, we append detailed **conversion-specific metadata**, including:
+
+```python
+meta = {
+    "time_units": "seconds",
+    "time_auto_generated": time is None,
+    "source_format": descriptor.get("format", "unknown"),
+    "database_id": "unknown",
+    "sampling_frequency": samp_freq,
+    "channel_names": channel_names,
+    "channel_units": ["unknown"] * len(channel_names),
+    "version": "v1.0",
+    "upload_date": now,
+    "conversion_date": now,
+    "auto_mapped": True,
+    "doi": "unknown",
+    "original_file_name": original_filename,
+    "sparc_subject_id": "unknown",
+    "species": metadata_in.get("species", "unknown"),
+    "anatomical_location": metadata_in.get("anatomical_location", "unknown"),
+    "modality": metadata_in.get("modality", "unknown"),
+    "experimenter": metadata_in.get("experimenter", ["unknown"]),
+    "institution": metadata_in.get("institution", "unknown"),
+    "sweep_mode": metadata_in.get("sweep_mode", False),
+    "notes": "Mapped using SPARCFUSE",
+}
+```
+> 💡 This metadata is embedded directly into .zarr attributes or stored alongside .mat / .npz files. Every export is fully self-describing and ready for downstream use or publication.
+
 
 ---
 
@@ -388,7 +423,7 @@ https://github.com/user-attachments/assets/3bf3f012-238a-4456-9a0a-5c84867368d5
 
 > ⏳ Took only **0.3 s** to load the **100,000 time points** from s3.
 
-#### Get SPARC Metdata from zarr
+#### Get SPARC Metadata from zarr
 
 ```python
 z = open_zarr_from_s3(BUCKET, XARRAY_ZARR, region="eu-north-1")
