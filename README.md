@@ -7,7 +7,7 @@ Whether you’re on the command line, in a Python notebook or on the SPARC Porta
 
 * **CLI / Python API** – one call turns raw files into analysis-ready arrays that slot straight into Xarray + Dask, MATLAB, PyTorch, etc.  
 * **Browser extension** – adds a “Convert & Download” button to every dataset page so you can grab ready-to-analyze Zarr bundles without leaving your browser.  
-* **Cloud-first** – outputs stream directly from S3 (via the AWS Registry of Open Data) for zero-copy workflows that scale from your laptop to HPC or Lambda.
+* **Cloud-first** – outputs stream directly from S3 for zero-copy workflows that scale from your laptop to HPC or Lambda.
 
 Spend your time on science, not on hunting converters and understanding proprietary internal file structures. 🦾
 
