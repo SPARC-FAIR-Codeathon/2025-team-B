@@ -422,6 +422,38 @@ def download_and_convert_sparc_data(
     everything else goes through the descriptor-based mapper.
     Raw downloads are stored only in a TemporaryDirectory and are
     deleted as soon as conversion finishes.
+
+    Parameters:
+        dataset_id (int): The unique identifier of the SPARC dataset to process.
+        primary_paths (list[str] | str | None, optional): List of relative paths to primary files within the dataset.
+            If None, all primary files will be fetched from the dataset metadata.
+        output_dir (str | Path, optional): Directory where converted files will be saved. Defaults to "./output".
+        descriptors_dir (str | Path, optional): Directory containing mapping descriptors. Defaults to "./mapping_schemes".
+        file_format (str, optional): Output file format for standardized data. Defaults to "npz".
+        overwrite (bool, optional): If True, existing standardized files will be overwritten. Defaults to False.
+        
+    Returns:
+        list[dict]: A list of dictionaries containing the results of the conversion process for each file.
+            Each dictionary includes:
+                - rel_path: Relative path of the file within the dataset.
+                - local_path: Temporary local path where the file was downloaded.
+                - std_path: Path to the standardized output file.
+                - descriptor_id: ID of the mapping descriptor used (if applicable).
+                - mapping_score: Score of the mapping (if applicable).
+                - status: Status of the processing ("ok", "pending", "failed", "unsupported").
+                - error: Error message if processing failed.
+
+    Raises:
+        ValueError: If no primary files are found to process.
+        RuntimeError: If the download fails or the file cannot be processed.
+        FileNotFoundError: If no matching file is found in the dataset for the given relative path.
+        Exception: For any other errors encountered during the download or conversion process.
+    
+    Notes:
+        - The function uses a temporary directory for downloading files, which is automatically cleaned up after processing.
+        - The output directory is created if it does not exist.
+        - Metadata from the SPARC dataset is fetched and included in the standardized output.
+    - The function supports both imaging and time series data, routing them through appropriate conversion methods.
     """
 
     output_dir = Path(output_dir).expanduser()
