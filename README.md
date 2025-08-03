@@ -4,7 +4,7 @@
 
 SPARC FUSE is a file unification and standardization engine for SPARC datasets.
 
-Whether you’re on the command line, in a Python notebook, or on the SPARC Portal itself, FUSE converts the **30+ eclectic imaging & time-series formats** scattered across SPARC datasets into **one clean, cloud-native Zarr layout** (or `.mat` / `.npz`, if you prefer).
+Whether you’re on the command line, in a Python notebook, or on the SPARC Portal itself, FUSE converts the **40+ eclectic imaging & time-series formats** scattered across SPARC datasets into **one clean, cloud-native Zarr layout** (or `.mat` / `.npz`, if you prefer).
 
 * **CLI / Python API** – one call turns raw files into analysis-ready arrays that slot straight into Xarray + Dask, MATLAB, PyTorch, etc.  
 * **Browser extension** – adds a “Convert & Download” button to every dataset page so you can grab ready-to-analyze Zarr bundles without leaving your browser.  
@@ -235,7 +235,7 @@ https://github.com/user-attachments/assets/ea2a9a06-2f75-425e-acd9-be26f2c93b7e
 ## ❓ Why SPARC FUSE?
 
 ### The headache  
-* SPARC hosts **30 + heterogeneous file formats** and **countless sub-variants** (custom internal structures) – each with its own quirks.  
+* SPARC hosts **40 + heterogeneous file formats** and **countless sub-variants** (custom internal structures) – each with its own quirks.  
 * Researchers lose precious hours hunting converters and writing glue code instead of analysing data.  
 * This format jungle breaks reproducibility and puts **FAIR principles at risk**.
   
@@ -247,7 +247,7 @@ https://github.com/user-attachments/assets/ea2a9a06-2f75-425e-acd9-be26f2c93b7e
 <p align="center">
 <img width="892" height="454" alt="stats_overview" src="https://github.com/user-attachments/assets/72989494-b542-4610-81b3-436c84c877d8" />
   <br/>
-<sub><em><strong>Figure&nbsp;2.</strong></em>The SPARC database contains <strong>15 + distinct time-series formats</strong> and <strong>15 + imaging formats</strong>, each hiding additional proprietary structures inside the files.</sub></p>
+<sub><em><strong>Figure&nbsp;2.</strong></em>The SPARC database contains <strong>20 + distinct time-series formats</strong> and <strong>20 + imaging formats</strong>, each hiding additional proprietary structures inside the files.</sub></p>
 
 ### The cure  
 * **SPARC FUSE** automatically remaps *any* supported file (time-series & imaging) into a **uniform, chunked Zarr store**<br>
