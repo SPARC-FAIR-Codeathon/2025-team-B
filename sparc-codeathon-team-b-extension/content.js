@@ -384,17 +384,27 @@
 
         const dropdown_links = dropdown.querySelectorAll('.dropdown-download-link');
         console.log(event.target);
-        const href = event.target.closest(".sparc-fuse-download").id;
+        //const href = event.target.closest(".sparc-fuse-download").id;
+
+
+        event.target.closest(".sparc-fuse-download").classList.toggle("active")
+        
 
         dropdown_links.forEach(dl => {
-            dl.addEventListener('click', function(link_event) {
-                link_event.preventDefault();
-                const dst_format = link_event.target.getAttribute('href').substring(1);
-                console.log(link_event.target);
-                console.log(href);
-                downloadAndConvertSingleFile(href, dst_format);
-            });
+            dl.removeEventListener('click', downloadAndConvertSingleFileListener);
+            dl.addEventListener('click', downloadAndConvertSingleFileListener);
         });
+    }
+
+    function downloadAndConvertSingleFileListener(link_event) {
+        link_event.preventDefault();
+        const dst_format = link_event.target.getAttribute('href').substring(1);
+
+        const href = document.querySelectorAll(".sparc-fuse-download.active")[0].id;
+
+        console.log(link_event.target);
+        console.log(href);
+        downloadAndConvertSingleFile(href, dst_format);
     }
 
     
@@ -411,6 +421,7 @@
 
     injectFunction(downloadAndConvertSingleFile);
     injectFunction(downloadAndConvertEntireDataset);
+    injectFunction(downloadAndConvertSingleFileListener);
     injectFunction(downloadConvertedOutput);
     injectFunction(dropdownToggleFunction);
     injectFunction(dropdownToggleFunction2);
