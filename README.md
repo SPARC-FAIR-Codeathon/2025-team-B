@@ -11,6 +11,8 @@ Whether you’re on the command line, in a Python notebook or on the SPARC Porta
 
 Spend your time on science, not on hunting converters and understanding proprietary internal file structures. 🦾
 
+---
+
 ## Table of Contents
 
 - [Quick start](#quick-start)
@@ -34,6 +36,7 @@ Spend your time on science, not on hunting converters and understanding propriet
   - [Time-series formats](#time-series-formats)
   - [Imaging formats](#imaging-formats)
 
+---
 
 ## 🚀 Quick start
 
@@ -163,6 +166,8 @@ https://github.com/user-attachments/assets/ea2a9a06-2f75-425e-acd9-be26f2c93b7e
 
 > **Tip:** `file_format` accepts `"zarr"`, `"zarr.zip"`, `"npz"`, or `"mat"`. Choose the one that best matches your downstream workflow.
 
+---
+
 ## ❓ Why SPARC FUSE?
 
 ### The headache  
@@ -202,7 +207,7 @@ https://github.com/user-attachments/assets/ea2a9a06-2f75-425e-acd9-be26f2c93b7e
 * **Cloud-ready chunks:** Zarr’s design unlocks scalable, parallel analysis on HPC or S3-style storage.  
 * **FAIR boost:** data become immediately *Accessible*, *Interoperable* and *Reusable* across toolchains.
 
-### Supported Datatypes
+### Supported File Formats
 
 ![.mat Time-series](https://img.shields.io/badge/.mat-Time%20series-orange)
 ![.smr Time-series](https://img.shields.io/badge/.smr-Time%20series-orange)
@@ -401,6 +406,7 @@ s3 slice is roughly **14× faster** than doing a fresh SPARC download+convert+sl
         <sub><em><strong>Figure&nbsp;7.</strong> </em> Latency comparison for SPARC download+slice (~9.8s) vs s3 slice (~0.7s), showing ~14x speedup.</sub>
 </p>
 
+---
 
 ## Supported File Formats
 ### Time-series formats
