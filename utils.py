@@ -1,4 +1,5 @@
 # ── standard library ────────────────────────────────────────────────────
+from __future__ import annotations 
 import glob
 import importlib
 import importlib.util
