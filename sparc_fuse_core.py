@@ -180,6 +180,23 @@ def list_sparc_datasets(max_id=1000):
     return type_id_map
 
 def get_sparc_datasets_by_id(ids):
+    """
+    Retrieve SPARC datasets from the metadata client by their IDs and group them by type.
+
+    Args:
+        ids (int, list, tuple, or set): A single dataset ID or a collection of dataset IDs to query.
+
+    Returns:
+        dict: A dictionary mapping dataset type names to lists of dataset IDs that belong to each type.
+
+    Raises:
+        TypeError: If the input is not an int, list, tuple, or set.
+
+    Notes:
+        - The function prints the constructed query and the response for debugging purposes.
+        - If a dataset does not have a valid type, it is grouped under the key "<invalid type>".
+        - If a dataset does not have an ID, it is represented as "<no id>" in the result.
+    """
     # Normalize to list
     if isinstance(ids, int):
         ids = [ids]
@@ -243,7 +260,15 @@ _BF_EXTS       = {
 }
 
 def _run(cmd: list[str]) -> None:
-    """subprocess.run with nice error surfacing."""
+    """
+    (subprocess.run with nice error surfacing) --> Executes a command using subprocess.run and raises a RuntimeError with detailed output if the command fails.
+
+    Args:
+        cmd (list[str]): The command and its arguments to execute as a list of strings.
+
+    Raises:
+        RuntimeError: If the command returns a non-zero exit code, includes the command, stdout, and stderr in the error message.
+    """
     proc = subprocess.run(cmd, capture_output=True, text=True)
     if proc.returncode != 0:
         raise RuntimeError(

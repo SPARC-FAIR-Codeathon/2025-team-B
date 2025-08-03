@@ -11,3 +11,6 @@ neo
 scipy
 h5py
 pyabf
+
+requests
+tqdm
