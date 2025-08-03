@@ -240,13 +240,12 @@ https://github.com/user-attachments/assets/ea2a9a06-2f75-425e-acd9-be26f2c93b7e
 * This format jungle breaks reproducibility and puts **FAIR principles at risk**.
   
 <p align="center">
-  <img src="./assets/file_extensions_wordcloud.png" width="800"
-       alt="Word cloud of ≈ 40 SPARC file extensions"><br/>
+    <img width="900" height="600" alt="file_extensions_wordcloud" src="https://github.com/user-attachments/assets/b2a7e8dc-8994-4676-92c7-c0e2593d2384" />
   <sub><em><strong>Figure&nbsp;1.</strong> A pletora of file formats.</em> Relative frequency of every extension found in public SPARC datasets (log-scaled word cloud).</sub>
 </p>
 
 <p align="center">
-  <img width="891" height="473" alt="combined_2x2_summary_with_labels" src="https://github.com/user-attachments/assets/28894530-1558-498d-a00b-059593062b64" />
+<img width="892" height="454" alt="stats_overview" src="https://github.com/user-attachments/assets/72989494-b542-4610-81b3-436c84c877d8" />
   <br/>
 <sub><em><strong>Figure&nbsp;2.</strong></em>The SPARC database contains <strong>15 + distinct time-series formats</strong> and <strong>15 + imaging formats</strong>, each hiding additional proprietary structures inside the files.</sub></p>
 
