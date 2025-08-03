@@ -381,7 +381,7 @@ print(f"Subset load time: {elapsed:.3f} s")
 
 https://github.com/user-attachments/assets/3bf3f012-238a-4456-9a0a-5c84867368d5
 
-⏳ Took only **0.7s** to load the **100,000 time points** from s3.
+> ⏳ Took only **0.7s** to load the **100,000 time points** from s3.
 
 #### Get SPARC Metdata from zarr
 
