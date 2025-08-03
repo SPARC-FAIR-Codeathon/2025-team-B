@@ -263,9 +263,7 @@ https://github.com/user-attachments/assets/ea2a9a06-2f75-425e-acd9-be26f2c93b7e
 ---
 ## 🌩️ Zarr + AWS: super-charging SPARC data
 
- <p align="center">
-<img width="1077" height="199" alt="sparcfuse+zarr+aws" src="https://github.com/user-attachments/assets/410914e9-18fc-4c3f-8dba-93e00e28dd82" />
- </p>
+<img width="1159" height="163" alt="sparcfuse+zarr+aws=datalake" src="https://github.com/user-attachments/assets/95923caf-5a45-4217-9d59-475ef52e4ef2" />
 
 > **TL;DR** — Zarr is a cloud-native chunked-array format that lets you *stream* only the bytes you need.  
 > SPARC datasets are now mirrored on **Amazon S3 via the AWS Registry of Open Data**, so Zarr fits like a glove.
