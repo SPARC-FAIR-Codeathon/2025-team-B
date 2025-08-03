@@ -1,343 +1,99 @@
 (function() {
-
-
     const extensionWhitelist = [
-        "mat", /* 	MathWorks MATLAB file*/
-        "smr", /* 	CED Spike2 binary recording*/
-        "csv", /* 	Comma-separated values text (generic)*/
-        "adicht", /* 	ADInstruments LabChart binary trace*/
-        "hdf5", /* 	Hierarchical Data Format v5 container*/
-        "h5", /* 	Same as .hdf5*/
-        "ets", /* 	TDT electrophysiology time-series block*/
-        "abf", /* 	Molecular Devices Axon Binary File (pClamp)*/
-        "rhd", /* 	Intan RHD2000 amplifier data*/
-        "nev", /* 	Blackrock NeuroPort event file*/
-        "ns5", /* 	Blackrock continuous 30 kHz signal*/
-        "ns2", /* 	Blackrock 1 kHz LFP signal*/
-        "ns1", /* 	Blackrock low-rate summary signal*/
-        "smrx", /* 	CED Spike2 v9+ extended recording*/
-        "wav", /* 	Waveform audio (PCM)*/
-        "acq", /* 	AxoScope raw acquisition*/
-        "tbk", /* 	TDT DataTank “block” metadata*/
-        "tdx", /* 	TDT DataTank index (time-stamp)*/
-        "tev", /* 	TDT event / continuous data stream*/
-        "tin", /* 	TDT Synapse experiment info (zip)*/
-        "tnt", /* 	TDT block annotations*/
-        "tsq", /* 	TDT global time-stamp table*/
-        "eeg", /* 	BrainVision binary signal data*/
-        "vmrk", /* 	BrainVision marker/events*/
-        "vhdr", /* 	BrainVision header*/
-        "sev", /* 	TDT RS4 single-channel stream*/
-        "sam", /* 	Sequence Alignment/Map (SAM) or NREL SAM simulation file*/
-        "pss", /* 	PicoScope oscilloscope settings snapshot*/
-        "psmethod", /* 	PalmSens electrochemistry method definition*/
-    ]
+        "mat", "smr", "csv", "adicht", "hdf5", "h5", "ets", "abf", "rhd", "nev",
+        "ns5", "ns2", "ns1", "smrx", "wav", "acq", "tbk", "tdx", "tev", "tin",
+        "tnt", "tsq", "eeg", "vmrk", "vhdr", "sev", "sam", "pss", "psmethod",
+    ];
 
     const imageExtensionWhitelist = [
-        "tif",
-        "tiff",
-        "czi",
-        "nd2",
-        "lsm",
-        "jpx",
-        "svs",
-        "ims",
-        "png",
-        "jpg",
-        "jpeg",
-        "bmp",
-        "vsi",
-        "jp2",
-        "roi",
-        "dm3",
-        "pxp",
-        "ipf",
-        "lif",
-        "ima",
-        "mrxs",
-        "obj",
-        "avi",
-        "exf",
-        "cxd",
-    ]
+        "tif", "tiff", "czi", "nd2", "lsm", "jpx", "svs", "ims", "png", "jpg",
+        "jpeg", "bmp", "vsi", "jp2", "roi", "dm3", "pxp", "ipf", "lif", "ima",
+        "mrxs", "obj", "avi", "exf", "cxd",
+    ];
 
     const cssString = `
+        #global-dropdown-file { position: absolute; background: white; border: 1px solid #ccc; z-index: 9999; min-width: 150px; display: none; }
+        .dropbtn { border: none; cursor: pointer; }
+        .dropbtn-single-file { padding: 0; }
+        .dropbtn img { height: 24px;  width: 24px; }
+        .dropdown-dataset img { margin-right: 8px; }
+        .dropdown { position: relative; display: inline-block; }
+        .dropdown-dataset { position: relative; display: block; margin-bottom: 10px; }
+        .dropdown-content { display: none; position: absolute; background-color: #f1f1f1; min-width: 160px; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); z-index: 1000; }
+        .dropdown-content a { color: black; padding: 12px 16px; text-decoration: none; display: block; }
+        .dropdown-content a:hover { background-color: #ddd; }
+        .show { display:block; }
+        .toast { position: fixed; top: 25px; right: 25px; max-width: 300px; background: #fff; padding: 0.5rem; border-radius: 4px; box-shadow: -1px 1px 10px rgba(0, 0, 0, 0.3); z-index: 1023; transform: translateX(110%); }
+        .toast.closing { animation: slideOutRight 0.5s ease-in-out forwards; }
+        .toast-progress { position: absolute; display: block; bottom: 0; left: 0; height: 4px; width: 100%; background: #b7b7b7; }
+        .toast-content-wrapper { display: flex; justify-content: space-between; align-items: center; }
+        .toast-icon { padding: 0.35rem 0.5rem; font-size: 1.5rem; }
+        .toast-message { flex: 1; font-size: 0.9rem; color: #000000; padding: 0.5rem; }
+        .toast.toast-success { background: #95eab8; }
+        .toast.toast-success .toast-progress { background-color: #2ecc71; }
+        .toast.toast-danger { background: #efaca5; }
+        .toast.toast-danger .toast-progress { background-color: #e74c3c; }
+        .toast.toast-info { background: #bddaed; }
+        .toast.toast-info .toast-progress { background-color: #3498db; }
+        .toast.toast-warning { background: #ead994; }
+        .toast.toast-warning .toast-progress { background-color: #f1c40f; }
+        @keyframes slideInRight { 0% { transform: translateX(110%); } 75% { transform: translateX(-10%); } 100% { transform: translateX(0%); } }
+        @keyframes slideOutRight { 0% { transform: translateX(0%); } 25% { transform: translateX(-10%); } 100% { transform: translateX(110%); } }
+        @keyframes fadeOut { 0% { opacity: 1; } 100% { opacity: 0; } }
+        @keyframes toastProgress { 0% { width: 100%; } 100% { width: 0%; } }
+    `;
 
-    #global-dropdown-file {
-        position: absolute;
-        background: white;
-        border: 1px solid #ccc;
-        z-index: 9999;
-        min-width: 150px;
-        display: none;
-    }
-
-    /* Dropdown Button */
-    .dropbtn {
-    /*background-color: #3498DB;
-    color: white;
-    font-size: 16px;*/
-    /*background-image: url( '${chrome.runtime.getURL("icons/download.png")}' );
-    background-size: 24px 24px;*/
-    border: none;
-    cursor: pointer;
-    }
-
-    .dropbtn-single-file {
-        padding: 0;
-    }
-
-    .dropbtn img {
-        height: 24px;  
-        width: 24px;
-    }
-
-    .dropdown-dataset img {
-        margin-right: 8px;
-    }
-
-    /* Dropdown button on hover & focus */
-    .dropbtn:hover, .dropbtn:focus {
-    /*background-color: #2980B9;*/
-    }
-
-    /* The container <div> - needed to position the dropdown content */
-    .dropdown {
-    position: relative;
-    display: inline-block;
-    }
-    .dropdown-dataset {
-    position: relative;
-    display: block;
-    margin-bottom: 10px;
-    }
-
-    /* Dropdown Content (Hidden by Default) */
-    .dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f1f1f1;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1000;
-    }
-
-    /* Links inside the dropdown */
-    .dropdown-content a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-    }
-
-    /* Change color of dropdown links on hover */
-    .dropdown-content a:hover {background-color: #ddd;}
-
-    /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
-    .show {display:block;} 
-
-    .hide {display:none;} 
-
-    .toast-row {
-        display: flex;
-        justify-content: center;
-        margin: 1em 0;
-        padding: 1rem;
-        flex-wrap: wrap;
-    }
-
-    .toast {
-        position: fixed;
-        top: 25px;
-        right: 25px;
-        max-width: 300px;
-        background: #fff;
-        padding: 0.5rem;
-        border-radius: 4px;
-        box-shadow: -1px 1px 10px
-            rgba(0, 0, 0, 0.3);
-        z-index: 1023;
-        animation: slideInRight 0.3s
-                ease-in-out forwards,
-            fadeOut 0.5s ease-in-out
-                forwards 3s;
-        transform: translateX(110%);
-    }
-
-    .toast.closing {
-        animation: slideOutRight 0.5s
-            ease-in-out forwards;
-    }
-
-    .toast-progress {
-        position: absolute;
-        display: block;
-        bottom: 0;
-        left: 0;
-        height: 4px;
-        width: 100%;
-        background: #b7b7b7;
-        animation: toastProgress 3s
-            ease-in-out forwards;
-    }
-
-    .toast-content-wrapper {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    .toast-icon {
-        padding: 0.35rem 0.5rem;
-        font-size: 1.5rem;
-    }
-
-    .toast-message {
-        flex: 1;
-        font-size: 0.9rem;
-        color: #000000;
-        padding: 0.5rem;
-    }
-
-    .toast.toast-success {
-        background: #95eab8;
-    }
-
-    .toast.toast-success .toast-progress {
-        background-color: #2ecc71;
-    }
-
-    .toast.toast-danger {
-        background: #efaca5;
-    }
-
-    .toast.toast-danger .toast-progress {
-        background-color: #e74c3c;
-    }
-
-    .toast.toast-info {
-        background: #bddaed;
-    }
-
-    .toast.toast-info .toast-progress {
-        background-color: #3498db;
-    }
-
-    .toast.toast-warning {
-        background: #ead994;
-    }
-
-    .toast.toast-warning .toast-progress {
-        background-color: #f1c40f;
-    }
-
-    @keyframes slideInRight {
-        0% {
-            transform: translateX(110%);
-        }
-
-        75% {
-            transform: translateX(-10%);
-        }
-
-        100% {
-            transform: translateX(0%);
-        }
-    }
-
-    @keyframes slideOutRight {
-        0% {
-            transform: translateX(0%);
-        }
-
-        25% {
-            transform: translateX(-10%);
-        }
-
-        100% {
-            transform: translateX(110%);
-        }
-    }
-
-    @keyframes fadeOut {
-        0% {
-            opacity: 1;
-        }
-
-        100% {
-            opacity: 0;
-        }
-    }
-
-    @keyframes toastProgress {
-        0% {
-            width: 100%;
-        }
-
-        100% {
-            width: 0%;
-        }
-    }
-    `; 
-
-    const style = document.createElement("style")
+    const style = document.createElement("style");
     style.innerHTML = cssString;
     document.head.appendChild(style);
 
+    function showToast(message = "Sample Message", toastType = "info", duration = 5000) {
+        let icon = {
+            success: '<span class="material-symbols-outlined">task_alt</span>',
+            danger: '<span class="material-symbols-outlined">error</span>',
+            warning: '<span class="material-symbols-outlined">warning</span>',
+            info: '<span class="material-symbols-outlined">info</span>',
+        };
+        if (!Object.keys(icon).includes(toastType)) toastType = "info";
 
-    
+        let box = document.createElement("div");
+        box.classList.add("toast", `toast-${toastType}`);
+        box.innerHTML = ` <div class="toast-content-wrapper">
+                        <div class="toast-icon">${icon[toastType]}</div>
+                        <div class="toast-message">${message}</div>
+                        <div class="toast-progress"></div>
+                        </div>`;
 
-    
+        if (duration > 0) {
+            box.style.animation = `slideInRight 0.3s ease-in-out forwards, fadeOut 0.5s ease-in-out forwards ${duration / 1000}s`;
+            box.querySelector(".toast-progress").style.animation = `toastProgress ${duration / 1000}s ease-in-out forwards`;
+        } else {
+            box.style.animation = `slideInRight 0.3s ease-in-out forwards`;
+            box.querySelector(".toast-progress").style.display = 'none';
+        }
 
-
-    function createDropdownSingleFile(href) {
-        const dropdown_id = "downloadDropDown-"+href;
-        console.log(dropdown_id);
-        const dropdownString = `
-            <button onclick="dropdownToggleFunction2(event)" class="dropbtn dropbtn-single-file"><img class="dropdown-img" src="${chrome.runtime.getURL('icons/download.png')}" alt=""></button>
-            <div id="${dropdown_id}" class="dropdown-content">
-                <a href="#zarr" class="dropdown-download-link">ZARR</a>
-                <a href="#mat" class="dropdown-download-link">MAT</a>
-                <a href="#npz" class="dropdown-download-link">NPZ</a>
-            </div>
-        `
-        const dropdown = document.createElement("div");
-        dropdown.id = href;
-        dropdown.classList.add("dropdown");
-        dropdown.classList.add("sparc-fuse-download");
-        dropdown.classList.add("circle");
-        dropdown.setAttribute("data-v-c799c5c2", "");
-        dropdown.innerHTML = dropdownString;
-        
-
-        
-
-        return dropdown;
-
+        let toastAlready = document.body.querySelector(".toast");
+        if (toastAlready) {
+            toastAlready.remove();
+        }
+        document.body.appendChild(box);
     }
 
-    
-
     function downloadConvertedOutput(data) {
-        console.log('Success:', data);
         fetch('http://localhost:5000/download', {
             method: 'POST',
-            headers: {
-            'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ file: data })  // Replace with real filename
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({ file: data })
         })
         .then(response => {
-            if (!response.ok) {
-            throw new Error("Failed to download file");
-            }
+            if (!response.ok) { throw new Error("Failed to download file"); }
             return response.blob();
         })
         .then(blob => {
             const url = window.URL.createObjectURL(blob);
             const a = document.createElement('a');
-            a.href = url;
-            a.download = data;  // Match the name you want
+a.href = url;
+            a.download = data;
             document.body.appendChild(a);
             a.click();
             a.remove();
@@ -345,107 +101,104 @@
         })
         .catch(error => {
             console.error('Error:', error);
+            showToast("Failed to initiate file download from server.", "danger", 8000);
         });
     }
 
-
     function downloadAndConvertEntireDataset(dataset_id, dst_format) {
-        // Send POST request to local server
-        showToast("The server is now downloading and converting the requested dataset.\nOnce complete, your browser will automatically start the download of the converted file.\nThis may take some time.","info",8000);
+        showToast("Starting download and conversion of the dataset...", "info", 0);
         fetch('http://localhost:5000/download_and_convert', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ dataset_id: dataset_id, dst_format: dst_format })
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({ dataset_id: dataset_id, dst_format: dst_format })
         })
         .then(response => response.json())
         .then(data => {
             if (data.status === 'success') {
-                console.log('File path:', data.file);
+                showToast("Conversion successful! Download will start shortly.", "success", 5000);
                 downloadConvertedOutput(data.file);
-                // You can now use this path or show it to the user
             } else {
+                showToast(`Error: ${data.message}`, "danger", 8000);
                 console.error('Error:', data.message);
             }
         })
         .catch(error => {
+            showToast("Network error: Could not connect to the local server.", "danger", 8000);
             console.error('Error:', error);
         });
     }
 
     function downloadAndConvertSingleFile(href, dst_format) {
-        console.log("CREATE POST REQUEST");
         const href_match = href.match(/\/datasets\/file\/(\d+)\/(\d+)\?path=files\/(.*)/);
-        
-        if (href_match) {
-            dataset_id = href_match[1];
-            version_id = href_match[2];
-            path = href_match[3];
-        } else {
-            console.error("url does not contain any path");
+        if (!href_match) {
+            console.error("URL does not contain any path");
             return;
         }
-        showToast("The server is now downloading and converting the requested file.\nOnce complete, your browser will automatically start the download of the converted file.\nThis may take some time.","info",6000);
-        // Send POST request to local server
+        const [_, dataset_id, version_id, path] = href_match;
+        showToast("Starting download and conversion of the file...", "info", 0);
         fetch('http://localhost:5000/download_and_convert', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
+            headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({ dataset_id: dataset_id, path: path, dst_format: dst_format })
         })
         .then(response => response.json())
         .then(data => {
             if (data.status === 'success') {
-                console.log('File path:', data.file);
+                showToast("Conversion successful! Download will start shortly.", "success", 5000);
                 downloadConvertedOutput(data.file);
-                // You can now use this path or show it to the user
             } else {
+                showToast(`Error: ${data.message}`, "danger", 8000);
                 console.error('Error:', data.message);
             }
         })
         .catch(error => {
+            showToast("Network error: Could not connect to the local server.", "danger", 8000);
             console.error('Error:', error);
         });
     }
-// --- UI Manipulation Functions ---
 
     function createDropdownSingleFile(href) {
-        const dropdown = document.createElement("div");
-        dropdown.id = href;
-        dropdown.classList.add("dropdown", "sparc-fuse-download", "circle");
-        dropdown.setAttribute("data-v-c799c5c2", "");
-        dropdown.innerHTML = `<button class="dropbtn dropbtn-single-file"><img class="dropdown-img" src="${chrome.runtime.getURL('icons/download.png')}" alt=""></button>`;
+        const dropdownContainer = document.createElement("div");
+        dropdownContainer.id = href;
+        dropdownContainer.classList.add("dropdown", "sparc-fuse-download", "circle");
+        dropdownContainer.setAttribute("data-v-c799c5c2", "");
         
-        // NEW: Simplified event listener attached directly on creation
-        dropdown.querySelector('.dropbtn').addEventListener('click', (event) => {
+        const button = document.createElement('button');
+        button.className = 'dropbtn dropbtn-single-file';
+        button.innerHTML = `<img class="dropdown-img" src="${chrome.runtime.getURL('icons/download.png')}" alt="">`;
+
+        button.addEventListener('click', (event) => {
             event.preventDefault();
             event.stopPropagation();
-            
-            const dropdownMenu = document.getElementById("global-dropdown-file");
-            const rect = event.currentTarget.getBoundingClientRect();
-            
-            document.querySelectorAll(".sparc-fuse-download.active").forEach(el => el.classList.remove("active"));
-            dropdown.classList.add("active");
 
-            dropdownMenu.style.left = rect.left + window.scrollX + "px";
-            dropdownMenu.style.top = rect.bottom + window.scrollY + "px";
-            dropdownMenu.style.display = "block";
+            const globalDropdown = document.getElementById("global-dropdown-file");
+            const rect = button.getBoundingClientRect();
+            
+            const isAlreadyOpen = globalDropdown.style.display === 'block' && globalDropdown.getAttribute('data-active-href') === href;
+
+            if (isAlreadyOpen) {
+                globalDropdown.style.display = 'none';
+                globalDropdown.removeAttribute('data-active-href');
+            } else {
+                globalDropdown.setAttribute('data-active-href', href);
+                globalDropdown.style.left = rect.left + window.scrollX + "px";
+                globalDropdown.style.top = rect.bottom + window.scrollY + "px";
+                globalDropdown.style.display = 'block';
+            }
         });
 
-        return dropdown;
+        dropdownContainer.appendChild(button);
+        return dropdownContainer;
     }
 
-    // Renamed for clarity
     function addDownloadButtonForDataset() {
         const targetSpan = Array.from(document.querySelectorAll('span')).find(span => span.textContent.trim() === 'Download Full Dataset');
         if (!targetSpan) return;
 
         const id_match = window.location.href.match(/datasets\/(\d+)/);
         if (!id_match) return;
+
         const datasetId = id_match[1];
-        
         const container_div = targetSpan.closest("div");
 
         const dropdown = document.createElement("div");
@@ -478,15 +231,12 @@
         });
     }
 
-    // Renamed for clarity
     function addDownloadButtonsForFiles() {
         document.querySelectorAll('a[href^="/datasets"]').forEach(link => {
             const row = link.closest('tr');
             if (!row) return;
-
             const isValidExtension = extensionWhitelist.some(ext => link.href.endsWith(ext)) || imageExtensionWhitelist.some(ext => link.href.endsWith(ext));
             if (!isValidExtension) return;
-
             const cellDiv = row.querySelector('td:last-child div.cell');
             if (cellDiv) {
                 const dropdown = createDropdownSingleFile(link.href);
@@ -494,75 +244,46 @@
             }
         });
     }
-    
+
     function addGlobalDropdown() {
         if (document.getElementById("global-dropdown-file")) return;
         
         const dropdown = document.createElement("div");
         dropdown.id = "global-dropdown-file";
-        dropdown.innerHTML = `
-            <a href="#zarr" class="dropdown-download-link">ZARR</a>
-            <a href="#mat" class="dropdown-download-link">MAT</a>
-            <a href="#npz" class="dropdown-download-link">NPZ</a>
-        `;
+        dropdown.innerHTML = `<a href="#zarr" class="dropdown-download-link">ZARR</a><a href="#mat" class="dropdown-download-link">MAT</a><a href="#npz" class="dropdown-download-link">NPZ</a>`;
         document.body.appendChild(dropdown);
 
-        // NEW: Listener logic moved here from the complex toggle function
         dropdown.querySelectorAll('.dropdown-download-link').forEach(dl => {
             dl.addEventListener('click', (link_event) => {
                 link_event.preventDefault();
                 const dst_format = link_event.target.getAttribute('href').substring(1);
-                const activeDownloadElement = document.querySelector(".sparc-fuse-download.active");
-                if (activeDownloadElement) {
-                    const href = activeDownloadElement.id;
-                    downloadAndConvertSingleFile(href, dst_format);
+                const activeHref = dropdown.getAttribute('data-active-href');
+                if (activeHref) {
+                    downloadAndConvertSingleFile(activeHref, dst_format);
                 }
             });
         });
     }
 
-    /*
-    // OLD: Complex and bug-prone toggle functions were here
-    function dropdownToggleFunction(button) { ... }
-    function dropdownToggleFunction2(event) { ... }
-    function downloadAndConvertSingleFileListener(link_event) { ... }
-    */
-
-    /*
-    // OLD: Functions were injected globally, which is not best practice
-    injectFunction(downloadAndConvertSingleFile);
-    injectFunction(downloadAndConvertEntireDataset);
-    injectFunction(downloadAndConvertSingleFileListener);
-    injectFunction(downloadConvertedOutput);
-    injectFunction(dropdownToggleFunction);
-    injectFunction(dropdownToggleFunction2);
-    */
-
-    // --- NEW: Central UI update function to fix the bug ---
-    // This function will reset the UI state on every navigation change
     function updateUI() {
-        // Step 1: Remove all previously injected buttons to avoid duplicates and ghost buttons
         document.querySelectorAll('.sparc-fuse-download').forEach(el => el.remove());
-
-        // Step 2: Re-add buttons based on the current page content
         addDownloadButtonForDataset();
         addDownloadButtonsForFiles();
     }
-
-    // --- Initialization and Event Listeners ---
+    
     addGlobalDropdown();
 
     document.addEventListener("click", function(event) {
-        const isDropdownButton = event.target.closest('.dropbtn');
-        if (!isDropdownButton) {
-            // Close all dropdowns if click is outside
-            document.querySelectorAll(".dropdown-content").forEach(d => d.classList.remove('show'));
-            document.getElementById("global-dropdown-file").style.display = "none";
-            document.querySelectorAll(".sparc-fuse-download.active").forEach(el => el.classList.remove("active"));
+        if (event.target.closest('.sparc-fuse-download, #global-dropdown-file')) {
+            return;
         }
+
+        document.querySelectorAll(".dropdown-dataset .dropdown-content").forEach(d => d.classList.remove('show'));
+        const globalDropdown = document.getElementById("global-dropdown-file");
+        globalDropdown.style.display = 'none';
+        globalDropdown.removeAttribute('data-active-href');
     });
 
-    // NEW: Debounce function for performance
     function debounce(func, wait) {
         let timeout;
         return function executedFunction(...args) {
@@ -574,29 +295,12 @@
             timeout = setTimeout(later, wait);
         };
     }
-    
-    /*
-    // OLD: Multiple observers adding UI elements without removing them
-    const observer = new MutationObserver(addDownloadButtons);
-    observer.observe(document.body, { childList: true, subtree: true });
-    const observer2 = new MutationObserver(addDownloadButtonEntireDataset);
-    observer2.observe(document.body, { childList: true, subtree: true });
-    */
 
-    // NEW: Single, debounced observer calling the central update function
     const observer = new MutationObserver(debounce(updateUI, 200));
     observer.observe(document.body, { childList: true, subtree: true });
 
-    // Initial run
     updateUI();
-
-    // The toast container creation and showToast function remain the same
-    let toast_container = document.createElement("div");
-    toast_container.classList.add("toast-overlay");
-    toast_container.id = "toast-overlay";
-    document.body.appendChild(toast_container);
     
-    // Inject showToast as it might be used by other parts of the page or for debugging
     function injectFunction(fn) {
         const script = document.createElement('script');
         script.textContent = fn.toString();
