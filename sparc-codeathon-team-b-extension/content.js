@@ -34,17 +34,38 @@
     ]
 
     const cssString = `
+
+    #global-dropdown-file {
+        position: absolute;
+        background: white;
+        border: 1px solid #ccc;
+        z-index: 9999;
+        min-width: 150px;
+        display: none;
+    }
+
     /* Dropdown Button */
     .dropbtn {
     /*background-color: #3498DB;
     color: white;
     font-size: 16px;*/
-    background-image: url( '${chrome.runtime.getURL("icons/button.png")}' );
-    background-size: 24px 24px;
-    height: 24px;  
-    width: 24px;
+    /*background-image: url( '${chrome.runtime.getURL("icons/download.png")}' );
+    background-size: 24px 24px;*/
     border: none;
     cursor: pointer;
+    }
+
+    .dropbtn-single-file {
+        padding: 0;
+    }
+
+    .dropbtn img {
+        height: 24px;  
+        width: 24px;
+    }
+
+    .dropdown-dataset img {
+        margin-right: 8px;
     }
 
     /* Dropdown button on hover & focus */
@@ -57,11 +78,16 @@
     position: relative;
     display: inline-block;
     }
+    .dropdown-dataset {
+    position: relative;
+    display: block;
+    margin-bottom: 10px;
+    }
 
     /* Dropdown Content (Hidden by Default) */
     .dropdown-content {
     display: none;
-    /*position: absolute;*/
+    position: absolute;
     background-color: #f1f1f1;
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
@@ -81,6 +107,8 @@
 
     /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
     .show {display:block;} 
+
+    .hide {display:none;} 
     `; 
 
     const style = document.createElement("style")
@@ -90,42 +118,14 @@
 
     
 
-    const script = document.createElement("script");
-    const scriptString = `
-        /* When the user clicks on the button, 
-        toggle between hiding and showing the dropdown content */
-        function dropdownToggleFunction(button) {
-            console.log(button);
-            const dropdownContent = button.parentNode.querySelector('div.dropdown-content');
-            
-            dropdownContent.classList.toggle("show");
-        }
-
-        // Close the dropdown if the user clicks outside of it
-        window.onclick = function(event) {
-            if (!event.target.matches('.dropbtn')) {
-                var dropdowns = document.getElementsByClassName("dropdown-content");
-                var i;
-                for (i = 0; i < dropdowns.length; i++) {
-                    var openDropdown = dropdowns[i];
-                    if (openDropdown.classList.contains('show')) {
-                        openDropdown.classList.remove('show');
-                    }
-                }
-            }
-        }
-
-
-    `;
-    script.innerHTML = scriptString;
-    document.body.appendChild(script);
+    
 
 
     function createDropdownSingleFile(href) {
         const dropdown_id = "downloadDropDown-"+href;
         console.log(dropdown_id);
         const dropdownString = `
-            <button onclick="dropdownToggleFunction(this)" class="dropbtn"></button>
+            <button onclick="dropdownToggleFunction2(event)" class="dropbtn dropbtn-single-file"><img src="${chrome.runtime.getURL('icons/download.png')}" alt=""></button>
             <div id="${dropdown_id}" class="dropdown-content">
                 <a href="#zarr" class="dropdown-download-link">ZARR</a>
                 <a href="#mat" class="dropdown-download-link">MAT</a>
@@ -133,8 +133,11 @@
             </div>
         `
         const dropdown = document.createElement("div");
+        dropdown.id = href;
         dropdown.classList.add("dropdown");
         dropdown.classList.add("sparc-fuse-download");
+        dropdown.classList.add("circle");
+        dropdown.setAttribute("data-v-c799c5c2", "");
         dropdown.innerHTML = dropdownString;
         
 
@@ -270,7 +273,10 @@
         
 
         const dropdownString = `
-            <button onclick="dropdownToggleFunction(this)" class="dropbtn"></button>
+            <button onclick="dropdownToggleFunction(this)" class="dropbtn el-button secondary">
+                <img src="${chrome.runtime.getURL('icons/button.png')}" alt="">
+                Download Full Dataset
+            </button>
             <div id="datasetId_${datasetId}" class="dropdown-content">
                 <a href="#zarr" class="dropdown-download-link download-dataset-link">ZARR</a>
                 <a href="#mat" class="dropdown-download-link download-dataset-link">MAT</a>
@@ -280,6 +286,7 @@
 
         const dropdown = document.createElement("div");
         dropdown.classList.add("dropdown");
+        dropdown.classList.add("dropdown-dataset");
         dropdown.classList.add("sparc-fuse-download");
         dropdown.innerHTML = dropdownString;
 
@@ -293,6 +300,23 @@
                 downloadAndConvertEntireDataset(dataset_id, dst_format);
             });
         });
+    }
+
+    function addGlobalDropdown() {
+        global_dropdown_container = document.body.querySelector("div#global-dropdown-file");
+        if (global_dropdown_container) return;
+        
+        const dropdownString = `
+            <a href="#zarr" class="dropdown-download-link">ZARR</a>
+            <a href="#mat" class="dropdown-download-link">MAT</a>
+            <a href="#npz" class="dropdown-download-link">NPZ</a>
+        `
+        const dropdown = document.createElement("div");
+        dropdown.id = "global-dropdown-file";
+        dropdown.classList.add("dropdown-content");
+        //dropdown.classList.add("hide");
+        dropdown.innerHTML = dropdownString;
+        document.body.appendChild(dropdown);
     }
 
 
@@ -311,7 +335,7 @@
 
             const cellDiv = row.querySelector('td:last-child').querySelector('div.cell');
             
-            dropdown = createDropdownSingleFile(link.href)
+            dropdown = createDropdownSingleFile(link.href);
 
             cellDiv.appendChild(dropdown);
 
@@ -333,9 +357,97 @@
         });
     }
 
-    // Run on load and on future DOM changes
-    //addBootstrap();
     
+
+
+
+    function dropdownToggleFunction(button) {
+        console.log(button);
+        const dropdownContent = button.parentNode.querySelector('div.dropdown-content');
+        
+        dropdownContent.classList.toggle("show");
+    }
+
+    function dropdownToggleFunction2(event) {
+        event.preventDefault();
+        const dropdown = document.getElementById("global-dropdown-file");
+        console.log(dropdown);
+        const rect = event.target.closest(".sparc-fuse-download").getBoundingClientRect();
+        console.log(rect);
+
+        dropdown.style.left = rect.left + window.scrollX + "px";
+        dropdown.style.top = rect.bottom + window.scrollY + "px";
+        dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+        console.log(dropdown.style.display);
+        //dropdown.classList.toggle("show");
+        //dropdown.classList.toggle("hide");
+
+        const dropdown_links = dropdown.querySelectorAll('.dropdown-download-link');
+        console.log(event.target);
+        const href = event.target.closest(".sparc-fuse-download").id;
+
+        dropdown_links.forEach(dl => {
+            dl.addEventListener('click', function(link_event) {
+                link_event.preventDefault();
+                const dst_format = link_event.target.getAttribute('href').substring(1);
+                console.log(link_event.target);
+                console.log(href);
+                downloadAndConvertSingleFile(href, dst_format);
+            });
+        });
+    }
+
+    
+    function injectFunction(fn) {
+        const script = document.createElement('script');
+
+        // Convert function and arguments to a string
+        const fnSource = fn.toString();
+
+        script.textContent = fnSource;
+        document.documentElement.appendChild(script);
+    }
+
+
+    injectFunction(downloadAndConvertSingleFile);
+    injectFunction(downloadAndConvertEntireDataset);
+    injectFunction(downloadConvertedOutput);
+    injectFunction(dropdownToggleFunction);
+    injectFunction(dropdownToggleFunction2);
+
+
+
+    const script = document.createElement("script");
+    const scriptString = `
+        /*document.addEventListener("click", function(event) {
+            if (event.target.matches('#global-dropdown-file')) return;
+            const dropdown = document.getElementById("global-dropdown-file");
+            if (!dropdown.classList.contains("show")) return;
+            dropdown.classList.remove("show");
+            dropdown.classList.add("hide");
+        });*/
+
+        // Close the dropdown if the user clicks outside of it
+        window.onclick = function(event) {
+            if (!event.target.matches('.dropbtn')) {
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                var i;
+                for (i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        }
+
+
+    `;
+    script.innerHTML = scriptString;
+    document.body.appendChild(script);
+
+
+    addGlobalDropdown();
     addDownloadButtonEntireDataset();
     addDownloadButtons();
     const observer = new MutationObserver(addDownloadButtons);
