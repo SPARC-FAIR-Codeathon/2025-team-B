@@ -3,7 +3,7 @@
 
 **SPARC FUSE** is an open-source “format fuse box” for the NIH SPARC ecosystem.  
 
-Whether you’re on the command line, in a Python notebook or on the SPARC Portal itself, FUSE converts the **40 + eclectic imaging & time-series formats** scattered across SPARC datasets into **one clean, cloud-native Zarr layout** (or `.mat` / `.npz`, if you prefer).  
+Whether you’re on the command line, in a Python notebook or on the SPARC Portal itself, FUSE converts the **30 + eclectic imaging & time-series formats** scattered across SPARC datasets into **one clean, cloud-native Zarr layout** (or `.mat` / `.npz`, if you prefer).  
 
 * **CLI / Python API** – one call turns raw files into analysis-ready arrays that slot straight into Xarray + Dask, MATLAB, PyTorch, etc.  
 * **Browser extension** – adds a “Convert & Download” button to every dataset page so you can grab ready-to-analyze Zarr bundles without leaving your browser.  
@@ -164,7 +164,7 @@ https://github.com/user-attachments/assets/ea2a9a06-2f75-425e-acd9-be26f2c93b7e
 ## ❓ Why SPARC FUSE?
 
 ### The headache  
-* SPARC hosts **40 + heterogeneous file formats** and **countless sub-variants** (custom internal structures) – each with its own quirks.  
+* SPARC hosts **30 + heterogeneous file formats** and **countless sub-variants** (custom internal structures) – each with its own quirks.  
 * Researchers lose precious hours hunting converters and writing glue code instead of analysing data.  
 * This format jungle breaks reproducibility and puts **FAIR principles at risk**.
   
@@ -177,7 +177,7 @@ https://github.com/user-attachments/assets/ea2a9a06-2f75-425e-acd9-be26f2c93b7e
 <p align="center">
   <img src="./assets/combined_2x2_summary.png" width="800"
        alt="Bar-chart dashboard: file counts by modality and top extensions"><br/>
-<sub><em><strong>Figure&nbsp;2.</strong></em>The SPARC database contains <strong>20 + distinct time-series formats</strong> and <strong>20 + imaging formats</strong>, each hiding additional proprietary structures inside the files.</sub></p>
+<sub><em><strong>Figure&nbsp;2.</strong></em>The SPARC database contains <strong>15 + distinct time-series formats</strong> and <strong>15 + imaging formats</strong>, each hiding additional proprietary structures inside the files.</sub></p>
 
 ### The cure  
 * **SPARC FUSE** automatically remaps *any* supported file (time-series & imaging) into a **uniform, chunked Zarr store**<br>
@@ -361,7 +361,6 @@ d3 slice is roughly **14× faster** than doing a fresh SPARC download+convert+sl
 ![.sev Time-series](https://img.shields.io/badge/.sev-Time%20series-orange)
 ![.sam Time-series](https://img.shields.io/badge/.sam-Time%20series-orange)
 ![.pss Time-series](https://img.shields.io/badge/.pss-Time%20series-orange)
-![.psmethod Time-series](https://img.shields.io/badge/.psmethod-Time%20series-orange)
 ![.tif Imaging](https://img.shields.io/badge/.tif-Imaging-blueviolet)
 ![.tiff Imaging](https://img.shields.io/badge/.tiff-Imaging-blueviolet)
 ![.czi Imaging](https://img.shields.io/badge/.czi-Imaging-blueviolet)
@@ -420,7 +419,6 @@ d3 slice is roughly **14× faster** than doing a fresh SPARC download+convert+sl
 | `.sev`     | TDT RS4 single-channel stream |
 | `.sam`     | Sequence Alignment/Map (SAM) or NREL SAM simulation file |
 | `.pss`     | PicoScope oscilloscope settings snapshot |
-| `.psmethod`| PalmSens electrochemistry method definition |
 
 ---
 
