@@ -87,7 +87,7 @@ sparc-fuse --help
 
 <!--<img src="./assets/osparc_pipeline.png" width="500">-->
 
->💡 Note: You will have to run the install_sparc_fuse.ipnyb notebook to install all dependencies before working with sparc-fuse
+>💡 **Note:** You will have to run the install_sparc_fuse.ipnyb notebook to install all dependencies before working with sparc-fuse
 
 #### Or proceed locally
 ##### 0 – Clone the project
