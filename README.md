@@ -425,31 +425,31 @@ s3 slice is roughly **14× faster** than doing a fresh SPARC download and slice 
 | Extension  | Description                                                   | Support Status |
 |------------|---------------------------------------------------------------|----------------|
 | `.mat`     | MathWorks MATLAB file                                         | 🟢             |
-| `.smr`     | CED Spike2 binary recording                                   | 🟡             |
+| `.smr`     | CED Spike2 binary recording                                   | 🟢             |
 | `.csv`     | Comma-separated values text (generic)                         | 🟢             |
-| `.adicht`  | ADInstruments LabChart binary trace                           | 🟡             |
+| `.adicht`  | ADInstruments LabChart binary trace                           | 🟢             |
 | `.hdf5`    | Hierarchical Data Format v5 container                         | 🟢             |
 | `.h5`      | Same as `.hdf5`                                               | 🟢             |
-| `.ets`     | TDT electrophysiology time-series block                       | 🟡             |
+| `.ets`     | TDT electrophysiology time-series block                       | 🔴             |
 | `.abf`     | Molecular Devices Axon Binary File (pClamp)                   | 🟢             |
 | `.rhd`     | Intan RHD2000 amplifier data                                  | 🟢             |
-| `.nev`     | Blackrock NeuroPort event file                                | 🟢             |
+| `.nev`     | Blackrock NeuroPort event file                                | 🔴             |
 | `.ns5`     | Blackrock continuous 30 kHz signal                             | 🟢             |
-| `.ns2`     | Blackrock 1 kHz LFP signal                                     | 🟢             |
-| `.ns1`     | Blackrock low-rate summary signal                             | 🟢             |
-| `.smrx`    | CED Spike2 v9+ extended recording                             | 🔴             |
+| `.ns2`     | Blackrock 1 kHz LFP signal                                     | 🔴             |
+| `.ns1`     | Blackrock low-rate summary signal                             | 🔴             |
+| `.smrx`    | CED Spike2 v9+ extended recording                             | 🟢             |
 | `.wav`     | Waveform audio (PCM)                                          | 🟢             |
-| `.acq`     | AxoScope raw acquisition                                      | 🔴             |
-| `.tbk`     | TDT DataTank “block” metadata                                 | 🟡             |
-| `.tdx`     | TDT DataTank index (time-stamp)                               | 🟡             |
-| `.tev`     | TDT event / continuous data stream                            | 🟡             |
-| `.tin`     | TDT Synapse experiment info (zip)                             | 🟡             |
-| `.tnt`     | TDT block annotations                                         | 🟡             |
-| `.tsq`     | TDT global time-stamp table                                   | 🟡             |
-| `.eeg`     | BrainVision binary signal data                                | 🟢             |
-| `.vmrk`    | BrainVision marker/events                                     | 🟢             |
-| `.vhdr`    | BrainVision header                                            | 🟢             |
-| `.sev`     | TDT RS4 single-channel stream                                 | 🟡             |
+| `.acq`     | AxoScope raw acquisition                                      | 🟢             |
+| `.tbk`     | TDT DataTank “block” metadata                                 | 🔴             |
+| `.tdx`     | TDT DataTank index (time-stamp)                               | 🔴             |
+| `.tev`     | TDT event / continuous data stream                            | 🔴             |
+| `.tin`     | TDT Synapse experiment info (zip)                             | 🔴             |
+| `.tnt`     | TDT block annotations                                         | 🔴             |
+| `.tsq`     | TDT global time-stamp table                                   | 🔴             |
+| `.eeg`     | BrainVision binary signal data                                | 🔴             |
+| `.vmrk`    | BrainVision marker/events                                     | 🔴             |
+| `.vhdr`    | BrainVision header                                            | 🔴             |
+| `.sev`     | TDT RS4 single-channel stream                                 | 🔴             |
 | `.sam`     | Sequence Alignment/Map (SAM) or NREL SAM simulation file      | 🔴             |
 | `.pss`     | PicoScope oscilloscope settings snapshot                      | 🔴             |
 
@@ -461,28 +461,28 @@ s3 slice is roughly **14× faster** than doing a fresh SPARC download and slice 
 | `.tiff`   | Same as `.tif`                                                 | 🟢             |
 | `.czi`    | Carl Zeiss ZEN container                                       | 🟢             |
 | `.nd2`    | Nikon NIS-Elements microscope image                            | 🟢             |
-| `.lsm`    | Zeiss laser-scanning-microscope stack                          | 🟢             |
+| `.lsm`    | Zeiss laser-scanning-microscope stack                          | 🔴             |
 | `.jpx`    | JPEG-2000 (JPX) image                                          | 🟡             |
-| `.svs`    | Aperio/Leica whole-slide image                                 | 🟢             |
-| `.ims`    | Bitplane Imaris 3-D/4-D scene                                  | 🟡             |
-| `.png`    | Portable Network Graphics (lossless)                           | 🟢             |
+| `.svs`    | Aperio/Leica whole-slide image                                 | 🔴             |
+| `.ims`    | Bitplane Imaris 3-D/4-D scene                                  | 🟢             |
+| `.png`    | Portable Network Graphics (lossless)                           | 🟡             |
 | `.jpg`    | JPEG compressed image                                          | 🟢             |
-| `.jpeg`   | Same as `.jpg`                                                 | 🟢             |
-| `.bmp`    | Windows bitmap                                                 | 🟢             |
-| `.vsi`    | Olympus virtual-slide “wrapper” file                           | 🟢             |
+| `.jpeg`   | Same as `.jpg`                                                 | 🟡             |
+| `.bmp`    | Windows bitmap                                                 | 🟡             |
+| `.vsi`    | Olympus virtual-slide “wrapper” file                           | 🟡             |
 | `.ets`    | Olympus VS series full-resolution tile set                     | 🟡             |
 | `.jp2`    | JPEG-2000 codestream                                           | 🟡             |
-| `.roi`    | ImageJ/Fiji region-of-interest set                             | 🟢             |
-| `.dm3`    | Gatan DigitalMicrograph EM image                               | 🔴             |
-| `.pxp`    | Igor Pro packed experiment (can embed images)                  | 🔴             |
-| `.ipf`    | Igor Pro procedure/data file                                   | 🔴             |
-| `.lif`    | Leica Image File (LAS X)                                       | 🟢             |
-| `.ima`    | Amira/Avizo volumetric raw image                               | 🔴             |
+| `.roi`    | ImageJ/Fiji region-of-interest set                             | 🟡             |
+| `.dm3`    | Gatan DigitalMicrograph EM image                               | 🟡             |
+| `.pxp`    | Igor Pro packed experiment (can embed images)                  | 🟡             |
+| `.ipf`    | Igor Pro procedure/data file                                   | 🟡             |
+| `.lif`    | Leica Image File (LAS X)                                       | 🟡             |
+| `.ima`    | Amira/Avizo volumetric raw image                               | 🟡             |
 | `.mrxs`   | 3DHISTECH Mirax whole-slide image                              | 🟡             |
 | `.obj`    | Wavefront 3-D mesh                                             | 🟡             |
-| `.avi`    | Uncompressed/codec AVI video (time-lapse stacks)              | 🟢             |
-| `.exf`    | Zeiss experiment file (ZEN)                                    | 🔴             |
-| `.cxd`    | Olympus cellSens dataset                                       | 🔴             |
+| `.avi`    | Uncompressed/codec AVI video (time-lapse stacks)              | 🟡             |
+| `.exf`    | Zeiss experiment file (ZEN)                                    | 🟡             |
+| `.cxd`    | Olympus cellSens dataset                                       | 🟡             |
 
 
 ---
