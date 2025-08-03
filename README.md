@@ -40,6 +40,8 @@ sparc-fuse --help
 #### Try it out on oSPARC
 <a href="https://osparc.io/#/study/06fbaa3a-6fbc-11f0-bae3-0242ac179953" target="_blank"><img src="./assets/osparc-logo.png" width="200"></a>
 
+<img src="./assets/osparc_pipeline.png" width="500">
+
 #### Or proceed locally
 ##### 0 – Clone the project
 ```python
