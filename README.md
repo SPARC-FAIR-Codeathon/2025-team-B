@@ -266,10 +266,12 @@ https://github.com/user-attachments/assets/ea2a9a06-2f75-425e-acd9-be26f2c93b7e
 * Keeps full provenance: every conversion is logged, making pipelines **fully reproducible**.
 
 ### Why it matters  
-* **Hours → seconds:** spend time on science, not format wrangling.  
-* **Interoperability out-of-the-box:** unified layout means the same loader works for every dataset.  
-* **Cloud-ready chunks:** Zarr’s design unlocks scalable, parallel analysis on HPC or S3-style storage.  
-* **FAIR boost:** data become immediately *Accessible*, *Interoperable* and *Reusable* across toolchains.
+* ✅ **Hours → seconds:** spend time on science, not format wrangling.  
+* 🔄 **Interoperability out-of-the-box:** unified layout means the same loader works for every dataset.  
+* ☁️ **Cloud-ready chunks:** Zarr’s design unlocks scalable, parallel analysis on HPC or S3-style storage.  
+* 🌐 **FAIR boost:** data become immediately *Accessible*, *Interoperable* and *Reusable* across toolchains.
+
+<img width="368" height="176" alt="fair_overview" src="https://github.com/user-attachments/assets/51a9d2e8-4bc7-4bfc-825c-ebe8ee4ffda2" />
 
 ### Supported File Formats
 
