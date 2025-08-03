@@ -2,7 +2,8 @@
 <img src="./assets/logo.png" width="1000"/>
 
 **SPARC FUSE** is an open-source “format fuse box” for the NIH SPARC ecosystem.  
-Whether you’re on the command line, in a Python notebook **or on the SPARC Portal itself**, FUSE converts the 40 + eclectic imaging & time-series formats scattered across SPARC datasets into one clean, cloud-native Zarr layout (or `.mat` / `.npz`, if you prefer).  
+
+Whether you’re on the command line, in a Python notebook or on the SPARC Portal itself, FUSE converts the **40 + eclectic imaging & time-series formats** scattered across SPARC datasets into **one clean, cloud-native Zarr layout** (or `.mat` / `.npz`, if you prefer).  
 
 * **CLI / Python API** – one call turns raw files into analysis-ready arrays that slot straight into Xarray + Dask, MATLAB, PyTorch, etc.  
 * **Browser extension** – adds a “Convert & Download” button to every dataset page so you can grab ready-to-analyze Zarr bundles without leaving your browser.  
@@ -119,9 +120,9 @@ pprint(report)
 ## ❓ Why SPARC FUSE?
 
 ### The headache  
-* SPARC hosts **40 + heterogeneous file formats** and countless sub-variants (custom internal structures) – each with its own quirks.  
+* SPARC hosts **40 + heterogeneous file formats** and **countless sub-variants** (custom internal structures) – each with its own quirks.  
 * Researchers lose precious hours hunting converters and writing glue code instead of analysing data.  
-* This format jungle breaks reproducibility and puts FAIR principles at risk.
+* This format jungle breaks reproducibility and puts **FAIR principles at risk**.
   
 <p align="center">
   <img src="./assets/file_extensions_wordcloud.png" width="800"
