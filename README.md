@@ -56,7 +56,7 @@ meta = {
     "upload_date": "2025-07-15T12:34:56Z",
     "conversion_date": "2025-08-03T10:01:22Z",
     "auto_mapped": True,
-    "doi": "10.12345/sparc.224",
+    "doi": "10.12345/sparc.1337",
     "original_file_name": "20_1021.acq",
     "sparc_subject_id": "sub-ChAT-Male-Subject-1",
     "species": "Rattus norvegicus",
