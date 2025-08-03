@@ -398,15 +398,15 @@ https://github.com/user-attachments/assets/c82d8ee8-387e-4bda-bf96-e3b8642fc191
 
 ### ⏱ s3 slice speedup vs SPARC download & slice
 
-s3 slice is roughly **14× faster** than doing a fresh SPARC download+convert+slice for the same data slice.
+s3 slice is roughly **14× faster** than doing a fresh SPARC download and slice for the same data slice.
 
 <p align="center">
-  <img width="500" alt="Bar chart: SPARC download+slice (~9.8s) vs s3 slice (~0.7s), showing ~14x speedup." src="https://github.com/user-attachments/assets/dbf758fd-7185-4666-92b6-15185b8b2d58" />
+<img width="500" alt="performance_comparison" src="https://github.com/user-attachments/assets/48afa09b-b9d0-4889-825c-d10364ca75bc" />
 <br/>
-        <sub><em><strong>Figure&nbsp;7.</strong> </em> Latency comparison for SPARC download+slice (~9.8s) vs s3 slice (~0.7s), showing ~14x speedup.</sub>
+        <sub><em><strong>Figure&nbsp;7.</strong> </em> Latency comparison for SPARC download & slice (~9.8s) vs s3 slice (~0.7s), showing ~14x speedup.</sub>
 </p>
 
----
+---x1x
 
 ## Supported File Formats
 ### Time-series formats
