@@ -483,5 +483,51 @@ s3 slice is roughly **14× faster** than doing a fresh SPARC download and slice 
 
 ---
 
+## Tested Single File and Bulk Conversion
+
+| Dataset ID | Type        | Source Format(s)                 | Success |
+|------------|-------------|----------------------------------|---------|
+| 108        | Time Series | `.csv`                           | ✅      |
+| 126        | Time Series | `.acq`                           | ✅      |
+| 142        | Time Series | `.csv`                           | ✅      |
+| 148        | Time Series | `.acq`                           | ✅      |
+| 149        | Time Series | `.smr`                           | ✅      |
+| 150        | Time Series | `.smr`                           | ✅      |
+| 224        | Time Series | `.acq`                           | ✅      |
+| 297        | Time Series | `.abf`                           | ✅      |
+| 301        | Time Series | `.csv`                           | ✅      |
+| 305        | Time Series | `.csv`                           | ✅      |
+| 309        | Time Series | `.mat`                           | ✅      |
+| 310        | Time Series | `.mat`                           | ✅      |
+| 315        | Time Series | `.smrx`                          | ✅      |
+| 316        | Time Series | `.rhd`                           | ✅      |
+| 323        | Time Series | `.csv`                           | ✅      |
+| 327        | Time Series | `.mat`                           | ✅      |
+| 338        | Time Series | `.smrx`                          | ✅      |
+| 349        | Time Series | `.hdf5`                          | ✅      |
+| 350        | Time Series | `.csv`                           | ✅      |
+| 351        | Time Series | `.csv`                           | ✅      |
+| 357        | Time Series | `.mat`                           | ✅      |
+| 375        | Time Series | `.mat`                           | ✅      |
+| 376        | Time Series | `.mat`                           | ✅      |
+| 378        | Time Series | `.adicht`, `.adidat`, `.adidatx` | ✅      |
+| 380        | Time Series | `.hdf5`                          | ✅      |
+| 391        | Time Series | `.hdf5`                          | ✅      |
+| 400        | Time Series | `.adi`, `.mat`                   | ✅      |
+| 406        | Time Series | `.dat`, `.wav`                   | ✅      |
+| 425        | Time Series | `.csv`                           | ✅      |
+| 435        | Time Series | `.abf`                           | ✅      |
+| 436        | Time Series | `.ns5`                           | ✅      |
+| 117        | Imaging     | `.rhd`                           | ✅      |
+| 65         | Imaging     | `.nd2`, `.tif`                   | ✅      |
+| 132        | Imaging     | `.ima`                           | ✅      |
+| 187        | Imaging     | `.jpg`                           | ✅      |
+| 290        | Imaging     | `.tif`                           | ✅      |
+| 296        | Imaging     | `.ims`                           | ✅      |
+
+
+
+---
+
 ## CRediT
 **Max Haberbusch:** Conceptualization, Data curation, Formal Analysis, Investigation, Methodology, Software, Supervision, Validation, Visualization, Writing – original draft, Writing – review & editing; **David Lung:** Data curation, Formal Analysis, Investigation, Methodology, Software, Validation, Visualization, Writing – review & editing; **Philipp Heute:** Investigation, Software, Validation, Visualization, Writing – original draft, Writing – review & editing; **Sebastian Hochreiter:** Investigation, Software, Validation, Writing – review & editing; **Laurenz Berger:** Validation, Writing – review & editing
