@@ -61,11 +61,7 @@ meta = {
     "doi": "10.12345/sparc.1337",
     "original_file_name": "20_1021.acq",
     "sparc_subject_id": "sub-ChAT-Male-Subject-1",
-    "species": "Rattus norvegicus",
     "anatomical_location": "vagus nerve",
-    "modality": "electrophysiology",
-    "experimenter": ["Dr. Jane Doe"],
-    "institution": "NeuroTech Institute",
     "sweep_mode": False,
     "notes": "Mapped using SPARC FUSE"
 }
