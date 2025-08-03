@@ -323,9 +323,7 @@ print(f"Subset load time: {elapsed:.3f} s")
 
 https://github.com/user-attachments/assets/3bf3f012-238a-4456-9a0a-5c84867368d5
 
-**Took only 0.7s to load the 100,000 time points from s3**
-
-
+⏳ Took only **0.7s** to load the **100,000 time points** from s3.
 
 #### Get SPARC Metdata from zarr
 
@@ -336,7 +334,11 @@ print(json.dumps(metadata['sparc_metadata'], indent=2))
 ```
 
 
-### ⏱ s3 slice speedup vs SPARC download+slice
+https://github.com/user-attachments/assets/c82d8ee8-387e-4bda-bf96-e3b8642fc191
+
+
+
+### ⏱ s3 slice speedup vs SPARC download & slice
 
 s3 slice is roughly **14× faster** than doing a fresh SPARC download+convert+slice for the same data slice.
 
