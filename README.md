@@ -156,6 +156,7 @@ pprint(report)
 * **FAIR boost:** data become immediately *Accessible*, *Interoperable* and *Reusable* across toolchains.
 
  <p align="center">
+  <b>SPARC-FUSE: One file format to unite them all</b>
   <img src="./assets/artwork.png" width="800" alt="artowrk"><br/>
  </p>
  
