@@ -81,6 +81,7 @@ sparc-fuse --help
 ### Use as a Python library
 
 #### Try it out on oSPARC
+
 <a href="https://osparc.io/#/study/06fbaa3a-6fbc-11f0-bae3-0242ac179953" target="_blank">
 <img width="300" alt="run on osparc" src="https://github.com/user-attachments/assets/b4a33704-7742-4cb8-9509-a96aef57271c" />
 </a>
@@ -385,7 +386,7 @@ print(f"Subset load time: {elapsed:.3f} s")
 
 https://github.com/user-attachments/assets/3bf3f012-238a-4456-9a0a-5c84867368d5
 
-> ⏳ Took only **0.3s** to load the **100,000 time points** from s3.
+> ⏳ Took only **0.3 s** to load the **100,000 time points** from s3.
 
 #### Get SPARC Metdata from zarr
 
