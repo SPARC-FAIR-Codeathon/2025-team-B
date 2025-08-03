@@ -71,7 +71,7 @@ https://github.com/user-attachments/assets/1b54a944-55aa-4a29-a013-b7ee97acf08c
 sparc-fuse --help
 ```
 
-<img width="1000" alt="sparc_fuse_terminal_help" src="https://github.com/user-attachments/assets/b56226dd-3276-48e8-ad9c-df94a14f87s3" />
+<img width="1000" alt="sparc-fuse --help" src="https://github.com/user-attachments/assets/ed0e750b-25da-4079-aef4-91ae86179843" />
 
 ---
 
