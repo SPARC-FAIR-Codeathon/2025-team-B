@@ -276,7 +276,7 @@ def download_and_convert_entire_dataset():
         if r["status"] == "ok":
             result_paths.append(r["std_path"])
         elif r["status"] == "unsupported":
-            print(f"unsupported {r["rel_path"]}")
+            print(f"unsupported {r['rel_path']}")
             if not add_unsupported:
                 unsupported_files.append(r["rel_path"])
                 continue
