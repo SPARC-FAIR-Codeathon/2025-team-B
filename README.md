@@ -287,10 +287,7 @@ generate_and_upload_manifest(DATASET_ID, BUCKET, XARRAY_ZARR, REGION)
 print("✅ Preparation complete.")
 ```
 
-<p align="center">
-  <img src="./assets/demo_dataset_structure.png" width="1000" alt="Dataset structure from cloud-hosted Zarr">
-    <sub><em><strong>Figure&nbsp;4.</strong> </em> Xarray dataset loaded directly from S3 (metadata view)</sub>
-</p>
+<img width="951" height="76" alt="prepare_S3_bucket" src="https://github.com/user-attachments/assets/269cd88b-bf29-409a-afc7-ad2bc7301ff2" />
 
 <p align="center">
   <img src="./assets/demo_s3_objects.png" width="1000" alt="S3 bucket contents">
