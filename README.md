@@ -252,6 +252,8 @@ https://github.com/user-attachments/assets/ea2a9a06-2f75-425e-acd9-be26f2c93b7e
 ### The cure  
 * **SPARC FUSE** automatically remaps *any* supported file (time-series & imaging) into a **uniform, chunked Zarr store**<br>
   – optionally also `.mat`, or `.npz`, for legacy tools.
+
+✅ Currently, out of the box, **SPARC FUSE supports over 82% of all imaging and time-series file types** found in public SPARC datasets.
   
 <p align="center">
   <img src="./assets/sparc_fuse_overview.png" width="600"
