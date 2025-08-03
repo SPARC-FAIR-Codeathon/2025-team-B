@@ -87,6 +87,8 @@ sparc-fuse --help
 
 <!--<img src="./assets/osparc_pipeline.png" width="500">-->
 
+<img width="1000" alt="oSPARC_modules" src="https://github.com/user-attachments/assets/c5222c37-c3d9-419b-922c-64e090ab95f8" />
+
 >💡 **Note:** You will have to run the install_sparc_fuse.ipnyb notebook to install all dependencies before working with sparc-fuse
 
 #### Or proceed locally
