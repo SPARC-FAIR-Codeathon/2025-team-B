@@ -136,7 +136,7 @@ pprint(report)
 
 ### The cure  
 * **SPARC FUSE** automatically remaps *any* supported file (time-series & imaging) into a **uniform, chunked Zarr store**<br>
-  – optionally also `.mat`, `.npz`, or zipped Zarr for legacy tools.
+  – optionally also `.mat`, or `.npz`, for legacy tools.
   
 <p align="center">
   <img src="./assets/sparc_fuse_overview.png" width="600"
