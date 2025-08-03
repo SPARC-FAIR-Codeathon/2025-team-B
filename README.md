@@ -299,6 +299,8 @@ print("✅ Preparation complete.")
 
 ### 📋 Consume Data
 
+#### Load 100,000 time points and plot
+
 ```python
 from sparc_fuse_core import open_zarr_from_s3
 import time
@@ -308,7 +310,7 @@ import matplotlib.pyplot as plt
 ds = open_zarr_from_s3(bucket="sparc-fuse-demo-ab-2025", zarr_path="20_1021_std_xarray.zarr")
 print(ds)  # Immediately available metadata, lazy data loading
 
-# Example: load a subset of channel 1 for the first 100,000 timepoints
+# Example: load a subset of channel 1 for the first 100,000 time points
 start = time.perf_counter()
 subset_ch1 = ds["signals"].sel(channel=1).isel(time=slice(0, 100000)).load()
 elapsed = time.perf_counter() - start
@@ -319,8 +321,19 @@ plt.xlabel("Time"), plt.ylabel("CH1"), plt.tight_layout(), plt.show()
 print(f"Subset load time: {elapsed:.3f} s")
 ```
 
-
 https://github.com/user-attachments/assets/3bf3f012-238a-4456-9a0a-5c84867368d5
+
+**Took only 0.7s to load the 100,000 time points from s3**
+
+
+
+#### Get SPARC Metdata from zarr
+
+```python
+z = open_zarr_from_s3(BUCKET, XARRAY_ZARR, region="eu-north-1")
+metadata = dict(z.attrs)
+print(json.dumps(metadata['sparc_metadata'], indent=2))
+```
 
 
 ### ⏱ s3 slice speedup vs SPARC download+slice
