@@ -414,72 +414,76 @@ s3 slice is roughly **14× faster** than doing a fresh SPARC download and slice 
 ---
 
 ## Supported File Formats
-### Time-series formats
 
+### Format Support Legend
+- 🟢 Fully supported and tested
+- 🟡 Expected to work via auto-mapping or heuristic parsing
+- 🔴 Not yet supported
 
-| Extension  | Description |
-|------------|-------------|
-| `.mat`     | MathWorks MATLAB file |
-| `.smr`     | CED Spike2 binary recording |
-| `.csv`     | Comma-separated values text (generic) |
-| `.adicht`  | ADInstruments LabChart binary trace |
-| `.hdf5`    | Hierarchical Data Format v5 container |
-| `.h5`      | Same as `.hdf5` |
-| `.ets`     | TDT electrophysiology time-series block |
-| `.abf`     | Molecular Devices Axon Binary File (pClamp) |
-| `.rhd`     | Intan RHD2000 amplifier data |
-| `.nev`     | Blackrock NeuroPort event file |
-| `.ns5`     | Blackrock continuous 30 kHz signal |
-| `.ns2`     | Blackrock 1 kHz LFP signal |
-| `.ns1`     | Blackrock low-rate summary signal |
-| `.smrx`    | CED Spike2 v9+ extended recording |
-| `.wav`     | Waveform audio (PCM) |
-| `.acq`     | AxoScope raw acquisition |
-| `.tbk`     | TDT DataTank “block” metadata |
-| `.tdx`     | TDT DataTank index (time-stamp) |
-| `.tev`     | TDT event / continuous data stream |
-| `.tin`     | TDT Synapse experiment info (zip) |
-| `.tnt`     | TDT block annotations |
-| `.tsq`     | TDT global time-stamp table |
-| `.eeg`     | BrainVision binary signal data |
-| `.vmrk`    | BrainVision marker/events |
-| `.vhdr`    | BrainVision header |
-| `.sev`     | TDT RS4 single-channel stream |
-| `.sam`     | Sequence Alignment/Map (SAM) or NREL SAM simulation file |
-| `.pss`     | PicoScope oscilloscope settings snapshot |
+### Time-Series Formats
 
----
+| Extension  | Description                                                   | Support Status |
+|------------|---------------------------------------------------------------|----------------|
+| `.mat`     | MathWorks MATLAB file                                         | 🟢             |
+| `.smr`     | CED Spike2 binary recording                                   | 🟡             |
+| `.csv`     | Comma-separated values text (generic)                         | 🟢             |
+| `.adicht`  | ADInstruments LabChart binary trace                           | 🟡             |
+| `.hdf5`    | Hierarchical Data Format v5 container                         | 🟢             |
+| `.h5`      | Same as `.hdf5`                                               | 🟢             |
+| `.ets`     | TDT electrophysiology time-series block                       | 🟡             |
+| `.abf`     | Molecular Devices Axon Binary File (pClamp)                   | 🟢             |
+| `.rhd`     | Intan RHD2000 amplifier data                                  | 🟢             |
+| `.nev`     | Blackrock NeuroPort event file                                | 🟢             |
+| `.ns5`     | Blackrock continuous 30 kHz signal                             | 🟢             |
+| `.ns2`     | Blackrock 1 kHz LFP signal                                     | 🟢             |
+| `.ns1`     | Blackrock low-rate summary signal                             | 🟢             |
+| `.smrx`    | CED Spike2 v9+ extended recording                             | 🔴             |
+| `.wav`     | Waveform audio (PCM)                                          | 🟢             |
+| `.acq`     | AxoScope raw acquisition                                      | 🔴             |
+| `.tbk`     | TDT DataTank “block” metadata                                 | 🟡             |
+| `.tdx`     | TDT DataTank index (time-stamp)                               | 🟡             |
+| `.tev`     | TDT event / continuous data stream                            | 🟡             |
+| `.tin`     | TDT Synapse experiment info (zip)                             | 🟡             |
+| `.tnt`     | TDT block annotations                                         | 🟡             |
+| `.tsq`     | TDT global time-stamp table                                   | 🟡             |
+| `.eeg`     | BrainVision binary signal data                                | 🟢             |
+| `.vmrk`    | BrainVision marker/events                                     | 🟢             |
+| `.vhdr`    | BrainVision header                                            | 🟢             |
+| `.sev`     | TDT RS4 single-channel stream                                 | 🟡             |
+| `.sam`     | Sequence Alignment/Map (SAM) or NREL SAM simulation file      | 🔴             |
+| `.pss`     | PicoScope oscilloscope settings snapshot                      | 🔴             |
 
-### Imaging formats
+### Imaging Formats
 
-| Extension | Description |
-|-----------|-------------|
-| `.tif`    | Tagged Image File Format (high-bit-depth microscopy) |
-| `.tiff`   | Same as `.tif` |
-| `.czi`    | Carl Zeiss ZEN container |
-| `.nd2`    | Nikon NIS-Elements microscope image |
-| `.lsm`    | Zeiss laser-scanning-microscope stack |
-| `.jpx`    | JPEG-2000 (JPX) image |
-| `.svs`    | Aperio/Leica whole-slide image |
-| `.ims`    | Bitplane Imaris 3-D/4-D scene |
-| `.png`    | Portable Network Graphics (lossless) |
-| `.jpg`    | JPEG compressed image |
-| `.jpeg`   | Same as `.jpg` |
-| `.bmp`    | Windows bitmap |
-| `.vsi`    | Olympus virtual-slide “wrapper” file |
-| `.ets`    | Olympus VS series full-resolution tile set |
-| `.jp2`    | JPEG-2000 codestream |
-| `.roi`    | ImageJ/Fiji region-of-interest set |
-| `.dm3`    | Gatan DigitalMicrograph EM image |
-| `.pxp`    | Igor Pro packed experiment (can embed images) |
-| `.ipf`    | Igor Pro procedure/data file |
-| `.lif`    | Leica Image File (LAS X) |
-| `.ima`    | Amira/Avizo volumetric raw image |
-| `.mrxs`   | 3DHISTECH Mirax whole-slide image |
-| `.obj`    | Wavefront 3-D mesh |
-| `.avi`    | Uncompressed/codec AVI video (time-lapse stacks) |
-| `.exf`    | Zeiss experiment file (ZEN) |
-| `.cxd`    | Olympus cellSens dataset |
+| Extension | Description                                                    | Support Status |
+|-----------|----------------------------------------------------------------|----------------|
+| `.tif`    | Tagged Image File Format (high-bit-depth microscopy)           | 🟢             |
+| `.tiff`   | Same as `.tif`                                                 | 🟢             |
+| `.czi`    | Carl Zeiss ZEN container                                       | 🟢             |
+| `.nd2`    | Nikon NIS-Elements microscope image                            | 🟢             |
+| `.lsm`    | Zeiss laser-scanning-microscope stack                          | 🟢             |
+| `.jpx`    | JPEG-2000 (JPX) image                                          | 🟡             |
+| `.svs`    | Aperio/Leica whole-slide image                                 | 🟢             |
+| `.ims`    | Bitplane Imaris 3-D/4-D scene                                  | 🟡             |
+| `.png`    | Portable Network Graphics (lossless)                           | 🟢             |
+| `.jpg`    | JPEG compressed image                                          | 🟢             |
+| `.jpeg`   | Same as `.jpg`                                                 | 🟢             |
+| `.bmp`    | Windows bitmap                                                 | 🟢             |
+| `.vsi`    | Olympus virtual-slide “wrapper” file                           | 🟢             |
+| `.ets`    | Olympus VS series full-resolution tile set                     | 🟡             |
+| `.jp2`    | JPEG-2000 codestream                                           | 🟡             |
+| `.roi`    | ImageJ/Fiji region-of-interest set                             | 🟢             |
+| `.dm3`    | Gatan DigitalMicrograph EM image                               | 🔴             |
+| `.pxp`    | Igor Pro packed experiment (can embed images)                  | 🔴             |
+| `.ipf`    | Igor Pro procedure/data file                                   | 🔴             |
+| `.lif`    | Leica Image File (LAS X)                                       | 🟢             |
+| `.ima`    | Amira/Avizo volumetric raw image                               | 🔴             |
+| `.mrxs`   | 3DHISTECH Mirax whole-slide image                              | 🟡             |
+| `.obj`    | Wavefront 3-D mesh                                             | 🟡             |
+| `.avi`    | Uncompressed/codec AVI video (time-lapse stacks)              | 🟢             |
+| `.exf`    | Zeiss experiment file (ZEN)                                    | 🔴             |
+| `.cxd`    | Olympus cellSens dataset                                       | 🔴             |
+
 
 ---
 
@@ -487,43 +491,44 @@ s3 slice is roughly **14× faster** than doing a fresh SPARC download and slice 
 
 | Dataset ID | Type        | Source Format(s)                 | Success |
 |------------|-------------|----------------------------------|---------|
-| 108        | Time Series | `.csv`                           | ✅      |
-| 126        | Time Series | `.acq`                           | ✅      |
-| 142        | Time Series | `.csv`                           | ✅      |
-| 148        | Time Series | `.acq`                           | ✅      |
-| 149        | Time Series | `.smr`                           | ✅      |
-| 150        | Time Series | `.smr`                           | ✅      |
-| 224        | Time Series | `.acq`                           | ✅      |
-| 297        | Time Series | `.abf`                           | ✅      |
-| 301        | Time Series | `.csv`                           | ✅      |
-| 305        | Time Series | `.csv`                           | ✅      |
-| 309        | Time Series | `.mat`                           | ✅      |
-| 310        | Time Series | `.mat`                           | ✅      |
-| 315        | Time Series | `.smrx`                          | ✅      |
-| 316        | Time Series | `.rhd`                           | ✅      |
-| 323        | Time Series | `.csv`                           | ✅      |
-| 327        | Time Series | `.mat`                           | ✅      |
-| 338        | Time Series | `.smrx`                          | ✅      |
-| 349        | Time Series | `.hdf5`                          | ✅      |
-| 350        | Time Series | `.csv`                           | ✅      |
-| 351        | Time Series | `.csv`                           | ✅      |
-| 357        | Time Series | `.mat`                           | ✅      |
-| 375        | Time Series | `.mat`                           | ✅      |
-| 376        | Time Series | `.mat`                           | ✅      |
-| 378        | Time Series | `.adicht`, `.adidat`, `.adidatx` | ✅      |
-| 380        | Time Series | `.hdf5`                          | ✅      |
-| 391        | Time Series | `.hdf5`                          | ✅      |
-| 400        | Time Series | `.adi`, `.mat`                   | ✅      |
-| 406        | Time Series | `.dat`, `.wav`                   | ✅      |
-| 425        | Time Series | `.csv`                           | ✅      |
-| 435        | Time Series | `.abf`                           | ✅      |
-| 436        | Time Series | `.ns5`                           | ✅      |
-| 117        | Imaging     | `.rhd`                           | ✅      |
-| 65         | Imaging     | `.nd2`, `.tif`                   | ✅      |
-| 132        | Imaging     | `.ima`                           | ✅      |
-| 187        | Imaging     | `.jpg`                           | ✅      |
-| 290        | Imaging     | `.tif`                           | ✅      |
-| 296        | Imaging     | `.ims`                           | ✅      |
+| [108](https://sparc.science/datasets/108) | Time Series | `.csv`                           | ✅      |
+| [126](https://sparc.science/datasets/126) | Time Series | `.acq`                           | ✅      |
+| [142](https://sparc.science/datasets/142) | Time Series | `.csv`                           | ✅      |
+| [148](https://sparc.science/datasets/148) | Time Series | `.acq`                           | ✅      |
+| [149](https://sparc.science/datasets/149) | Time Series | `.smr`                           | ✅      |
+| [150](https://sparc.science/datasets/150) | Time Series | `.smr`                           | ✅      |
+| [224](https://sparc.science/datasets/224) | Time Series | `.acq`                           | ✅      |
+| [297](https://sparc.science/datasets/297) | Time Series | `.abf`                           | ✅      |
+| [301](https://sparc.science/datasets/301) | Time Series | `.csv`                           | ✅      |
+| [305](https://sparc.science/datasets/305) | Time Series | `.csv`                           | ✅      |
+| [309](https://sparc.science/datasets/309) | Time Series | `.mat`                           | ✅      |
+| [310](https://sparc.science/datasets/310) | Time Series | `.mat`                           | ✅      |
+| [315](https://sparc.science/datasets/315) | Time Series | `.smrx`                          | ✅      |
+| [316](https://sparc.science/datasets/316) | Time Series | `.rhd`                           | ✅      |
+| [323](https://sparc.science/datasets/323) | Time Series | `.csv`                           | ✅      |
+| [327](https://sparc.science/datasets/327) | Time Series | `.mat`                           | ✅      |
+| [338](https://sparc.science/datasets/338) | Time Series | `.smrx`                          | ✅      |
+| [349](https://sparc.science/datasets/349) | Time Series | `.hdf5`                          | ✅      |
+| [350](https://sparc.science/datasets/350) | Time Series | `.csv`                           | ✅      |
+| [351](https://sparc.science/datasets/351) | Time Series | `.csv`                           | ✅      |
+| [357](https://sparc.science/datasets/357) | Time Series | `.mat`                           | ✅      |
+| [375](https://sparc.science/datasets/375) | Time Series | `.mat`                           | ✅      |
+| [376](https://sparc.science/datasets/376) | Time Series | `.mat`                           | ✅      |
+| [378](https://sparc.science/datasets/378) | Time Series | `.adicht`, `.adidat`, `.adidatx` | ✅      |
+| [380](https://sparc.science/datasets/380) | Time Series | `.hdf5`                          | ✅      |
+| [391](https://sparc.science/datasets/391) | Time Series | `.hdf5`                          | ✅      |
+| [400](https://sparc.science/datasets/400) | Time Series | `.adi`, `.mat`                   | ✅      |
+| [406](https://sparc.science/datasets/406) | Time Series | `.dat`, `.wav`                   | ✅      |
+| [425](https://sparc.science/datasets/425) | Time Series | `.csv`                           | ✅      |
+| [435](https://sparc.science/datasets/435) | Time Series | `.abf`                           | ✅      |
+| [436](https://sparc.science/datasets/436) | Time Series | `.ns5`                           | ✅      |
+| [117](https://sparc.science/datasets/117) | Imaging     | `.rhd`                           | ✅      |
+| [65](https://sparc.science/datasets/65)   | Imaging     | `.nd2`, `.tif`                   | ✅      |
+| [132](https://sparc.science/datasets/132) | Imaging     | `.ima`                           | ✅      |
+| [187](https://sparc.science/datasets/187) | Imaging     | `.jpg`                           | ✅      |
+| [290](https://sparc.science/datasets/290) | Imaging     | `.tif`                           | ✅      |
+| [296](https://sparc.science/datasets/296) | Imaging     | `.ims`                           | ✅      |
+
 
 
 
