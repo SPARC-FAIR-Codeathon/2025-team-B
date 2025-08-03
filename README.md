@@ -68,7 +68,7 @@ meta = {
     "notes": "Mapped using SPARC FUSE"
 }
 ```
-> 💡 This metadata is embedded directly into .zarr attributes or stored alongside .mat / .npz files. Every export is fully self-describing and ready for downstream use or publication.
+> 💡 This metadata is embedded directly into .zarr attributes or stored as structure / dictionary in .mat / .npz files. Every export is fully self-describing and ready for downstream use or publication.
 
 ### 🧠 Smart Mapping with Confidence Scoring
 
