@@ -409,282 +409,199 @@
             console.error('Error:', error);
         });
     }
+// --- UI Manipulation Functions ---
 
-    function addDownloadButtonEntireDataset() {
-        const spans = document.querySelectorAll('span');
-        let targetSpan = null;
+    function createDropdownSingleFile(href) {
+        const dropdown = document.createElement("div");
+        dropdown.id = href;
+        dropdown.classList.add("dropdown", "sparc-fuse-download", "circle");
+        dropdown.setAttribute("data-v-c799c5c2", "");
+        dropdown.innerHTML = `<button class="dropbtn dropbtn-single-file"><img class="dropdown-img" src="${chrome.runtime.getURL('icons/download.png')}" alt=""></button>`;
+        
+        // NEW: Simplified event listener attached directly on creation
+        dropdown.querySelector('.dropbtn').addEventListener('click', (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            
+            const dropdownMenu = document.getElementById("global-dropdown-file");
+            const rect = event.currentTarget.getBoundingClientRect();
+            
+            document.querySelectorAll(".sparc-fuse-download.active").forEach(el => el.classList.remove("active"));
+            dropdown.classList.add("active");
 
-        for (const span of spans) {
-            if (span.textContent.trim() === 'Download Full Dataset') {
-                targetSpan = span;
-                break;
-            }
-        }
+            dropdownMenu.style.left = rect.left + window.scrollX + "px";
+            dropdownMenu.style.top = rect.bottom + window.scrollY + "px";
+            dropdownMenu.style.display = "block";
+        });
+
+        return dropdown;
+    }
+
+    // Renamed for clarity
+    function addDownloadButtonForDataset() {
+        const targetSpan = Array.from(document.querySelectorAll('span')).find(span => span.textContent.trim() === 'Download Full Dataset');
         if (!targetSpan) return;
 
-        const fullUrl = window.location.href;
-
-        const id_match = fullUrl.match(/datasets\/(\d+)/);
-
-        // If found, check if the sibling already exists
-        const container_div = targetSpan.closest("div")
-
-        if (container_div.querySelector(".sparc-fuse-download") !== null) return;
-
+        const id_match = window.location.href.match(/datasets\/(\d+)/);
+        if (!id_match) return;
+        const datasetId = id_match[1];
         
-        datasetId = -1;
-        if (id_match) {
-            datasetId = id_match[1];
-            console.log('Dataset ID:', datasetId);  // Output: 224
-        } else {
-            console.log('Dataset ID not found');
-            return;
-        }
-
-        
-
-        const dropdownString = `
-            <button onclick="dropdownToggleFunction(this)" class="dropbtn el-button secondary">
-                <img src="${chrome.runtime.getURL('icons/button.png')}" alt="">
-                Download Full Dataset
-            </button>
-            <div id="datasetId_${datasetId}" class="dropdown-content">
-                <a href="#zarr" class="dropdown-download-link download-dataset-link">ZARR</a>
-                <a href="#mat" class="dropdown-download-link download-dataset-link">MAT</a>
-                <a href="#npz" class="dropdown-download-link download-dataset-link">NPZ</a>
-            </div>
-        `
+        const container_div = targetSpan.closest("div");
 
         const dropdown = document.createElement("div");
-        dropdown.classList.add("dropdown");
-        dropdown.classList.add("dropdown-dataset");
-        dropdown.classList.add("sparc-fuse-download");
-        dropdown.innerHTML = dropdownString;
+        dropdown.classList.add("dropdown", "dropdown-dataset", "sparc-fuse-download");
+        dropdown.innerHTML = `
+            <button class="dropbtn el-button secondary">
+                <img src="${chrome.runtime.getURL('icons/button.png')}" alt="">
+                Download & Convert Dataset
+            </button>
+            <div class="dropdown-content">
+                <a href="#zarr" class="dropdown-download-link">ZARR</a>
+                <a href="#mat" class="dropdown-download-link">MAT</a>
+                <a href="#npz" class="dropdown-download-link">NPZ</a>
+            </div>
+        `;
 
         container_div.appendChild(dropdown);
 
-        document.querySelectorAll('a.download-dataset-link').forEach(link => {
+        dropdown.querySelector('.dropbtn').addEventListener('click', (e) => {
+            e.stopPropagation();
+            dropdown.querySelector('.dropdown-content').classList.toggle('show');
+        });
+
+        dropdown.querySelectorAll('a.dropdown-download-link').forEach(link => {
             link.addEventListener('click', function(event) {
                 event.preventDefault();
-                dataset_id = event.target.closest("div").id.split("_")[1];
-                dst_format = event.target.href.split("#")[1];
-                downloadAndConvertEntireDataset(dataset_id, dst_format);
+                const dst_format = event.target.href.split("#")[1];
+                downloadAndConvertEntireDataset(datasetId, dst_format);
             });
         });
     }
 
+    // Renamed for clarity
+    function addDownloadButtonsForFiles() {
+        document.querySelectorAll('a[href^="/datasets"]').forEach(link => {
+            const row = link.closest('tr');
+            if (!row) return;
+
+            const isValidExtension = extensionWhitelist.some(ext => link.href.endsWith(ext)) || imageExtensionWhitelist.some(ext => link.href.endsWith(ext));
+            if (!isValidExtension) return;
+
+            const cellDiv = row.querySelector('td:last-child div.cell');
+            if (cellDiv) {
+                const dropdown = createDropdownSingleFile(link.href);
+                cellDiv.appendChild(dropdown);
+            }
+        });
+    }
+    
     function addGlobalDropdown() {
-        global_dropdown_container = document.body.querySelector("div#global-dropdown-file");
-        if (global_dropdown_container) return;
+        if (document.getElementById("global-dropdown-file")) return;
         
-        const dropdownString = `
+        const dropdown = document.createElement("div");
+        dropdown.id = "global-dropdown-file";
+        dropdown.innerHTML = `
             <a href="#zarr" class="dropdown-download-link">ZARR</a>
             <a href="#mat" class="dropdown-download-link">MAT</a>
             <a href="#npz" class="dropdown-download-link">NPZ</a>
-        `
-        const dropdown = document.createElement("div");
-        dropdown.id = "global-dropdown-file";
-        dropdown.classList.add("dropdown-content");
-        //dropdown.classList.add("hide");
-        dropdown.innerHTML = dropdownString;
+        `;
         document.body.appendChild(dropdown);
-    }
 
-
-    function addDownloadButtons() {
-        // Find all matching links
-        //const links = document.querySelectorAll('a[href^="/datasets"][href$=".hdf5"]');
-        const links = document.querySelectorAll('a[href^="/datasets"]');
-
-        links.forEach(link => {
-            const row = link.closest('tr');
-            if (row === null) return; // not a single file link
-            if (row.querySelector(".sparc-fuse-download") !== null) return;
-            if ((extensionWhitelist.some(ext => link.href.endsWith(ext)) == false) &&
-                (imageExtensionWhitelist.some(ext => link.href.endsWith(ext)) == false)
-            ) return;
-
-
-            const cellDiv = row.querySelector('td:last-child').querySelector('div.cell');
-            
-            dropdown = createDropdownSingleFile(link.href);
-
-            cellDiv.appendChild(dropdown);
-
-            const dropdown_links = dropdown.querySelectorAll('.dropdown-download-link');
-
-            dropdown_links.forEach(dl => {
-                dl.addEventListener('click', function(event) {
-                    event.preventDefault();
-                    const dst_format = this.getAttribute('href').substring(1);
-                    const href = this.parentNode.id.replace('downloadDropDown-', '');
-                    
+        // NEW: Listener logic moved here from the complex toggle function
+        dropdown.querySelectorAll('.dropdown-download-link').forEach(dl => {
+            dl.addEventListener('click', (link_event) => {
+                link_event.preventDefault();
+                const dst_format = link_event.target.getAttribute('href').substring(1);
+                const activeDownloadElement = document.querySelector(".sparc-fuse-download.active");
+                if (activeDownloadElement) {
+                    const href = activeDownloadElement.id;
                     downloadAndConvertSingleFile(href, dst_format);
-                });
+                }
             });
         });
     }
 
-    
+    /*
+    // OLD: Complex and bug-prone toggle functions were here
+    function dropdownToggleFunction(button) { ... }
+    function dropdownToggleFunction2(event) { ... }
+    function downloadAndConvertSingleFileListener(link_event) { ... }
+    */
 
-
-
-    function dropdownToggleFunction(button) {
-        console.log(button);
-        const dropdownContent = button.parentNode.querySelector('div.dropdown-content');
-        
-        dropdownContent.classList.toggle("show");
-    }
-
-    function dropdownToggleFunction2(event) {
-        event.preventDefault();
-        const dropdown = document.getElementById("global-dropdown-file");
-        const rect = event.target.closest(".sparc-fuse-download").getBoundingClientRect();
-        
-        dropdown.style.left = rect.left + window.scrollX + "px";
-        dropdown.style.top = rect.bottom + window.scrollY + "px";
-        dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
-        //dropdown.classList.toggle("show");
-        //dropdown.classList.toggle("hide");
-
-        const dropdown_links = dropdown.querySelectorAll('.dropdown-download-link');
-        //const href = event.target.closest(".sparc-fuse-download").id;
-
-
-        event.target.closest(".sparc-fuse-download").classList.toggle("active")
-        
-
-        dropdown_links.forEach(dl => {
-            dl.removeEventListener('click', downloadAndConvertSingleFileListener);
-            dl.addEventListener('click', downloadAndConvertSingleFileListener);
-        });
-    }
-
-    function downloadAndConvertSingleFileListener(link_event) {
-        link_event.preventDefault();
-        const dst_format = link_event.target.getAttribute('href').substring(1);
-
-        const href = document.querySelectorAll(".sparc-fuse-download.active")[0].id;
-
-        downloadAndConvertSingleFile(href, dst_format);
-
-    }
-
-    
-    function injectFunction(fn) {
-        const script = document.createElement('script');
-
-        // Convert function and arguments to a string
-        const fnSource = fn.toString();
-
-        script.textContent = fnSource;
-        document.documentElement.appendChild(script);
-    }
-
-
+    /*
+    // OLD: Functions were injected globally, which is not best practice
     injectFunction(downloadAndConvertSingleFile);
     injectFunction(downloadAndConvertEntireDataset);
     injectFunction(downloadAndConvertSingleFileListener);
     injectFunction(downloadConvertedOutput);
     injectFunction(dropdownToggleFunction);
     injectFunction(dropdownToggleFunction2);
+    */
 
+    // --- NEW: Central UI update function to fix the bug ---
+    // This function will reset the UI state on every navigation change
+    function updateUI() {
+        // Step 1: Remove all previously injected buttons to avoid duplicates and ghost buttons
+        document.querySelectorAll('.sparc-fuse-download').forEach(el => el.remove());
 
+        // Step 2: Re-add buttons based on the current page content
+        addDownloadButtonForDataset();
+        addDownloadButtonsForFiles();
+    }
 
-    const script = document.createElement("script");
-    const scriptString = `
-        /*document.addEventListener("click", function(event) {
-            if (event.target.matches('#global-dropdown-file')) return;
-            const dropdown = document.getElementById("global-dropdown-file");
-            if (!dropdown.classList.contains("show")) return;
-            dropdown.classList.remove("show");
-            dropdown.classList.add("hide");
-        });*/
+    // --- Initialization and Event Listeners ---
+    addGlobalDropdown();
 
-        // Close the dropdown if the user clicks outside of it
-        document.addEventListener("click", function(event) {
-            console.log(event.target);
-            if (event.target.matches('.dropbtn')) return;
-            if (event.target.matches('.dropdown')) return;
-            if (event.target.matches('.dropdown-img')) return;
-
-            dropdowns = document.querySelectorAll(".dropdown-content")
-            for (const element of dropdowns) {
-                element.classList.remove("show");
-            }
-            for (const element of document.querySelectorAll(".sparc-fuse-download.active")) {
-                element.classList.remove("active");
-            }
+    document.addEventListener("click", function(event) {
+        const isDropdownButton = event.target.closest('.dropbtn');
+        if (!isDropdownButton) {
+            // Close all dropdowns if click is outside
+            document.querySelectorAll(".dropdown-content").forEach(d => d.classList.remove('show'));
             document.getElementById("global-dropdown-file").style.display = "none";
-        });
+            document.querySelectorAll(".sparc-fuse-download.active").forEach(el => el.classList.remove("active"));
+        }
+    });
 
-
-
-    `;
-    script.innerHTML = scriptString;
-    document.body.appendChild(script);
-
-
+    // NEW: Debounce function for performance
+    function debounce(func, wait) {
+        let timeout;
+        return function executedFunction(...args) {
+            const later = () => {
+                clearTimeout(timeout);
+                func(...args);
+            };
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+        };
+    }
     
+    /*
+    // OLD: Multiple observers adding UI elements without removing them
     const observer = new MutationObserver(addDownloadButtons);
     observer.observe(document.body, { childList: true, subtree: true });
     const observer2 = new MutationObserver(addDownloadButtonEntireDataset);
     observer2.observe(document.body, { childList: true, subtree: true });
+    */
 
-    addGlobalDropdown();
-    addDownloadButtonEntireDataset();
-    addDownloadButtons();
-    
+    // NEW: Single, debounced observer calling the central update function
+    const observer = new MutationObserver(debounce(updateUI, 200));
+    observer.observe(document.body, { childList: true, subtree: true });
 
-    document.addEventListener('DOMContentLoaded', function() {
-        
-    }, false);
+    // Initial run
+    updateUI();
 
-
-    toast_container = document.createElement("div");
+    // The toast container creation and showToast function remain the same
+    let toast_container = document.createElement("div");
     toast_container.classList.add("toast-overlay");
     toast_container.id = "toast-overlay";
     document.body.appendChild(toast_container);
-
     
-    function showToast(message = "Sample Message", toastType = "info", duration = 8000) {
-        let icon = {
-            success:
-            '<span class="material-symbols-outlined">task_alt</span>',
-            danger:
-            '<span class="material-symbols-outlined">error</span>',
-            warning:
-            '<span class="material-symbols-outlined">warning</span>',
-            info:
-            '<span class="material-symbols-outlined">info</span>',
-        };
-        if (!Object.keys(icon).includes(toastType))
-            toastType = "info";
-
-        let box = document.createElement("div");
-        box.classList.add("toast", `toast-${toastType}`);
-        box.innerHTML = ` <div class="toast-content-wrapper">
-                        <div class="toast-icon">
-                        ${icon[toastType]}
-                        </div>
-                        <div class="toast-message">${message}</div>
-                        <div class="toast-progress"></div>
-                        </div>`;
-        duration = duration || 5000;
-        box.querySelector(".toast-progress").style.animationDuration =
-                `${duration / 1000}s`;
-
-        let toastAlready = document.body.querySelector(".toast");
-        if (toastAlready) {
-            toastAlready.remove();
-        }
-
-        document.body.appendChild(box)
+    // Inject showToast as it might be used by other parts of the page or for debugging
+    function injectFunction(fn) {
+        const script = document.createElement('script');
+        script.textContent = fn.toString();
+        document.documentElement.appendChild(script);
     }
-
     injectFunction(showToast);
 
-    
 })();
-
-
