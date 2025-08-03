@@ -52,8 +52,6 @@ cd ..
 sparc-fuse 224 --output-dir ./converted
 ```
 
-
-
 https://github.com/user-attachments/assets/f9b51477-b41a-4a96-813b-359fc8919746
 
 
