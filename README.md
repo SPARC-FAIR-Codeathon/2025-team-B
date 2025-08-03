@@ -12,6 +12,31 @@ Whether you’re on the command line, in a Python notebook, or on the SPARC Port
 
 Spend your time on science, not on hunting converters and understanding proprietary internal file structures. 🦾
 
+## Table of Contents
+
+- [Quick start](#quick-start)
+  - [Command-line interface](#command-line-interface)
+  - [Use as a Python library](#use-as-a-python-library)
+    - [0 – Clone the project](#0--clone-the-project)
+    - [1 – Convert a single primary file](#1--convert-a-single-primary-file)
+    - [2 – Bulk-convert an entire dataset](#2--bulk-convert-an-entire-dataset)
+    - [3 – Convert a subset of primary files](#3--convert-a-subset-of-primary-files)
+- [Why SPARC FUSE?](#-why-sparc-fuse)
+  - [The headache](#the-headache)
+  - [The cure](#the-cure)
+  - [Why it matters](#why-it-matters)
+- [Zarr + AWS: super-charging SPARC data](#-zarr--aws-super-charging-sparc-data)
+  - [What is Zarr?](#what-is-zarr)
+- [Cloud-first Demo: Prepare & Consume Data from S3](#-cloud-first-demo-prepare--consume-data-from-s3)
+  - [What's going on?](#-whats-going-on)
+  - [Prepare S3 Bucket](#-prepare-s3-bucket)
+  - [Consume Data](#-consume-data)
+- [Supported File Formats](#supported-file-formats)
+  - [Time-series formats](#time-series-formats)
+  - [Imaging formats](#imaging-formats)
+
+---
+
 ### 🧬 Full Metadata, Always Included
 
 Every SPARC FUSE export – whether `.zarr`, `.npz`, or `.mat` – **automatically bundles all SPARC metadata** available for the source file or dataset.
@@ -45,33 +70,32 @@ meta = {
 ```
 > 💡 This metadata is embedded directly into .zarr attributes or stored alongside .mat / .npz files. Every export is fully self-describing and ready for downstream use or publication.
 
+### 🧠 Smart Mapping with Confidence Scoring
+
+**SPARC FUSE** uses a hybrid mapping system to extract standardized signals, time vectors, metadata, and annotations from a wide range of raw data formats:
+
+- 🔧 Handcrafted descriptors: Expert-written mappings for known formats like .smr, .abf, .adicht, etc.
+- 🤖 Heuristic auto-mapping: If no direct match is found, FUSE evaluates all known descriptors using a scoring system and applies the best match.
+- 📊 Mapping score: Each descriptor is scored based on required fields (like signals, time, sampling_frequency). The descriptor with the highest score is selected.
+
+# Scoring and fallback logic
+```python
+result = evaluate_mapping_fields(descriptor, context)
+score = score_mapping_result(result, descriptor)
+```
+
+>💡 The selected descriptor is recorded in the output metadata, along with auto_mapped = true if it was selected heuristically. This gives you full transparency into how the conversion was performed.
+
+If time is missing in the original file, FUSE will auto-generate a time vector from signal length and set:
+
+```python
+"time_auto_generated": true
+```
+
+This mapping system ensures that even unknown or partially supported formats can be converted with best-effort accuracy — and that you always know how the output was produced.
 
 ---
 
-## Table of Contents
-
-- [Quick start](#quick-start)
-  - [Command-line interface](#command-line-interface)
-  - [Use as a Python library](#use-as-a-python-library)
-    - [0 – Clone the project](#0--clone-the-project)
-    - [1 – Convert a single primary file](#1--convert-a-single-primary-file)
-    - [2 – Bulk-convert an entire dataset](#2--bulk-convert-an-entire-dataset)
-    - [3 – Convert a subset of primary files](#3--convert-a-subset-of-primary-files)
-- [Why SPARC FUSE?](#-why-sparc-fuse)
-  - [The headache](#the-headache)
-  - [The cure](#the-cure)
-  - [Why it matters](#why-it-matters)
-- [Zarr + AWS: super-charging SPARC data](#-zarr--aws-super-charging-sparc-data)
-  - [What is Zarr?](#what-is-zarr)
-- [Cloud-first Demo: Prepare & Consume Data from S3](#-cloud-first-demo-prepare--consume-data-from-s3)
-  - [What's going on?](#-whats-going-on)
-  - [Prepare S3 Bucket](#-prepare-s3-bucket)
-  - [Consume Data](#-consume-data)
-- [Supported File Formats](#supported-file-formats)
-  - [Time-series formats](#time-series-formats)
-  - [Imaging formats](#imaging-formats)
-
----
 
 ## 🚀 Quick start
 
