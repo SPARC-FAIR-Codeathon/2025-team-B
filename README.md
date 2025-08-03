@@ -2,7 +2,7 @@
 
 ## What is SPARC FUSE?
 
-SPARC-FUSE is a file unification and standardization engine for SPARC datasets.
+SPARC FUSE is a file unification and standardization engine for SPARC datasets.
 
 Whether you’re on the command line, in a Python notebook, or on the SPARC Portal itself, FUSE converts the **30+ eclectic imaging & time-series formats** scattered across SPARC datasets into **one clean, cloud-native Zarr layout** (or `.mat` / `.npz`, if you prefer).
 
@@ -303,7 +303,7 @@ https://github.com/user-attachments/assets/ea2a9a06-2f75-425e-acd9-be26f2c93b7e
 ![.exf Imaging](https://img.shields.io/badge/.exf-Imaging-blueviolet)
 ![.cxd Imaging](https://img.shields.io/badge/.cxd-Imaging-blueviolet)
  <p align="center">
-  <b>SPARC-FUSE: One data format to unite them all</b>
+  <b>SPARC FUSE: One data format to unite them all</b>
   <img src="./assets/artwork.png" width="800" alt="artowrk"><br/>
  </p>
  
