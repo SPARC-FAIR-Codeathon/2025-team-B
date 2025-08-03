@@ -411,7 +411,7 @@ s3 slice is roughly **14× faster** than doing a fresh SPARC download and slice 
         <sub><em><strong>Figure&nbsp;7.</strong> </em> Latency comparison for SPARC download & slice (~9.8s) vs s3 slice (~0.7s), showing ~14x speedup.</sub>
 </p>
 
----x1x
+---
 
 ## Supported File Formats
 ### Time-series formats
@@ -481,3 +481,7 @@ s3 slice is roughly **14× faster** than doing a fresh SPARC download and slice 
 | `.exf`    | Zeiss experiment file (ZEN) |
 | `.cxd`    | Olympus cellSens dataset |
 
+---
+
+## CRediT
+CRediT: Max Haberbusch: Conceptualization, Data curation, Formal Analysis, Investigation, Methodology, Software, Supervision, Validation, Visualization, Writing – original draft, Writing – review & editing; David Lung: Data curation, Formal Analysis, Investigation, Methodology, Software, Validation, Visualization, Writing – review & editing; Philipp Heute: Investigation, Software, Validation, Visualization, Writing – original draft, Writing – review & editing; Sebastian Hochreiter: Investigation, Software, Validation, Writing – review & editing; Laurenz Berger: Validation, Writing – review & editing
