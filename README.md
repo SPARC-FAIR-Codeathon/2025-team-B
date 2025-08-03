@@ -237,12 +237,12 @@ print("✅ Preparation complete.")
 
 <p align="center">
   <img src="./assets/demo_dataset_structure.png" width="1000" alt="Dataset structure from cloud-hosted Zarr">
-  <br/><sub><em>Xarray dataset loaded directly from S3 (metadata view)</em></sub>
+    <sub><em><strong>Figure&nbsp;4.</strong> </em> Xarray dataset loaded directly from S3 (metadata view)</sub>
 </p>
 
 <p align="center">
   <img src="./assets/demo_s3_objects.png" width="1000" alt="S3 bucket contents">
-  <br/><sub><em>Zarr stores and manifest files available on S3</em></sub>
+    <sub><em><strong>Figure&nbsp;5.</strong> </em> Zarr stores and manifest files available on S3</sub>
 </p>
 
 ### 📋 Consume Data
@@ -265,7 +265,7 @@ print(subset)
 
 <p align="center">
   <img src="./assets/demo_lazy_slice.png" width="1000" alt="Example lazy-loaded slice">
-  <br/><sub><em>Lazy-loaded data slice (first 1000 points of channel 0)</em></sub>
+    <sub><em><strong>Figure&nbsp;6.</strong> </em> Lazy-loaded data slice (first 1000 points of channel 0)</sub>
 </p>
 
 ### ⏱ d3 slice speedup vs SPARC download+slice
@@ -275,9 +275,9 @@ d3 slice is roughly **14× faster** than doing a fresh SPARC download+convert+sl
 <p align="center">
   <img src="./assets/sparc_slice_vs_d3_slice.png" width="600"
        alt="Bar chart: SPARC download+slice (~9.8s) vs d3 slice (~0.7s), showing ~14x speedup.">
+        <sub><em><strong>Figure&nbsp;7.</strong> </em> Median latency comparison for fresh SPARC download+convert+slice and d3 slice.</sub>
 </p>
 
-<small><em>Figure: Median latency comparison; speedup is visually apparent in the bar heights.</em></small>
 
 
 ## Supported File Formats
