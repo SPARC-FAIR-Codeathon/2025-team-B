@@ -130,7 +130,7 @@ pprint(report)
 <p align="center">
   <img src="./assets/combined_2x2_summary.png" width="800"
        alt="Bar-chart dashboard: file counts by modality and top extensions"><br/>
-<sub><em><strong>Figure&nbsp;2.</strong> Diversity over volume.</em>The SPARC database contains <strong>20 + distinct time-series formats</strong> and <strong>20 + imaging formats</strong>, each hiding additional proprietary structures inside the files.</sub></p>
+<sub><em><strong>Figure&nbsp;2.</strong></em>The SPARC database contains <strong>20 + distinct time-series formats</strong> and <strong>20 + imaging formats</strong>, each hiding additional proprietary structures inside the files.</sub></p>
 
 ### The cure  
 * **SPARC FUSE** automatically remaps *any* supported file (time-series & imaging) into a **uniform, chunked Zarr store**<br>
