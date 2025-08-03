@@ -200,6 +200,61 @@ https://github.com/user-attachments/assets/ea2a9a06-2f75-425e-acd9-be26f2c93b7e
 * **Cloud-ready chunks:** Zarr’s design unlocks scalable, parallel analysis on HPC or S3-style storage.  
 * **FAIR boost:** data become immediately *Accessible*, *Interoperable* and *Reusable* across toolchains.
 
+### Supported Datatypes
+
+![.mat Time-series](https://img.shields.io/badge/.mat-Time%20series-orange)
+![.smr Time-series](https://img.shields.io/badge/.smr-Time%20series-orange)
+![.csv Time-series](https://img.shields.io/badge/.csv-Time%20series-orange)
+![.adicht Time-series](https://img.shields.io/badge/.adicht-Time%20series-orange)
+![.hdf5 Time-series](https://img.shields.io/badge/.hdf5-Time%20series-orange)
+![.h5 Time-series](https://img.shields.io/badge/.h5-Time%20series-orange)
+![.ets Time-series](https://img.shields.io/badge/.ets-Time%20series-orange)
+![.abf Time-series](https://img.shields.io/badge/.abf-Time%20series-orange)
+![.rhd Time-series](https://img.shields.io/badge/.rhd-Time%20series-orange)
+![.nev Time-series](https://img.shields.io/badge/.nev-Time%20series-orange)
+![.ns5 Time-series](https://img.shields.io/badge/.ns5-Time%20series-orange)
+![.ns2 Time-series](https://img.shields.io/badge/.ns2-Time%20series-orange)
+![.ns1 Time-series](https://img.shields.io/badge/.ns1-Time%20series-orange)
+![.smrx Time-series](https://img.shields.io/badge/.smrx-Time%20series-orange)
+![.wav Time-series](https://img.shields.io/badge/.wav-Time%20series-orange)
+![.acq Time-series](https://img.shields.io/badge/.acq-Time%20series-orange)
+![.tbk Time-series](https://img.shields.io/badge/.tbk-Time%20series-orange)
+![.tdx Time-series](https://img.shields.io/badge/.tdx-Time%20series-orange)
+![.tev Time-series](https://img.shields.io/badge/.tev-Time%20series-orange)
+![.tin Time-series](https://img.shields.io/badge/.tin-Time%20series-orange)
+![.tnt Time-series](https://img.shields.io/badge/.tnt-Time%20series-orange)
+![.tsq Time-series](https://img.shields.io/badge/.tsq-Time%20series-orange)
+![.eeg Time-series](https://img.shields.io/badge/.eeg-Time%20series-orange)
+![.vmrk Time-series](https://img.shields.io/badge/.vmrk-Time%20series-orange)
+![.vhdr Time-series](https://img.shields.io/badge/.vhdr-Time%20series-orange)
+![.sev Time-series](https://img.shields.io/badge/.sev-Time%20series-orange)
+![.sam Time-series](https://img.shields.io/badge/.sam-Time%20series-orange)
+![.pss Time-series](https://img.shields.io/badge/.pss-Time%20series-orange)
+![.tif Imaging](https://img.shields.io/badge/.tif-Imaging-blueviolet)
+![.tiff Imaging](https://img.shields.io/badge/.tiff-Imaging-blueviolet)
+![.czi Imaging](https://img.shields.io/badge/.czi-Imaging-blueviolet)
+![.nd2 Imaging](https://img.shields.io/badge/.nd2-Imaging-blueviolet)
+![.lsm Imaging](https://img.shields.io/badge/.lsm-Imaging-blueviolet)
+![.jpx Imaging](https://img.shields.io/badge/.jpx-Imaging-blueviolet)
+![.svs Imaging](https://img.shields.io/badge/.svs-Imaging-blueviolet)
+![.ims Imaging](https://img.shields.io/badge/.ims-Imaging-blueviolet)
+![.png Imaging](https://img.shields.io/badge/.png-Imaging-blueviolet)
+![.jpg Imaging](https://img.shields.io/badge/.jpg-Imaging-blueviolet)
+![.jpeg Imaging](https://img.shields.io/badge/.jpeg-Imaging-blueviolet)
+![.bmp Imaging](https://img.shields.io/badge/.bmp-Imaging-blueviolet)
+![.vsi Imaging](https://img.shields.io/badge/.vsi-Imaging-blueviolet)
+![.jp2 Imaging](https://img.shields.io/badge/.jp2-Imaging-blueviolet)
+![.roi Imaging](https://img.shields.io/badge/.roi-Imaging-blueviolet)
+![.dm3 Imaging](https://img.shields.io/badge/.dm3-Imaging-blueviolet)
+![.pxp Imaging](https://img.shields.io/badge/.pxp-Imaging-blueviolet)
+![.ipf Imaging](https://img.shields.io/badge/.ipf-Imaging-blueviolet)
+![.lif Imaging](https://img.shields.io/badge/.lif-Imaging-blueviolet)
+![.ima Imaging](https://img.shields.io/badge/.ima-Imaging-blueviolet)
+![.mrxs Imaging](https://img.shields.io/badge/.mrxs-Imaging-blueviolet)
+![.obj Imaging](https://img.shields.io/badge/.obj-Imaging-blueviolet)
+![.avi Imaging](https://img.shields.io/badge/.avi-Imaging-blueviolet)
+![.exf Imaging](https://img.shields.io/badge/.exf-Imaging-blueviolet)
+![.cxd Imaging](https://img.shields.io/badge/.cxd-Imaging-blueviolet)
  <p align="center">
   <b>SPARC-FUSE: One data format to unite them all</b>
   <img src="./assets/artwork.png" width="800" alt="artowrk"><br/>
@@ -287,12 +342,13 @@ generate_and_upload_manifest(DATASET_ID, BUCKET, XARRAY_ZARR, REGION)
 print("✅ Preparation complete.")
 ```
 
-<img width="951" height="76" alt="prepare_S3_bucket" src="https://github.com/user-attachments/assets/269cd88b-bf29-409a-afc7-ad2bc7301ff2" />
+<img width="1000" alt="prepare_S3_bucket" src="https://github.com/user-attachments/assets/269cd88b-bf29-409a-afc7-ad2bc7301ff2" />
 
-<p align="center">
-  <img src="./assets/demo_s3_objects.png" width="1000" alt="S3 bucket contents">
-    <sub><em><strong>Figure&nbsp;5.</strong> </em> Zarr stores and manifest files available on S3</sub>
-</p>
+
+
+https://github.com/user-attachments/assets/ecb7dc76-03ea-4f5c-8f20-4ffb3451bbc9
+
+
 
 ### 📋 Consume Data
 
@@ -346,61 +402,7 @@ s3 slice is roughly **14× faster** than doing a fresh SPARC download+convert+sl
 </p>
 
 
-
 ## Supported File Formats
-![.mat Time-series](https://img.shields.io/badge/.mat-Time%20series-orange)
-![.smr Time-series](https://img.shields.io/badge/.smr-Time%20series-orange)
-![.csv Time-series](https://img.shields.io/badge/.csv-Time%20series-orange)
-![.adicht Time-series](https://img.shields.io/badge/.adicht-Time%20series-orange)
-![.hdf5 Time-series](https://img.shields.io/badge/.hdf5-Time%20series-orange)
-![.h5 Time-series](https://img.shields.io/badge/.h5-Time%20series-orange)
-![.ets Time-series](https://img.shields.io/badge/.ets-Time%20series-orange)
-![.abf Time-series](https://img.shields.io/badge/.abf-Time%20series-orange)
-![.rhd Time-series](https://img.shields.io/badge/.rhd-Time%20series-orange)
-![.nev Time-series](https://img.shields.io/badge/.nev-Time%20series-orange)
-![.ns5 Time-series](https://img.shields.io/badge/.ns5-Time%20series-orange)
-![.ns2 Time-series](https://img.shields.io/badge/.ns2-Time%20series-orange)
-![.ns1 Time-series](https://img.shields.io/badge/.ns1-Time%20series-orange)
-![.smrx Time-series](https://img.shields.io/badge/.smrx-Time%20series-orange)
-![.wav Time-series](https://img.shields.io/badge/.wav-Time%20series-orange)
-![.acq Time-series](https://img.shields.io/badge/.acq-Time%20series-orange)
-![.tbk Time-series](https://img.shields.io/badge/.tbk-Time%20series-orange)
-![.tdx Time-series](https://img.shields.io/badge/.tdx-Time%20series-orange)
-![.tev Time-series](https://img.shields.io/badge/.tev-Time%20series-orange)
-![.tin Time-series](https://img.shields.io/badge/.tin-Time%20series-orange)
-![.tnt Time-series](https://img.shields.io/badge/.tnt-Time%20series-orange)
-![.tsq Time-series](https://img.shields.io/badge/.tsq-Time%20series-orange)
-![.eeg Time-series](https://img.shields.io/badge/.eeg-Time%20series-orange)
-![.vmrk Time-series](https://img.shields.io/badge/.vmrk-Time%20series-orange)
-![.vhdr Time-series](https://img.shields.io/badge/.vhdr-Time%20series-orange)
-![.sev Time-series](https://img.shields.io/badge/.sev-Time%20series-orange)
-![.sam Time-series](https://img.shields.io/badge/.sam-Time%20series-orange)
-![.pss Time-series](https://img.shields.io/badge/.pss-Time%20series-orange)
-![.tif Imaging](https://img.shields.io/badge/.tif-Imaging-blueviolet)
-![.tiff Imaging](https://img.shields.io/badge/.tiff-Imaging-blueviolet)
-![.czi Imaging](https://img.shields.io/badge/.czi-Imaging-blueviolet)
-![.nd2 Imaging](https://img.shields.io/badge/.nd2-Imaging-blueviolet)
-![.lsm Imaging](https://img.shields.io/badge/.lsm-Imaging-blueviolet)
-![.jpx Imaging](https://img.shields.io/badge/.jpx-Imaging-blueviolet)
-![.svs Imaging](https://img.shields.io/badge/.svs-Imaging-blueviolet)
-![.ims Imaging](https://img.shields.io/badge/.ims-Imaging-blueviolet)
-![.png Imaging](https://img.shields.io/badge/.png-Imaging-blueviolet)
-![.jpg Imaging](https://img.shields.io/badge/.jpg-Imaging-blueviolet)
-![.jpeg Imaging](https://img.shields.io/badge/.jpeg-Imaging-blueviolet)
-![.bmp Imaging](https://img.shields.io/badge/.bmp-Imaging-blueviolet)
-![.vsi Imaging](https://img.shields.io/badge/.vsi-Imaging-blueviolet)
-![.jp2 Imaging](https://img.shields.io/badge/.jp2-Imaging-blueviolet)
-![.roi Imaging](https://img.shields.io/badge/.roi-Imaging-blueviolet)
-![.dm3 Imaging](https://img.shields.io/badge/.dm3-Imaging-blueviolet)
-![.pxp Imaging](https://img.shields.io/badge/.pxp-Imaging-blueviolet)
-![.ipf Imaging](https://img.shields.io/badge/.ipf-Imaging-blueviolet)
-![.lif Imaging](https://img.shields.io/badge/.lif-Imaging-blueviolet)
-![.ima Imaging](https://img.shields.io/badge/.ima-Imaging-blueviolet)
-![.mrxs Imaging](https://img.shields.io/badge/.mrxs-Imaging-blueviolet)
-![.obj Imaging](https://img.shields.io/badge/.obj-Imaging-blueviolet)
-![.avi Imaging](https://img.shields.io/badge/.avi-Imaging-blueviolet)
-![.exf Imaging](https://img.shields.io/badge/.exf-Imaging-blueviolet)
-![.cxd Imaging](https://img.shields.io/badge/.cxd-Imaging-blueviolet)
 ### Time-series formats
 
 
