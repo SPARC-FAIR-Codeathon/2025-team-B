@@ -11,6 +11,30 @@ Whether you’re on the command line, in a Python notebook or on the SPARC Porta
 
 Spend your time on science, not on hunting converters and understanding proprietary internal file structures. 🦾
 
+## Table of Contents
+
+- [Quick start](#quick-start)
+  - [Command-line interface](#command-line-interface)
+  - [Use as a Python library](#use-as-a-python-library)
+    - [0 – Clone the project](#0--clone-the-project)
+    - [1 – Convert a single primary file](#1--convert-a-single-primary-file)
+    - [2 – Bulk-convert an entire dataset](#2--bulk-convert-an-entire-dataset)
+    - [3 – Convert a subset of primary files](#3--convert-a-subset-of-primary-files)
+- [Why SPARC FUSE?](#-why-sparc-fuse)
+  - [The headache](#the-headache)
+  - [The cure](#the-cure)
+  - [Why it matters](#why-it-matters)
+- [Zarr + AWS: super-charging SPARC data](#-zarr--aws-super-charging-sparc-data)
+  - [What is Zarr?](#what-is-zarr)
+- [Cloud-first Demo: Prepare & Consume Data from S3](#-cloud-first-demo-prepare--consume-data-from-s3)
+  - [What's going on?](#-whats-going-on)
+  - [Prepare S3 Bucket](#-prepare-s3-bucket)
+  - [Consume Data](#-consume-data)
+- [Supported File Formats](#supported-file-formats)
+  - [Time-series formats](#time-series-formats)
+  - [Imaging formats](#imaging-formats)
+
+
 ## 🚀 Quick start
 
 ### Command-line interface
