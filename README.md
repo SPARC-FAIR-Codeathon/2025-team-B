@@ -238,14 +238,16 @@ https://github.com/user-attachments/assets/ea2a9a06-2f75-425e-acd9-be26f2c93b7e
 * SPARC hosts **40 + heterogeneous file formats** and **countless sub-variants** (custom internal structures) – each with its own quirks.  
 * Researchers lose precious hours hunting converters and writing glue code instead of analysing data.  
 * This format jungle breaks reproducibility and puts **FAIR principles at risk**.
-  
-    <img width="900" alt="file_extensions_wordcloud" src="https://github.com/user-attachments/assets/b2a7e8dc-8994-4676-92c7-c0e2593d2384" />  <br/>
+
+
 <p align="center">
-<sub><em><strong>Figure&nbsp;1.</strong></em> Relative frequency of every extension found in public SPARC datasets (log-scaled word cloud).</sub>
+<img width="900" alt="file_extensions_wordcloud" src="https://github.com/user-attachments/assets/36e5260f-7cfa-4947-8f1f-a2fc17a03db9" />
+ <br/>
+  <sub><em><strong>Figure&nbsp;1.</strong></em> Relative frequency of every time series and imaging file extension found in public SPARC datasets (log-scaled word cloud).</sub>
 </p>
 
 <p align="center">
-<img width="892" height="454" alt="stats_overview" src="https://github.com/user-attachments/assets/72989494-b542-4610-81b3-436c84c877d8" />
+  <img width="900" alt="combined_2x2_summary" src="https://github.com/user-attachments/assets/bc878f40-5e1d-4c6c-98e4-9ee684731790" />
   <br/>
 <sub><em><strong>Figure&nbsp;2.</strong></em>The SPARC database contains <strong>20 + distinct time-series formats</strong> and <strong>20 + imaging formats</strong>, each hiding additional proprietary structures inside the files.</sub></p>
 
