@@ -342,7 +342,7 @@ generate_and_upload_manifest(DATASET_ID, BUCKET, XARRAY_ZARR, REGION)
 print("✅ Preparation complete.")
 ```
 
-<img width="951" height="76" alt="prepare_S3_bucket" src="https://github.com/user-attachments/assets/269cd88b-bf29-409a-afc7-ad2bc7301ff2" />
+<img width="1000" alt="prepare_S3_bucket" src="https://github.com/user-attachments/assets/269cd88b-bf29-409a-afc7-ad2bc7301ff2" />
 
 
 
@@ -400,7 +400,6 @@ s3 slice is roughly **14× faster** than doing a fresh SPARC download+convert+sl
 <br/>
         <sub><em><strong>Figure&nbsp;7.</strong> </em> Latency comparison for SPARC download+slice (~9.8s) vs s3 slice (~0.7s), showing ~14x speedup.</sub>
 </p>
-
 
 
 ## Supported File Formats
