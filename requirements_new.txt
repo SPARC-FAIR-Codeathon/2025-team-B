@@ -2,8 +2,8 @@ adi-reader==0.0.13
 asciitree==0.3.3
 bioread
 blinker==1.9.0
-boto3==1.40.1
-botocore==1.40.1
+boto3==1.39.8
+botocore==1.39.8
 certifi==2025.7.14
 cffi==1.17.1
 charset-normalizer==3.4.2
@@ -83,3 +83,4 @@ seaborn
 wordcloud
 s3fs==2025.7.0
 xarray
+jupyter
