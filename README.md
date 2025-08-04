@@ -161,7 +161,7 @@ cd 2025-team-B
 ##### 1 – Convert a single primary file
 
 ```python
-from sparc_fuse_core import download_and_convert_sparc_data, list_primary_files
+from sparcfuse.sparc_fuse_core import download_and_convert_sparc_data, list_primary_files
 
 DATASET_ID = 224  # Any valid SPARC dataset ID
 
@@ -183,7 +183,7 @@ https://github.com/user-attachments/assets/d1361453-c696-4ad8-b893-309cfd2068c4
 ##### 2 – Bulk-convert an entire dataset
 
 ```python
-from sparc_fuse_core import download_and_convert_sparc_data, list_primary_files
+from sparcfuse.sparc_fuse_core import download_and_convert_sparc_data, list_primary_files
 
 DATASET_ID = 224  # Any valid SPARC dataset ID
 
@@ -204,7 +204,7 @@ https://github.com/user-attachments/assets/2d56b94f-a4a7-45e5-8e2c-343e355ca5be
 ##### 3 – Convert a subset of primary files
 
 ```python
-from sparc_fuse_core import download_and_convert_sparc_data, list_primary_files
+from sparcfuse.sparc_fuse_core import download_and_convert_sparc_data, list_primary_files
 
 DATASET_ID = 224  # Any valid SPARC dataset ID
 
@@ -418,7 +418,7 @@ Convert SPARC primary files into Zarr format, upload them to S3, consolidate met
 ### 🛠️ Prepare S3 Bucket
 
 ```python
-from sparc_fuse_core import (
+from sparcfuse.sparc_fuse_core import (
     list_primary_files, download_and_convert_sparc_data,
     upload_to_s3, consolidate_s3_metadata,
     create_xarray_zarr_from_raw, generate_and_upload_manifest
@@ -469,7 +469,7 @@ https://github.com/user-attachments/assets/ecb7dc76-03ea-4f5c-8f20-4ffb3451bbc9
 #### Load 100,000 time points and plot
 
 ```python
-from sparc_fuse_core import open_zarr_from_s3
+from sparcfuse.sparc_fuse_core import open_zarr_from_s3
 import time
 import matplotlib.pyplot as plt
 
