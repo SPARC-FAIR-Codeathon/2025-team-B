@@ -151,6 +151,7 @@ sparc-fuse --help
 >💡 **Note:** You will have to run the install_sparc_fuse.ipnyb notebook to install all dependencies before working with sparc-fuse
 
 #### Or proceed locally
+
 ##### 0 – Clone the project
 ```python
 git clone https://github.com/SPARC-FAIR-Codeathon/2025-team-B.git
@@ -227,7 +228,9 @@ pprint(report)
 https://github.com/user-attachments/assets/ea2a9a06-2f75-425e-acd9-be26f2c93b7e
 
 
-> **Tip:** `file_format` accepts `"zarr"`, `"zarr.zip"`, `"npz"`, or `"mat"`. Choose the one that best matches your downstream workflow.
+> **💡 Tip:** `file_format` accepts `"zarr"`, `"zarr.zip"`, `"npz"`, or `"mat"`. Choose the one that best matches your downstream workflow.
+
+> 📄 **Note:** The doc-string generated API documentation of SPARC FUSE can be accessed through our <a href="https://github.com/SPARC-FAIR-Codeathon/2025-team-B/wiki/api">GitHub Wiki</a>
 
 ---
 
