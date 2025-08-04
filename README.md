@@ -246,7 +246,7 @@ python server.py
 
 The server will run locally at: http://127.0.0.1:5000 (port 5000).
 
-## Install the Firefox Plugin
+## Install the Firefox plugin
 Open your Firefox browser and navigate to about:debugging#/runtime/this-firefox.
 
 Click Load Temporary Add-on and select the manifest.json file from the plugin directory.
@@ -256,6 +256,24 @@ The extension will appear in your browser extensions area.
 <p align="center">
   <img src="./assets/Firefox_plugin_installation.png" width="600">
 </p>
+
+## Using the Plugin to Download Data from the SPARC Website
+
+Once the Firefox plugin is installed and the server is running, you can use it to download datasets directly from the [SPARC website](https://sparc.science).
+
+The plugin integrates into the SPARC website interface and provides two types of download options:
+
+1. **Download the Full Dataset**  
+   Use the **Download & Convert Dataset** button to retrieve the entire dataset in a format compatible with your project. This button is located near the top of the dataset page.
+
+2. **Download Individual Files**  
+   For selective downloading, each file listed in the dataset has its own **Download & Convert** icon. Clicking this button lets you fetch only the specific file you need.
+
+<p align="center">
+  <img src="./assets/Firefox_plugin_downloadButton.png" width="600">
+</p>
+
+> The plugin processes and converts the files through your local server before saving them to your machine. Make sure the server is active while downloading.
 
 
 ## ❓ Why SPARC FUSE?
