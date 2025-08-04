@@ -62,6 +62,7 @@ extensions = [
 # -- Options for HTML output -------------------------------------------------
 html_theme = 'sphinx_rtd_theme'   # Alternatives: 'alabaster', 'sphinx_material', 'sphinx_rtd_theme'
 html_static_path = ['_static']
+html_baseurl = "https://sparc-fair-codeathon.github.io/2025-team-B/build/html/"
 
 # -- Napoleon settings for docstrings ----------------------------------------
 napoleon_google_docstring = True
