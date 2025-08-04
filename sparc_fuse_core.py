@@ -386,7 +386,7 @@ modality_lookup = {
     ".ns2": "Time Series", ".ns1": "Time Series", ".smrx": "Time Series", ".wav": "Time Series",
     ".acq": "Time Series", ".tdx": "Time Series", ".tev": "Time Series",
     ".tnt": "Time Series", ".tsq": "Time Series", ".eeg": "Time Series",
-    ".vmrk": "Time Series", ".vhdr": "Time Series", ".sev": "Time Series"
+    ".vmrk": "Time Series", ".vhdr": "Time Series", ".sev": "Time Series",
 
     # Documentation formats
     ".pdf": "Docs", ".docx": "Docs", ".doc": "Docs", ".txt": "Docs",
