@@ -23,6 +23,7 @@ Spend your time on science, not on hunting converters and understanding propriet
     - [1 – Convert a single primary file](#1--convert-a-single-primary-file)
     - [2 – Bulk-convert an entire dataset](#2--bulk-convert-an-entire-dataset)
     - [3 – Convert a subset of primary files](#3--convert-a-subset-of-primary-files)
+  - [Firefox Plugin](#firefox-plugin)
 - [Why SPARC FUSE?](#-why-sparc-fuse)
   - [The headache](#the-headache)
   - [The cure](#the-cure)
