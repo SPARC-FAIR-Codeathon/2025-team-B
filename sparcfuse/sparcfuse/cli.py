@@ -19,7 +19,7 @@ from __future__ import annotations
 
 import argparse
 from pathlib import Path
-from .sparc_fuse_core import download_and_convert_sparc_data
+from sparcfuse.sparc_fuse_core import download_and_convert_sparc_data
 
 
 # ── ASCII banner ─────────────────────────────────────────────────────────

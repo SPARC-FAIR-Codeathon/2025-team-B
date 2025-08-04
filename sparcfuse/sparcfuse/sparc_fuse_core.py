@@ -1,4 +1,5 @@
 # ── standard library ────────────────────────────────────────────────────────
+from __future__ import annotations 
 import json
 import os
 import shutil
@@ -18,24 +19,54 @@ import zarr
 from nd2reader import ND2Reader
 from packaging.version import parse as vparse
 from tqdm import tqdm
+import s3fs
+import xarray as xr
+from datetime import datetime
 
 # ── project-specific / local ────────────────────────────────────────────────
-from .utils import (
+from sparcfuse.utils import (
     load_all_descriptors,
     match_best_mapping,
     save_standardized_output,
 )
 from sparc.client import SparcClient
 
+
 client = SparcClient(connect=False, config_file='config.ini')
 
 def fetch_dataset_metadata(dataset_id):
+    """
+    Fetches metadata for a specified dataset from the Pennsieve Discover API.
+    
+    Args:
+        dataset_id (str or int): The unique identifier of the dataset to fetch metadata for.
+    
+    Returns:
+        dict: The metadata of the specified dataset as returned by the API.
+    
+    Raises:
+        requests.HTTPError: If the HTTP request to the API fails.
+    """
     metadata_url = f"https://api.pennsieve.io/discover/datasets/{dataset_id}/versions/1/metadata"
     resp = requests.get(metadata_url)
     resp.raise_for_status()
     return resp.json()
 
 def list_primary_files(dataset_id):
+    """
+    Retrieve primary files from a dataset's metadata.
+    
+    Args:
+        dataset_id (str): The unique identifier of the dataset.
+   
+     Returns:
+        tuple: A tuple containing:
+            - primary_files (list): A list of file dictionaries whose paths start with "files/primary/".
+            - metadata (dict): The complete metadata dictionary for the dataset.
+    
+    Raises:
+        Any exceptions raised by fetch_dataset_metadata.
+    """
     metadata = fetch_dataset_metadata(dataset_id)
     primary_files = [
         f for f in metadata.get("files", [])
@@ -44,10 +75,36 @@ def list_primary_files(dataset_id):
     return primary_files, metadata
 
 def print_project_metadata(metadata):
+    """
+    Prints the 'item' field from the provided metadata dictionary in a formatted JSON structure.
+    
+    Args:
+        metadata (dict): A dictionary containing project metadata. Expected to have an 'item' key.
+    
+    Returns:
+        None
+    """
     project = metadata.get("item", {})
     print(json.dumps(project, indent=2))
 
 def download_and_move_sparc_file(rel_path, dataset_id, output_dir):
+    """
+    Downloads a file from a SPARC dataset using the provided relative path and dataset ID,
+    then moves the downloaded file to the specified output directory.
+
+    The function ensures the relative path starts with 'primary/', constructs the appropriate
+    query path for the SPARC API, and handles file download and movement. If the file is not
+    found or an error occurs during download or movement, an error message is printed.
+
+    Args:
+        rel_path (str): The relative path to the file within the SPARC dataset.
+        dataset_id (str): The identifier of the SPARC dataset to download from.
+        output_dir (str): The directory where the downloaded file should be moved.
+
+    Raises:
+        FileNotFoundError: If no matching file is found in the SPARC dataset.
+        Exception: For any other errors encountered during download or file movement.
+    """
     if not rel_path.startswith("primary/"):
         rel_path = f"primary/{rel_path}"
 
@@ -79,6 +136,19 @@ def download_and_move_sparc_file(rel_path, dataset_id, output_dir):
 
 
 def list_sparc_datasets(max_id=1000):
+    """
+    Retrieves and categorizes SPARC datasets by their type.
+
+    This function queries the metadata client for datasets with IDs in the range 0 to `max_id` (inclusive),
+    then counts and groups the datasets by their type name. It prints the response and a summary of dataset
+    type counts.
+
+    Args:
+        max_id (int, optional): The maximum dataset ID to include in the query. Defaults to 1000.
+
+    Returns:
+        dict: A mapping from dataset type names to lists of dataset IDs belonging to each type.
+    """
     ids = list(range(0, 1001))
     id_strings = [f'"{i}"' for i in ids]
     id_list_str = ", ".join(id_strings)
@@ -115,6 +185,23 @@ def list_sparc_datasets(max_id=1000):
     return type_id_map
 
 def get_sparc_datasets_by_id(ids):
+    """
+    Retrieve SPARC datasets from the metadata client by their IDs and group them by type.
+
+    Args:
+        ids (int, list, tuple, or set): A single dataset ID or a collection of dataset IDs to query.
+
+    Returns:
+        dict: A dictionary mapping dataset type names to lists of dataset IDs that belong to each type.
+
+    Raises:
+        TypeError: If the input is not an int, list, tuple, or set.
+
+    Notes:
+        - The function prints the constructed query and the response for debugging purposes.
+        - If a dataset does not have a valid type, it is grouped under the key "<invalid type>".
+        - If a dataset does not have an ID, it is represented as "<no id>" in the result.
+    """
     # Normalize to list
     if isinstance(ids, int):
         ids = [ids]
@@ -178,7 +265,15 @@ _BF_EXTS       = {
 }
 
 def _run(cmd: list[str]) -> None:
-    """subprocess.run with nice error surfacing."""
+    """
+    (subprocess.run with nice error surfacing) --> Executes a command using subprocess.run and raises a RuntimeError with detailed output if the command fails.
+
+    Args:
+        cmd (list[str]): The command and its arguments to execute as a list of strings.
+
+    Raises:
+        RuntimeError: If the command returns a non-zero exit code, includes the command, stdout, and stderr in the error message.
+    """
     proc = subprocess.run(cmd, capture_output=True, text=True)
     if proc.returncode != 0:
         raise RuntimeError(
@@ -197,7 +292,7 @@ def convert_imaging_file(
     output_scale: str = "3",
 ) -> Path:
     """
-    Convert *local_path* to an OME-Zarr store and return its Path.
+    Converts *local_path* to an OME-Zarr store and returns its Path.
 
     * RGB images (.jpg/.png/…) are re-packed to channel-first OME-TIFF.
     * ND2 is converted with nd2reader.
@@ -205,6 +300,19 @@ def convert_imaging_file(
       `bfconvert`.
     * Plain TIFFs are sent directly to ngff-zarr.
     * Everything else is attempted “as is” (ngff-zarr can open many types).
+
+    Parameters:
+        local_path (Path): Path to the input imaging file.
+        output_dir (Path): Directory where the OME-Zarr store will be created.
+        ome_zarr_version (str | None, optional): OME-Zarr version to use. Defaults to a module-level default if None.
+        method (str, optional): Downsampling method for ngff-zarr. Defaults to "dask_image_gaussian".
+        output_scale (str, optional): Output scale for ngff-zarr. Defaults to "3".
+
+    Returns:
+        Path: Path to the generated OME-Zarr store.
+
+    Raises:
+        ValueError: If an RGB image does not have the expected shape.
     """
     ome_zarr_version = ome_zarr_version or _DEFAULT_OZ_VER
     ext     = local_path.suffix.lower()
@@ -269,16 +377,16 @@ modality_lookup = {
     ".jpeg": "Imaging", ".bmp": "Imaging", ".vsi": "Imaging", ".jp2": "Imaging", ".roi": "Imaging",
     ".dm3": "Imaging", ".pxp": "Imaging", ".ipf": "Imaging", ".lif": "Imaging", ".ima": "Imaging",
     ".mrxs": "Imaging", ".obj": "Imaging", ".avi": "Imaging", ".exf": "Imaging", ".cxd": "Imaging",
+    ".ets": "Imaging",
 
     # Time Series formats
     ".mat": "Time Series", ".smr": "Time Series", ".csv": "Time Series",
-    ".adicht": "Time Series", ".hdf5": "Time Series", ".h5": "Time Series", ".ets": "Time Series",
+    ".adicht": "Time Series", ".hdf5": "Time Series", ".h5": "Time Series",
     ".abf": "Time Series", ".rhd": "Time Series", ".nev": "Time Series", ".ns5": "Time Series",
     ".ns2": "Time Series", ".ns1": "Time Series", ".smrx": "Time Series", ".wav": "Time Series",
-    ".acq": "Time Series", ".tbk": "Time Series", ".tdx": "Time Series", ".tev": "Time Series",
-    ".tin": "Time Series", ".tnt": "Time Series", ".tsq": "Time Series", ".eeg": "Time Series",
-    ".vmrk": "Time Series", ".vhdr": "Time Series", ".sev": "Time Series", ".sam": "Time Series",
-    ".pss": "Time Series", ".psmethod": "Time Series",
+    ".acq": "Time Series", ".tdx": "Time Series", ".tev": "Time Series",
+    ".tnt": "Time Series", ".tsq": "Time Series", ".eeg": "Time Series",
+    ".vmrk": "Time Series", ".vhdr": "Time Series", ".sev": "Time Series",
 
     # Documentation formats
     ".pdf": "Docs", ".docx": "Docs", ".doc": "Docs", ".txt": "Docs",
@@ -314,6 +422,38 @@ def download_and_convert_sparc_data(
     everything else goes through the descriptor-based mapper.
     Raw downloads are stored only in a TemporaryDirectory and are
     deleted as soon as conversion finishes.
+
+    Parameters:
+        dataset_id (int): The unique identifier of the SPARC dataset to process.
+        primary_paths (list[str] | str | None, optional): List of relative paths to primary files within the dataset.
+            If None, all primary files will be fetched from the dataset metadata.
+        output_dir (str | Path, optional): Directory where converted files will be saved. Defaults to "./output".
+        descriptors_dir (str | Path, optional): Directory containing mapping descriptors. Defaults to "./mapping_schemes".
+        file_format (str, optional): Output file format for standardized data. Defaults to "npz".
+        overwrite (bool, optional): If True, existing standardized files will be overwritten. Defaults to False.
+        
+    Returns:
+        list[dict]: A list of dictionaries containing the results of the conversion process for each file.
+            Each dictionary includes:
+                - rel_path: Relative path of the file within the dataset.
+                - local_path: Temporary local path where the file was downloaded.
+                - std_path: Path to the standardized output file.
+                - descriptor_id: ID of the mapping descriptor used (if applicable).
+                - mapping_score: Score of the mapping (if applicable).
+                - status: Status of the processing ("ok", "pending", "failed", "unsupported").
+                - error: Error message if processing failed.
+
+    Raises:
+        ValueError: If no primary files are found to process.
+        RuntimeError: If the download fails or the file cannot be processed.
+        FileNotFoundError: If no matching file is found in the dataset for the given relative path.
+        Exception: For any other errors encountered during the download or conversion process.
+    
+    Notes:
+        - The function uses a temporary directory for downloading files, which is automatically cleaned up after processing.
+        - The output directory is created if it does not exist.
+        - Metadata from the SPARC dataset is fetched and included in the standardized output.
+    - The function supports both imaging and time series data, routing them through appropriate conversion methods.
     """
 
     output_dir = Path(output_dir).expanduser()
@@ -450,3 +590,170 @@ def download_and_convert_sparc_data(
         results.append(rec)
 
     return results
+
+import os
+import subprocess
+import json
+from datetime import datetime
+
+import numpy as np
+import xarray as xr
+import s3fs
+import zarr
+
+
+def upload_to_s3(local_path, bucket, remote_path, region="eu-north-1"):
+    """
+    Uploads files from a local directory to an AWS S3 bucket using the AWS CLI.
+
+    Args:
+        local_path (str): The local directory path to upload.
+        bucket (str): The name of the target S3 bucket.
+        remote_path (str): The destination path within the S3 bucket.
+        region (str, optional): The AWS region where the bucket is located. Defaults to "eu-north-1".
+
+    Raises:
+        subprocess.CalledProcessError: If the AWS CLI command fails.
+    """
+    os.environ.setdefault("AWS_DEFAULT_REGION", region)
+    subprocess.run([
+        "aws", "s3", "sync",
+        local_path,
+        f"s3://{bucket}/{remote_path}",
+        "--region", region
+    ], check=True)
+
+
+def consolidate_s3_metadata(bucket, remote_path, region="eu-north-1"):
+    """
+    Consolidates Zarr metadata for a given S3 bucket and remote path.
+
+    This function connects to an S3 bucket using the specified region, accesses the Zarr store at the given remote path,
+    and consolidates its metadata to improve read performance and compatibility.
+
+    Args:
+        bucket (str): Name of the S3 bucket containing the Zarr store.
+        remote_path (str): Path within the S3 bucket to the Zarr store.
+        region (str, optional): AWS region where the S3 bucket is located. Defaults to "eu-north-1".
+
+    Raises:
+        zarr.errors.PathNotFoundError: If the specified path does not exist in the S3 bucket.
+        botocore.exceptions.BotoCoreError: If there is an error connecting to S3.
+    """
+    os.environ.setdefault("AWS_DEFAULT_REGION", region)
+    fs = s3fs.S3FileSystem(anon=False, client_kwargs={"region_name": region})
+    store = zarr.storage.FSStore(f"s3://{bucket}/{remote_path}", fs=fs)
+    # Ensure consolidated metadata exists (idempotent)
+    zarr.consolidate_metadata(store)
+
+
+def create_xarray_zarr_from_raw(bucket, raw_zarr_path, xarray_zarr_path, region="eu-north-1"):
+    """
+    Reads raw Zarr data from an S3 bucket, constructs an xarray Dataset, and writes it back to S3 in Zarr format.
+
+    Parameters
+    ----------
+    bucket : str
+        Name of the S3 bucket containing the Zarr data.
+    raw_zarr_path : str
+        Path within the S3 bucket to the raw Zarr store.
+    xarray_zarr_path : str
+        Path within the S3 bucket where the xarray Zarr store will be saved.
+    region : str, optional
+        AWS region name for the S3 bucket (default is "eu-north-1").
+
+    Notes
+    -----
+    - Assumes the raw Zarr store contains "signals" and "time" arrays.
+    - The resulting xarray Dataset will have dimensions ("channel", "time"), where "channel" is inferred from the shape of "signals".
+    - Requires `s3fs`, `zarr`, `xarray`, and `numpy` to be installed.
+    """
+    os.environ.setdefault("AWS_DEFAULT_REGION", region)
+    fs = s3fs.S3FileSystem(anon=False, client_kwargs={"region_name": region})
+
+    # Open raw Zarr, ensuring its consolidated metadata exists
+    raw_store = zarr.storage.FSStore(f"s3://{bucket}/{raw_zarr_path}", fs=fs)
+    try:
+        root = zarr.open_consolidated(raw_store)
+    except Exception:
+        # fallback: (re-)consolidate then reopen
+        zarr.consolidate_metadata(raw_store)
+        root = zarr.open_consolidated(raw_store)
+
+    # Extract arrays
+    signals = root["signals"][:]
+    time = root["time"][:]
+
+    # Build xarray dataset
+    ds = xr.Dataset(
+        {"signals": (("channel", "time"), signals)},
+        coords={"time": ("time", time), "channel": ("channel", np.arange(signals.shape[0]))},
+    )
+
+    # Copy over original metadata
+    ds.attrs.update(root.attrs)  # includes .zattrs (sparc_metadata, etc.)
+    ds["signals"].attrs.update(root["signals"].attrs)
+    if "time" in root:
+        ds["time"].attrs.update(root["time"].attrs)
+
+    # Write to S3 and explicitly consolidate
+    xarray_store = zarr.storage.FSStore(f"s3://{bucket}/{xarray_zarr_path}", fs=fs)
+    ds.to_zarr(xarray_store, mode="w", consolidated=False)
+    zarr.consolidate_metadata(xarray_store)
+
+
+def generate_and_upload_manifest(dataset_id, bucket, xarray_zarr_path, region="eu-north-1"):
+    """
+    Generates a manifest JSON file for a given dataset and uploads it to an S3 bucket.
+
+    Args:
+        dataset_id (str): The unique identifier for the dataset.
+        bucket (str): The name of the S3 bucket where the manifest will be uploaded.
+        xarray_zarr_path (str): The path to the Zarr dataset within the S3 bucket.
+        region (str, optional): The AWS region where the S3 bucket is located. Defaults to "eu-north-1".
+
+    Raises:
+        subprocess.CalledProcessError: If the AWS CLI command fails during upload.
+
+    The manifest contains metadata about the dataset, including its ID, Zarr path, generation timestamp, and file format.
+    """
+    os.environ.setdefault("AWS_DEFAULT_REGION", region)
+    manifest = {
+        "dataset_id": dataset_id,
+        "zarr_path": f"s3://{bucket}/{xarray_zarr_path}",
+        "generated_at": f"{datetime.utcnow().isoformat()}Z",
+        "file_format": "zarr"
+    }
+    with open("latest.json", "w") as f:
+        json.dump(manifest, f, indent=2)
+    subprocess.run([
+        "aws", "s3", "cp", "latest.json",
+        f"s3://{bucket}/latest.json",
+        "--region", region
+    ], check=True)
+
+
+def open_zarr_from_s3(bucket, zarr_path, region="eu-north-1"):
+    """
+    Lazily open a Zarr dataset stored in an S3 bucket using Xarray.
+
+    Parameters:
+        bucket (str): Name of the S3 bucket containing the Zarr dataset.
+        zarr_path (str): Path to the Zarr dataset within the S3 bucket.
+        region (str, optional): AWS region where the S3 bucket is located. Defaults to "eu-north-1".
+
+    Returns:
+        xarray.Dataset: The opened Zarr dataset as an Xarray Dataset object.
+
+    Notes:
+        - Requires appropriate AWS credentials to access the S3 bucket.
+        - The function sets the AWS_DEFAULT_REGION environment variable if not already set.
+        - The Zarr dataset must be consolidated.
+    """
+    os.environ.setdefault("AWS_DEFAULT_REGION", region)
+    s3_uri = f"s3://{bucket}/{zarr_path}"
+    storage_opts = {"client_kwargs": {"region_name": region}}
+    try:
+        return xr.open_zarr(s3_uri, consolidated=True, storage_options=storage_opts)
+    except Exception:
+        return xr.open_zarr(s3_uri, consolidated=False, storage_options=storage_opts)

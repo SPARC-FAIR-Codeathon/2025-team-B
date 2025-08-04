@@ -1,0 +1,2 @@
+[console_scripts]
+sparc-fuse = sparcfuse.cli:main
