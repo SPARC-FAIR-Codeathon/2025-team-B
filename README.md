@@ -242,6 +242,10 @@ https://github.com/user-attachments/assets/ea2a9a06-2f75-425e-acd9-be26f2c93b7e
 To start using the Firefox plugin, you must start the local server. This is essential because the plugin relies on the backend to process and serve data.
 The Firefox plugin communicates with your local server for data conversion and download, so the server must be running for the extension to function.
 
+<p align="center">
+  <img src="./assets/Clien_Server_communication.png" width="1000">
+</p>
+
 In your terminal navigate to the server directory and start the server with:
 
 ```bash
