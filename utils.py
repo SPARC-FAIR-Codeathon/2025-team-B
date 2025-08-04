@@ -18,6 +18,34 @@ from scipy.io import savemat
 
 
 def load_file_with_descriptor(descriptor, filepath):
+    """
+    Loads a file using a parser specified by a descriptor.
+
+    The descriptor defines how to import and use a parser, which can be either a class or a function,
+    to process the given file. The parser's module, class/function name, initialization arguments,
+    and method/function to call are all specified in the descriptor.
+
+    Args:
+        descriptor (dict): A dictionary specifying the parser configuration. It must contain a 'parser' key,
+            which itself is a dictionary with the following possible keys:
+                - 'module' (str): The module to import.
+                - 'class' (str, optional): The class name to instantiate (if using a class-based parser).
+                - 'init_args' (dict, optional): Arguments to pass to the class constructor. Use '<filepath>' as a placeholder for the file path.
+                - 'load_method' (str, optional): The method to call on the class instance to load the file.
+                - 'function' (str, optional): The function name to call (if using a function-based parser).
+                - 'args' (list, optional): Positional arguments for the function. Use '<filepath>' as a placeholder for the file path.
+                - 'kwargs' (dict, optional): Keyword arguments for the function.
+                - 'output_var' (str): The key name to use for the output in the returned dictionary.
+        filepath (str): The path to the file to be loaded.
+
+    Returns:
+        dict: A dictionary containing:
+            - The output of the parser, keyed by 'output_var' from the descriptor.
+            - The original 'filepath'.
+
+    Raises:
+        ValueError: If neither 'class' nor 'function' is specified in the descriptor.
+    """
     mod = importlib.import_module(descriptor['parser']['module'])
 
     if 'class' in descriptor['parser']:
@@ -45,6 +73,29 @@ def load_file_with_descriptor(descriptor, filepath):
     return {descriptor['parser']['output_var']: output, 'filepath': filepath}
 
 def evaluate_mapping_fields(descriptor, context):
+    """
+    Evaluates mapping expressions defined in a descriptor using the provided context.
+
+    This function processes the 'mapping' field of the descriptor, evaluating each expression
+    (as a string) in the context of the given variables. It supports special handling for
+    'metadata' (dict of expressions) and 'annotations' (list of dicts of expressions).
+    For other keys, the expression is evaluated directly.
+
+    If the 'time' field is not present or evaluates to None, but 'signals' is available,
+    a default time array is generated based on the shape of 'signals'. The function also
+    tracks whether the 'time' field was auto-generated in the 'metadata'.
+
+    Args:
+        descriptor (dict): A dictionary containing a 'mapping' key, which maps field names
+            to expressions (as strings), or for 'metadata' and 'annotations', to dicts/lists
+            of expressions.
+        context (dict): A dictionary representing the context in which to evaluate the expressions.
+
+    Returns:
+        dict: A dictionary containing the evaluated results for each mapping field, including
+            'metadata' and 'annotations' if present. If 'time' was auto-generated, this is
+            indicated in the 'metadata' under 'time_auto_generated'.
+    """
     results = {}
     for key, expr in descriptor['mapping'].items():
         if key == 'metadata' or key == 'annotations':
@@ -84,6 +135,16 @@ def evaluate_mapping_fields(descriptor, context):
     return results
 
 def score_mapping_result(result, descriptor):
+    """
+    Calculates a score based on the presence of required fields in the result.
+
+    Args:
+        result (dict): The dictionary containing the fields to be checked.
+        descriptor (dict): A dictionary that may contain a 'validation' key with a 'required_fields' list.
+
+    Returns:
+        int: The number of required fields present (not None) in the result.
+    """
     required = descriptor.get('validation', {}).get('required_fields', [])
     score = 0
     for field in required:
@@ -94,6 +155,24 @@ def score_mapping_result(result, descriptor):
 
 
 def match_best_mapping(descriptors, filepath, sparc_id=None):
+    """
+    Attempts to find and apply the best mapping descriptor for a given file.
+
+    The function selects candidate descriptors based on the provided SPARC ID or the file extension.
+    It then applies each candidate's parser to the file, optionally using a postprocess function if defined.
+    Each mapping result is scored, and the best-scoring result and its descriptor are returned.
+
+    Args:
+        descriptors (list): A list of descriptor dictionaries, each describing how to parse and map a file.
+        filepath (str): The path to the file to be mapped.
+        sparc_id (str, optional): An optional SPARC ID to prioritize matching descriptors.
+
+    Returns:
+        dict: A dictionary containing:
+            - 'descriptor': The best-matching descriptor dictionary.
+            - 'result': The result of applying the mapping.
+            - 'score': The score of the best mapping result.
+    """
     file_ext = os.path.splitext(filepath)[1].lower()
 
     # Prefer descriptors explicitly matching SPARC ID
@@ -136,6 +215,20 @@ def match_best_mapping(descriptors, filepath, sparc_id=None):
     }
 
 def load_all_descriptors(directory="./mapping_schemes"):
+    """
+    Loads all Python modules from the specified directory, extracts their 'descriptor' attribute if present, and returns a list of these descriptors.
+
+    Args:
+        directory (str): The path to the directory containing Python files to load. Defaults to "./mapping_schemes".
+
+    Returns:
+        list: A list of 'descriptor' objects found in the loaded modules.
+
+    Notes:
+        - Only files ending with '.py' are considered.
+        - If a module does not have a 'descriptor' attribute or fails to load, a warning is printed and the module is skipped.
+        - Prints the number of successfully loaded descriptors.
+    """
     descriptors = []
 
     py_files = glob.glob(os.path.join(directory, "*.py"))
@@ -296,7 +389,20 @@ def save_standardized_output(
 
 
 def load_and_plot_zarr(zarr_path_str: str | Path) -> None:
-    """Open a Zarr (directory or .zarr.zip), plot the signals, print metadata."""
+    """
+    Open a Zarr archive (directory or .zarr.zip), plot the contained signals, and print metadata and annotations.
+
+    Parameters:
+        zarr_path_str (str | Path): Path to the Zarr archive. Can be a directory, a directory ending with '.zarr', or a '.zarr.zip' file.
+
+    Behavior:
+        - Opens the Zarr archive in read mode, supporting both zipped and directory formats.
+        - Extracts 'time', 'signals', and optional 'annotations' arrays from the archive.
+        - Retrieves metadata from the root group's attributes.
+        - Plots each signal channel against time, labeling with channel names if available.
+        - Prints metadata and, if present, annotations to the console.
+        - Ensures proper closure of any opened stores.
+    """
     zarr_path = Path(zarr_path_str).expanduser()
 
     # ── 1. open the root group safely ───────────────────────────────────
