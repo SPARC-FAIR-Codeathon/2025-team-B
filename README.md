@@ -14,7 +14,7 @@ Whether you’re on the command line, in a Python notebook, or on the SPARC Port
 
 Spend your time on science, not on hunting converters and understanding proprietary internal file structures. 🦾
 
-## Table of Contentsx
+## Table of Contents
 
 - [Quick start](#quick-start)
   - [Command-line interface](#command-line-interface)
