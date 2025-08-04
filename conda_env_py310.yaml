@@ -1,0 +1,30 @@
+name: py310
+channels:
+  - defaults
+dependencies:
+  - python=3.10
+  - pip
+  # - pip:
+  #     - adi.trash==0.6
+  #     - bioread==3.0.1
+  #     - Flask==3.1.1
+  #     - flask_cors==6.0.1
+  #     - h5py==3.14.0
+  #     - imageio==2.37.0
+  #     - mat73==0.65
+  #     - matplotlib #==3.10.5
+  #     - nd2reader==3.3.1
+  #     - neo==0.14.2
+  #     - numpy #==2.3.2
+  #     - packaging==25.0
+  #     - pandas==2.3.1
+  #     - pyabf
+  #     - Requests==2.32.4
+  #     - s3fs==2025.7.0
+  #     - scipy #==1.16.1
+  #     - setuptools==78.1.1
+  #     - sparc_client==0.3.99
+  #     - tifffile==2024.8.30
+  #     - tqdm==4.67.1
+  #     - xarray==2024.7.0
+  #     - zarr==2.18.2
