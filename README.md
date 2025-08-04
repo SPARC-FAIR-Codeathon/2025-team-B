@@ -230,6 +230,34 @@ https://github.com/user-attachments/assets/ea2a9a06-2f75-425e-acd9-be26f2c93b7e
 
 ---
 
+# Firefox Plugin
+
+## Start the Server
+
+To start using the Firefox plugin, you must start the local server. This is essential because the plugin relies on the backend to process and serve data.
+The Firefox plugin communicates with your local server for data conversion and download, so the server must be running for the extension to function.
+
+In your terminal navigate to the server directory and start the server with:
+
+```bash
+cd 2025-team-B/server
+python server.py
+```
+
+The server will run locally at: http://127.0.0.1:5000 (port 5000).
+
+## Install the Firefox Plugin
+Open your Firefox browser and navigate to about:debugging#/runtime/this-firefox.
+
+Click Load Temporary Add-on and select the manifest.json file from the plugin directory.
+
+The extension will appear in your browser extensions area.
+
+<p align="center">
+  <img src="./assets/Firefox_plugin_installation.png" width="600">
+</p>
+
+
 ## ❓ Why SPARC FUSE?
 
 ### The headache  
