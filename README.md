@@ -248,7 +248,7 @@ python server.py
 The server will run locally at: http://127.0.0.1:5000 (port 5000).
 
 ## Install the Firefox plugin
-Open your Firefox browser and navigate to about:debugging#/runtime/this-firefox.
+Open your Firefox browser and navigate to `about:debugging#/runtime/this-firefox`
 
 Click Load Temporary Add-on and select the manifest.json file from the plugin directory.
 
