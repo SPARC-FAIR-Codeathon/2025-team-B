@@ -262,17 +262,21 @@ The extension will appear in your browser extensions area.
 
 Once the Firefox plugin is installed and the server is running, you can use it to download datasets directly from the [SPARC website](https://sparc.science).
 
+<p align="center">
+  <img src="./assets/Firefox_plugin_downloadButton.png" width="600">
+</p>
+
 The plugin integrates into the SPARC website interface and provides two types of download options:
 
 1. **Download the Full Dataset**  
    Use the **Download & Convert Dataset** button to retrieve the entire dataset. This button is located near the top of the dataset page.
 
+https://github.com/user-attachments/assets/28ca1ed9-12bb-4a7d-8a40-dda7510dedb8
+
 2. **Download Individual Files**  
    For selective downloading, each file listed in the dataset has its own **Download & Convert** icon. Clicking this button lets you fetch only the specific file you need.
 
-<p align="center">
-  <img src="./assets/Firefox_plugin_downloadButton.png" width="600">
-</p>
+https://github.com/user-attachments/assets/cc6e8a2e-6b5a-4833-94af-19ce126f9811
 
 > The plugin processes and converts the files through your local server before saving them to your machine. Make sure the server is active while downloading.
 
