@@ -292,6 +292,7 @@ https://github.com/user-attachments/assets/cc6e8a2e-6b5a-4833-94af-19ce126f9811
 * Researchers lose precious hours hunting converters and writing glue code instead of analysing data.  
 * This format jungle breaks reproducibility and puts **FAIR principles at risk**.
 
+See **Figure 1 and 2** for the distribution of file extensions in SPARC datasets.
 
 <p align="center">
 <img width="900" alt="file_extensions_wordcloud" src="https://github.com/user-attachments/assets/0c2dec7c-77db-42b1-a96e-bfb829cad4bd" />
@@ -308,11 +309,14 @@ https://github.com/user-attachments/assets/cc6e8a2e-6b5a-4833-94af-19ce126f9811
 * **SPARC FUSE** automatically remaps *any* supported file (time-series & imaging) into a **uniform, chunked Zarr store**<br>
   – optionally also `.mat`, or `.npz`, for legacy tools.
 
-✅ Currently, out of the box, **SPARC FUSE supports over 82% of all imaging and time-series file types** found in public SPARC datasets.
-  
+✅ Currently, out of the box, **SPARC FUSE supports over 82% of all imaging and time-series file types** found in public SPARC datasets. (See **Figure 3** for an overview of selected supported formats and unified export targets.)
+
+
 <p align="center">
   <img src="./assets/sparc_fuse_overview.png" width="600"
        alt="Many formats in – one clean Zarr/MAT/NPZ out">
+  <br/>
+    <sub><em><strong>Figure&nbsp;3.</strong></em> Overview of selected file formats supported by SPARC FUSE for conversion into a unified, cloud-native Zarr representation. Shown here is a non-exhaustive subset of imaging formats (e.g., .czi, .nd2, .tiff), time-series and electrophysiology formats (e.g., .mat, .csv, .smr, .rhd, .acq). Optional exports to .mat and .npz are also supported for downstream analysis.</sub>
 </p>
 
 * Works three ways:  
@@ -396,7 +400,7 @@ https://github.com/user-attachments/assets/cc6e8a2e-6b5a-4833-94af-19ce126f9811
 <p align="center">
   <img src="./assets/zarr_overview.png" width="600"
        alt="Schematic of Zarr: JSON metadata plus many tiny chunk files"><br/>
-<sub><em><strong>Figure&nbsp;3.</strong> Zarr Overview.</em> Diagram adapted from the Earthmover blog post <a href="https://earthmover.io/blog/what-is-zarr">“What is Zarr?”</a>.</sub>
+<sub><em><strong>Figure&nbsp;4.</strong> Zarr Overview.</em> Diagram adapted from the Earthmover blog post <a href="https://earthmover.io/blog/what-is-zarr">“What is Zarr?”</a>.</sub>
 </p>
 
 * **Chunked storage** – data are broken into independently readable/writable tiles.  
@@ -508,12 +512,12 @@ https://github.com/user-attachments/assets/c82d8ee8-387e-4bda-bf96-e3b8642fc191
 
 ### ⏱ s3 slice speedup vs SPARC download & slice
 
-s3 slice is roughly **33× faster** than doing a fresh SPARC download and slice for the same data slice.
+s3 slice is roughly **33× faster** than doing a fresh SPARC download and slice for the same data slice (**Figure 5**).
 
 <p align="center">
 <img width="500" alt="performance_comparison" src="https://github.com/user-attachments/assets/48afa09b-b9d0-4889-825c-d10364ca75bc" />
 <br/>
-        <sub><em><strong>Figure&nbsp;7.</strong> </em> Latency comparison for SPARC download & slice (~9.8s) vs s3 slice (~0.3s), showing ~33× speedup.</sub>
+        <sub><em><strong>Figure&nbsp;5.</strong> </em> Latency comparison for SPARC download & slice (~9.8s) vs s3 slice (~0.3s), showing ~33× speedup.</sub>
 </p>
 
 ---
