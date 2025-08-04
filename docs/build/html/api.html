@@ -1,0 +1,445 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Documentation &mdash; SPARC FUSE  documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="sparc-fuse documentation" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            SPARC FUSE
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#sparc_fuse_core.consolidate_s3_metadata"><code class="docutils literal notranslate"><span class="pre">consolidate_s3_metadata()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#sparc_fuse_core.convert_imaging_file"><code class="docutils literal notranslate"><span class="pre">convert_imaging_file()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#sparc_fuse_core.create_xarray_zarr_from_raw"><code class="docutils literal notranslate"><span class="pre">create_xarray_zarr_from_raw()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#sparc_fuse_core.download_and_convert_sparc_data"><code class="docutils literal notranslate"><span class="pre">download_and_convert_sparc_data()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#sparc_fuse_core.download_and_move_sparc_file"><code class="docutils literal notranslate"><span class="pre">download_and_move_sparc_file()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#sparc_fuse_core.fetch_dataset_metadata"><code class="docutils literal notranslate"><span class="pre">fetch_dataset_metadata()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#sparc_fuse_core.generate_and_upload_manifest"><code class="docutils literal notranslate"><span class="pre">generate_and_upload_manifest()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#sparc_fuse_core.get_sparc_datasets_by_id"><code class="docutils literal notranslate"><span class="pre">get_sparc_datasets_by_id()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#sparc_fuse_core.list_primary_files"><code class="docutils literal notranslate"><span class="pre">list_primary_files()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#sparc_fuse_core.list_sparc_datasets"><code class="docutils literal notranslate"><span class="pre">list_sparc_datasets()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#sparc_fuse_core.open_zarr_from_s3"><code class="docutils literal notranslate"><span class="pre">open_zarr_from_s3()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#sparc_fuse_core.print_project_metadata"><code class="docutils literal notranslate"><span class="pre">print_project_metadata()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#sparc_fuse_core.upload_to_s3"><code class="docutils literal notranslate"><span class="pre">upload_to_s3()</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">SPARC FUSE</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Documentation</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/api.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-sparc_fuse_core">
+<span id="documentation"></span><h1>Documentation<a class="headerlink" href="#module-sparc_fuse_core" title="Link to this heading"></a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="sparc_fuse_core.consolidate_s3_metadata">
+<span class="sig-prename descclassname"><span class="pre">sparc_fuse_core.</span></span><span class="sig-name descname"><span class="pre">consolidate_s3_metadata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bucket</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">remote_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'eu-north-1'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sparc_fuse_core.html#consolidate_s3_metadata"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sparc_fuse_core.consolidate_s3_metadata" title="Link to this definition"></a></dt>
+<dd><p>Consolidates Zarr metadata for a given S3 bucket and remote path.</p>
+<p>This function connects to an S3 bucket using the specified region, accesses the Zarr store at the given remote path,
+and consolidates its metadata to improve read performance and compatibility.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>bucket</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Name of the S3 bucket containing the Zarr store.</p></li>
+<li><p><strong>remote_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Path within the S3 bucket to the Zarr store.</p></li>
+<li><p><strong>region</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – AWS region where the S3 bucket is located. Defaults to “eu-north-1”.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>zarr.errors.PathNotFoundError</strong> – If the specified path does not exist in the S3 bucket.</p></li>
+<li><p><strong>botocore.exceptions.BotoCoreError</strong> – If there is an error connecting to S3.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sparc_fuse_core.convert_imaging_file">
+<span class="sig-prename descclassname"><span class="pre">sparc_fuse_core.</span></span><span class="sig-name descname"><span class="pre">convert_imaging_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">local_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.13)"><span class="pre">Path</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.13)"><span class="pre">Path</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">ome_zarr_version</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'dask_image_gaussian'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_scale</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'3'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.13)"><span class="pre">Path</span></a></span></span><a class="reference internal" href="_modules/sparc_fuse_core.html#convert_imaging_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sparc_fuse_core.convert_imaging_file" title="Link to this definition"></a></dt>
+<dd><p>Converts <em>local_path</em> to an OME-Zarr store and returns its Path.</p>
+<ul class="simple">
+<li><p>RGB images (.jpg/.png/…) are re-packed to channel-first OME-TIFF.</p></li>
+<li><p>ND2 is converted with nd2reader.</p></li>
+<li><p>LIF + a long list of bio-formats-compatible slide formats go through
+<cite>bfconvert</cite>.</p></li>
+<li><p>Plain TIFFs are sent directly to ngff-zarr.</p></li>
+<li><p>Everything else is attempted “as is” (ngff-zarr can open many types).</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>local_path</strong> (<em>Path</em>) – Path to the input imaging file.</p></li>
+<li><p><strong>output_dir</strong> (<em>Path</em>) – Directory where the OME-Zarr store will be created.</p></li>
+<li><p><strong>ome_zarr_version</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em> | </em><em>None</em><em>, </em><em>optional</em>) – OME-Zarr version to use. Defaults to a module-level default if None.</p></li>
+<li><p><strong>method</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – Downsampling method for ngff-zarr. Defaults to “dask_image_gaussian”.</p></li>
+<li><p><strong>output_scale</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – Output scale for ngff-zarr. Defaults to “3”.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Path to the generated OME-Zarr store.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Path</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.13)"><strong>ValueError</strong></a> – If an RGB image does not have the expected shape.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sparc_fuse_core.create_xarray_zarr_from_raw">
+<span class="sig-prename descclassname"><span class="pre">sparc_fuse_core.</span></span><span class="sig-name descname"><span class="pre">create_xarray_zarr_from_raw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bucket</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">raw_zarr_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xarray_zarr_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'eu-north-1'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sparc_fuse_core.html#create_xarray_zarr_from_raw"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sparc_fuse_core.create_xarray_zarr_from_raw" title="Link to this definition"></a></dt>
+<dd><p>Reads raw Zarr data from an S3 bucket, constructs an xarray Dataset, and writes it back to S3 in Zarr format.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>bucket</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Name of the S3 bucket containing the Zarr data.</p></li>
+<li><p><strong>raw_zarr_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Path within the S3 bucket to the raw Zarr store.</p></li>
+<li><p><strong>xarray_zarr_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Path within the S3 bucket where the xarray Zarr store will be saved.</p></li>
+<li><p><strong>region</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – AWS region name for the S3 bucket (default is “eu-north-1”).</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>Assumes the raw Zarr store contains “signals” and “time” arrays.</p></li>
+<li><p>The resulting xarray Dataset will have dimensions (“channel”, “time”), where “channel” is inferred from the shape of “signals”.</p></li>
+<li><p>Requires <cite>s3fs</cite>, <cite>zarr</cite>, <cite>xarray</cite>, and <cite>numpy</cite> to be installed.</p></li>
+</ul>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sparc_fuse_core.download_and_convert_sparc_data">
+<span class="sig-prename descclassname"><span class="pre">sparc_fuse_core.</span></span><span class="sig-name descname"><span class="pre">download_and_convert_sparc_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">primary_paths</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.13)"><span class="pre">Path</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'./output'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">descriptors_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.13)"><span class="pre">Path</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'./mapping_schemes'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_format</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'npz'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overwrite</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sparc_fuse_core.html#download_and_convert_sparc_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sparc_fuse_core.download_and_convert_sparc_data" title="Link to this definition"></a></dt>
+<dd><p>Download → convert → clean-up pipeline.</p>
+<p>Imaging files are routed through <cite>convert_imaging_file</cite>;
+everything else goes through the descriptor-based mapper.
+Raw downloads are stored only in a TemporaryDirectory and are
+deleted as soon as conversion finishes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dataset_id</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – The unique identifier of the SPARC dataset to process.</p></li>
+<li><p><strong>primary_paths</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>] </em><em>| </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em> | </em><em>None</em><em>, </em><em>optional</em>) – List of relative paths to primary files within the dataset.
+If None, all primary files will be fetched from the dataset metadata.</p></li>
+<li><p><strong>output_dir</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em> | </em><em>Path</em><em>, </em><em>optional</em>) – Directory where converted files will be saved. Defaults to “./output”.</p></li>
+<li><p><strong>descriptors_dir</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em> | </em><em>Path</em><em>, </em><em>optional</em>) – Directory containing mapping descriptors. Defaults to “./mapping_schemes”.</p></li>
+<li><p><strong>file_format</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – Output file format for standardized data. Defaults to “npz”.</p></li>
+<li><p><strong>overwrite</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, existing standardized files will be overwritten. Defaults to False.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>A list of dictionaries containing the results of the conversion process for each file.</dt><dd><dl class="simple">
+<dt>Each dictionary includes:</dt><dd><ul class="simple">
+<li><p>rel_path: Relative path of the file within the dataset.</p></li>
+<li><p>local_path: Temporary local path where the file was downloaded.</p></li>
+<li><p>std_path: Path to the standardized output file.</p></li>
+<li><p>descriptor_id: ID of the mapping descriptor used (if applicable).</p></li>
+<li><p>mapping_score: Score of the mapping (if applicable).</p></li>
+<li><p>status: Status of the processing (“ok”, “pending”, “failed”, “unsupported”).</p></li>
+<li><p>error: Error message if processing failed.</p></li>
+</ul>
+</dd>
+</dl>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)">list</a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.13)">dict</a>]</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.13)"><strong>ValueError</strong></a> – If no primary files are found to process.</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#RuntimeError" title="(in Python v3.13)"><strong>RuntimeError</strong></a> – If the download fails or the file cannot be processed.</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#FileNotFoundError" title="(in Python v3.13)"><strong>FileNotFoundError</strong></a> – If no matching file is found in the dataset for the given relative path.</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#Exception" title="(in Python v3.13)"><strong>Exception</strong></a> – For any other errors encountered during the download or conversion process.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>The function uses a temporary directory for downloading files, which is automatically cleaned up after processing.</p></li>
+<li><p>The output directory is created if it does not exist.</p></li>
+<li><p>Metadata from the SPARC dataset is fetched and included in the standardized output.</p></li>
+<li><p>The function supports both imaging and time series data, routing them through appropriate conversion methods.</p></li>
+</ul>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sparc_fuse_core.download_and_move_sparc_file">
+<span class="sig-prename descclassname"><span class="pre">sparc_fuse_core.</span></span><span class="sig-name descname"><span class="pre">download_and_move_sparc_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rel_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dataset_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_dir</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sparc_fuse_core.html#download_and_move_sparc_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sparc_fuse_core.download_and_move_sparc_file" title="Link to this definition"></a></dt>
+<dd><p>Downloads a file from a SPARC dataset using the provided relative path and dataset ID,
+then moves the downloaded file to the specified output directory.</p>
+<p>The function ensures the relative path starts with ‘primary/’, constructs the appropriate
+query path for the SPARC API, and handles file download and movement. If the file is not
+found or an error occurs during download or movement, an error message is printed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>rel_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – The relative path to the file within the SPARC dataset.</p></li>
+<li><p><strong>dataset_id</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – The identifier of the SPARC dataset to download from.</p></li>
+<li><p><strong>output_dir</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – The directory where the downloaded file should be moved.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#FileNotFoundError" title="(in Python v3.13)"><strong>FileNotFoundError</strong></a> – If no matching file is found in the SPARC dataset.</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#Exception" title="(in Python v3.13)"><strong>Exception</strong></a> – For any other errors encountered during download or file movement.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sparc_fuse_core.fetch_dataset_metadata">
+<span class="sig-prename descclassname"><span class="pre">sparc_fuse_core.</span></span><span class="sig-name descname"><span class="pre">fetch_dataset_metadata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sparc_fuse_core.html#fetch_dataset_metadata"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sparc_fuse_core.fetch_dataset_metadata" title="Link to this definition"></a></dt>
+<dd><p>Fetches metadata for a specified dataset from the Pennsieve Discover API.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dataset_id</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – The unique identifier of the dataset to fetch metadata for.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The metadata of the specified dataset as returned by the API.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.13)">dict</a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>requests.HTTPError</strong> – If the HTTP request to the API fails.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sparc_fuse_core.generate_and_upload_manifest">
+<span class="sig-prename descclassname"><span class="pre">sparc_fuse_core.</span></span><span class="sig-name descname"><span class="pre">generate_and_upload_manifest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bucket</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xarray_zarr_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'eu-north-1'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sparc_fuse_core.html#generate_and_upload_manifest"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sparc_fuse_core.generate_and_upload_manifest" title="Link to this definition"></a></dt>
+<dd><p>Generates a manifest JSON file for a given dataset and uploads it to an S3 bucket.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dataset_id</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – The unique identifier for the dataset.</p></li>
+<li><p><strong>bucket</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – The name of the S3 bucket where the manifest will be uploaded.</p></li>
+<li><p><strong>xarray_zarr_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – The path to the Zarr dataset within the S3 bucket.</p></li>
+<li><p><strong>region</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – The AWS region where the S3 bucket is located. Defaults to “eu-north-1”.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/subprocess.html#subprocess.CalledProcessError" title="(in Python v3.13)"><strong>subprocess.CalledProcessError</strong></a> – If the AWS CLI command fails during upload.</p>
+</dd>
+</dl>
+<p>The manifest contains metadata about the dataset, including its ID, Zarr path, generation timestamp, and file format.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sparc_fuse_core.get_sparc_datasets_by_id">
+<span class="sig-prename descclassname"><span class="pre">sparc_fuse_core.</span></span><span class="sig-name descname"><span class="pre">get_sparc_datasets_by_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ids</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sparc_fuse_core.html#get_sparc_datasets_by_id"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sparc_fuse_core.get_sparc_datasets_by_id" title="Link to this definition"></a></dt>
+<dd><p>Retrieve SPARC datasets from the metadata client by their IDs and group them by type.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ids</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><em>list</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.13)"><em>tuple</em></a><em>, or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#set" title="(in Python v3.13)"><em>set</em></a>) – A single dataset ID or a collection of dataset IDs to query.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A dictionary mapping dataset type names to lists of dataset IDs that belong to each type.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.13)">dict</a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#TypeError" title="(in Python v3.13)"><strong>TypeError</strong></a> – If the input is not an int, list, tuple, or set.</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>The function prints the constructed query and the response for debugging purposes.</p></li>
+<li><p>If a dataset does not have a valid type, it is grouped under the key “&lt;invalid type&gt;”.</p></li>
+<li><p>If a dataset does not have an ID, it is represented as “&lt;no id&gt;” in the result.</p></li>
+</ul>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sparc_fuse_core.list_primary_files">
+<span class="sig-prename descclassname"><span class="pre">sparc_fuse_core.</span></span><span class="sig-name descname"><span class="pre">list_primary_files</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sparc_fuse_core.html#list_primary_files"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sparc_fuse_core.list_primary_files" title="Link to this definition"></a></dt>
+<dd><p>Retrieve primary files from a dataset’s metadata.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dataset_id</strong> – The unique identifier of the dataset.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>Any exceptions raised by fetch_dataset_metadata.</strong> – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sparc_fuse_core.list_sparc_datasets">
+<span class="sig-prename descclassname"><span class="pre">sparc_fuse_core.</span></span><span class="sig-name descname"><span class="pre">list_sparc_datasets</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">max_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sparc_fuse_core.html#list_sparc_datasets"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sparc_fuse_core.list_sparc_datasets" title="Link to this definition"></a></dt>
+<dd><p>Retrieves and categorizes SPARC datasets by their type.</p>
+<p>This function queries the metadata client for datasets with IDs in the range 0 to <cite>max_id</cite> (inclusive),
+then counts and groups the datasets by their type name. It prints the response and a summary of dataset
+type counts.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>max_id</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em>, </em><em>optional</em>) – The maximum dataset ID to include in the query. Defaults to 1000.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A mapping from dataset type names to lists of dataset IDs belonging to each type.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.13)">dict</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sparc_fuse_core.open_zarr_from_s3">
+<span class="sig-prename descclassname"><span class="pre">sparc_fuse_core.</span></span><span class="sig-name descname"><span class="pre">open_zarr_from_s3</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bucket</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zarr_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'eu-north-1'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sparc_fuse_core.html#open_zarr_from_s3"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sparc_fuse_core.open_zarr_from_s3" title="Link to this definition"></a></dt>
+<dd><p>Lazily open a Zarr dataset stored in an S3 bucket using Xarray.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>bucket</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Name of the S3 bucket containing the Zarr dataset.</p></li>
+<li><p><strong>zarr_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – Path to the Zarr dataset within the S3 bucket.</p></li>
+<li><p><strong>region</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – AWS region where the S3 bucket is located. Defaults to “eu-north-1”.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The opened Zarr dataset as an Xarray Dataset object.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>xarray.Dataset</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>Requires appropriate AWS credentials to access the S3 bucket.</p></li>
+<li><p>The function sets the AWS_DEFAULT_REGION environment variable if not already set.</p></li>
+<li><p>The Zarr dataset must be consolidated.</p></li>
+</ul>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sparc_fuse_core.print_project_metadata">
+<span class="sig-prename descclassname"><span class="pre">sparc_fuse_core.</span></span><span class="sig-name descname"><span class="pre">print_project_metadata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metadata</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sparc_fuse_core.html#print_project_metadata"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sparc_fuse_core.print_project_metadata" title="Link to this definition"></a></dt>
+<dd><p>Prints the ‘item’ field from the provided metadata dictionary in a formatted JSON structure.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>metadata</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.13)"><em>dict</em></a>) – A dictionary containing project metadata. Expected to have an ‘item’ key.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sparc_fuse_core.upload_to_s3">
+<span class="sig-prename descclassname"><span class="pre">sparc_fuse_core.</span></span><span class="sig-name descname"><span class="pre">upload_to_s3</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">local_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bucket</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">remote_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'eu-north-1'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sparc_fuse_core.html#upload_to_s3"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sparc_fuse_core.upload_to_s3" title="Link to this definition"></a></dt>
+<dd><p>Uploads files from a local directory to an AWS S3 bucket using the AWS CLI.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>local_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – The local directory path to upload.</p></li>
+<li><p><strong>bucket</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – The name of the target S3 bucket.</p></li>
+<li><p><strong>remote_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – The destination path within the S3 bucket.</p></li>
+<li><p><strong>region</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – The AWS region where the bucket is located. Defaults to “eu-north-1”.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/subprocess.html#subprocess.CalledProcessError" title="(in Python v3.13)"><strong>subprocess.CalledProcessError</strong></a> – If the AWS CLI command fails.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="sparc-fuse documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Haberbusch, M et al..</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
