@@ -23,6 +23,7 @@ Spend your time on science, not on hunting converters and understanding propriet
     - [1 – Convert a single primary file](#1--convert-a-single-primary-file)
     - [2 – Bulk-convert an entire dataset](#2--bulk-convert-an-entire-dataset)
     - [3 – Convert a subset of primary files](#3--convert-a-subset-of-primary-files)
+  - [Firefox Plugin](#firefox-plugin)
 - [Why SPARC FUSE?](#-why-sparc-fuse)
   - [The headache](#the-headache)
   - [The cure](#the-cure)
@@ -229,6 +230,56 @@ https://github.com/user-attachments/assets/ea2a9a06-2f75-425e-acd9-be26f2c93b7e
 > **Tip:** `file_format` accepts `"zarr"`, `"zarr.zip"`, `"npz"`, or `"mat"`. Choose the one that best matches your downstream workflow.
 
 ---
+
+# Firefox Plugin
+
+## Start the Server
+
+To start using the Firefox plugin, you must start the local server. This is essential because the plugin relies on the backend to process and serve data.
+The Firefox plugin communicates with your local server for data conversion and download, so the server must be running for the extension to function.
+
+In your terminal navigate to the server directory and start the server with:
+
+```bash
+cd 2025-team-B/server
+python server.py
+```
+
+The server will run locally at: http://127.0.0.1:5000 (port 5000).
+
+## Install the Firefox plugin
+Open your Firefox browser and navigate to about:debugging#/runtime/this-firefox.
+
+Click Load Temporary Add-on and select the manifest.json file from the plugin directory.
+
+The extension will appear in your browser extensions area.
+
+<p align="center">
+  <img src="./assets/Firefox_plugin_installation.png" width="600">
+</p>
+
+## Using the Plugin to Download Data from the SPARC Website
+
+Once the Firefox plugin is installed and the server is running, you can use it to download datasets directly from the [SPARC website](https://sparc.science).
+
+<p align="center">
+  <img src="./assets/Firefox_plugin_downloadButton.png" width="600">
+</p>
+
+The plugin integrates into the SPARC website interface and provides two types of download options:
+
+1. **Download the Full Dataset**  
+   Use the **Download & Convert Dataset** button to retrieve the entire dataset. This button is located near the top of the dataset page.
+
+https://github.com/user-attachments/assets/28ca1ed9-12bb-4a7d-8a40-dda7510dedb8
+
+2. **Download Individual Files**  
+   For selective downloading, each file listed in the dataset has its own **Download & Convert** icon. Clicking this button lets you fetch only the specific file you need.
+
+https://github.com/user-attachments/assets/cc6e8a2e-6b5a-4833-94af-19ce126f9811
+
+> The plugin processes and converts the files through your local server before saving them to your machine. Make sure the server is active while downloading.
+
 
 ## ❓ Why SPARC FUSE?
 
