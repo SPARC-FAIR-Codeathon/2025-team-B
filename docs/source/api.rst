@@ -1,8 +1,0 @@
-Documentation
-=================
-
-.. automodule:: sparc_fuse_core
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
