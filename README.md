@@ -264,7 +264,7 @@ Once the Firefox plugin is installed and the server is running, you can use it t
 The plugin integrates into the SPARC website interface and provides two types of download options:
 
 1. **Download the Full Dataset**  
-   Use the **Download & Convert Dataset** button to retrieve the entire dataset in a format compatible with your project. This button is located near the top of the dataset page.
+   Use the **Download & Convert Dataset** button to retrieve the entire dataset. This button is located near the top of the dataset page.
 
 2. **Download Individual Files**  
    For selective downloading, each file listed in the dataset has its own **Download & Convert** icon. Clicking this button lets you fetch only the specific file you need.
