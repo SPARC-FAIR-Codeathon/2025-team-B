@@ -377,16 +377,16 @@ modality_lookup = {
     ".jpeg": "Imaging", ".bmp": "Imaging", ".vsi": "Imaging", ".jp2": "Imaging", ".roi": "Imaging",
     ".dm3": "Imaging", ".pxp": "Imaging", ".ipf": "Imaging", ".lif": "Imaging", ".ima": "Imaging",
     ".mrxs": "Imaging", ".obj": "Imaging", ".avi": "Imaging", ".exf": "Imaging", ".cxd": "Imaging",
+    ".ets": "Imaging",
 
     # Time Series formats
     ".mat": "Time Series", ".smr": "Time Series", ".csv": "Time Series",
-    ".adicht": "Time Series", ".hdf5": "Time Series", ".h5": "Time Series", ".ets": "Time Series",
+    ".adicht": "Time Series", ".hdf5": "Time Series", ".h5": "Time Series",
     ".abf": "Time Series", ".rhd": "Time Series", ".nev": "Time Series", ".ns5": "Time Series",
     ".ns2": "Time Series", ".ns1": "Time Series", ".smrx": "Time Series", ".wav": "Time Series",
-    ".acq": "Time Series", ".tbk": "Time Series", ".tdx": "Time Series", ".tev": "Time Series",
-    ".tin": "Time Series", ".tnt": "Time Series", ".tsq": "Time Series", ".eeg": "Time Series",
-    ".vmrk": "Time Series", ".vhdr": "Time Series", ".sev": "Time Series", ".sam": "Time Series",
-    ".pss": "Time Series", ".psmethod": "Time Series",
+    ".acq": "Time Series", ".tdx": "Time Series", ".tev": "Time Series",
+    ".tnt": "Time Series", ".tsq": "Time Series", ".eeg": "Time Series",
+    ".vmrk": "Time Series", ".vhdr": "Time Series", ".sev": "Time Series"
 
     # Documentation formats
     ".pdf": "Docs", ".docx": "Docs", ".doc": "Docs", ".txt": "Docs",
