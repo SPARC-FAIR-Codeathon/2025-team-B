@@ -103,6 +103,11 @@ This mapping system ensures that even unknown or partially supported formats can
 ```bash
 # Clone and install
 git clone https://github.com/SPARC-FAIR-Codeathon/2025-team-B.git
+
+(optional) install a conda enviroment 
+conda env create -f 2025-team-B/conda_env_py310.yaml
+conda activate py310
+
 cd 2025-team-B/sparcfuse
 pip install -e .
 cd ..
