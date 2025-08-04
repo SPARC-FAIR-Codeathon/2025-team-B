@@ -154,7 +154,7 @@ sparc-fuse --help
 
 <img width="1000" alt="image" src="https://github.com/user-attachments/assets/e8804fec-0fcb-4084-9981-6717269d0828" />
 
->💡 **Note:** You will have to run the install_sparc_fuse.ipnyb notebook to install all dependencies before working with sparc-fuse
+>💡 **Note:** You will have to run the install_sparc_fuse. ipynb notebook to install all dependencies before working with sparc-fuse. Also, make sure you have your own SciCrunch API key and AWS credentials ready. 
 
 #### Or proceed locally
 
