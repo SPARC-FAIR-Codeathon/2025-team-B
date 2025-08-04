@@ -146,7 +146,8 @@ sparc-fuse --help
 </a>
 </p>
 <br/>
-<img width="1000" alt="osparc_overview" src="https://github.com/user-attachments/assets/2a6b1fda-52d8-4a40-8040-294f4fd9e095" />
+
+<img width="1000" alt="image" src="https://github.com/user-attachments/assets/e8804fec-0fcb-4084-9981-6717269d0828" />
 
 >💡 **Note:** You will have to run the install_sparc_fuse.ipnyb notebook to install all dependencies before working with sparc-fuse
 
